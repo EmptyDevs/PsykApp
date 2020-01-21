@@ -1,12 +1,11 @@
 
 <template>
   <v-app id="inspire">
-    <AppBar/>
+    <AppBar />
 
     <v-content>
       <PresentationPage></PresentationPage>
-    </v-content>
-    ''
+    </v-content>''
     <v-footer app>
       <span>&copy; 2019</span>
     </v-footer>
@@ -14,20 +13,15 @@
 </template>
 
 <script>
-import AppBar from './components/Appbar'
-import PresentationPage from './components/Presentation'
+import AppBar from "./components/Appbar";
+import PresentationPage from "./components/Presentation";
 export default {
   components: {
-    AppBar, PresentationPage
+    AppBar,
+    PresentationPage
   },
   props: {
     source: String
-  },
-  data: () => ({
-    drawer: null
-  }),
-  created() {
-    this.$vuetify.theme.dark = false;
   }
 };
 </script>
