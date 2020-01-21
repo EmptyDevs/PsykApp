@@ -4,9 +4,7 @@
     <AppBar/>
 
     <v-content>
-      <v-container class="fill-height" fluid>
-        <PresentationPage></PresentationPage>
-      </v-container>
+      <PresentationPage></PresentationPage>
     </v-content>
 
     <v-footer app>
@@ -18,7 +16,6 @@
 <script>
 import AppBar from './components/Appbar'
 import PresentationPage from './components/Presentation'
-
 export default {
   components: {
     AppBar, PresentationPage
