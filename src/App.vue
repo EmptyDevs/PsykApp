@@ -1,24 +1,21 @@
-
+ 
 <template>
-  <v-app id="inspire">
+  <v-app>
     <AppBar />
-
-    <v-content>
-      <PresentationPage></PresentationPage>
-    </v-content>''
-    <v-footer app>
-      <span>&copy; 2019</span>
-    </v-footer>
+    
+    <router-view />
+    <Footer />
   </v-app>
 </template>
 
 <script>
 import AppBar from "./components/Appbar";
-import PresentationPage from "./components/Presentation";
+import Footer from "./components/footer";
+
 export default {
   components: {
     AppBar,
-    PresentationPage
+    Footer
   },
   props: {
     source: String
