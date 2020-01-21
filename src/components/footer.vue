@@ -1,5 +1,5 @@
 <template>
-  <v-footer absolute class="font-weight-medium">
+  <v-footer absolute fixed class="font-weight-medium">
     <v-row align="center" justify="center">
       <v-btn>
         <v-icon>mdi-facebook</v-icon>

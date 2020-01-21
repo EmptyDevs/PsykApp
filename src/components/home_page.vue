@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 10px">
+  <div style="padding: 50px">
     <v-card class="mx-auto" max-width="25%" outlined>
       <v-list-item three-line>
         <v-list-item-content>
