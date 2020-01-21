@@ -1,7 +1,6 @@
 <template>
-  <v-app id="inspire">
-    <AppBar />
-    <v-container style="height: 1000px;">
+  <v-app id="inspire" style="padding-bottom: 100px">
+    <v-container>
       <v-card>
         <v-img src="./../assets/psyk_logo.png" max-height="344px" class="grey darken-4"></v-img>
         <v-list-item-content style="padding:10px">
@@ -22,6 +21,43 @@
           </p>
         </v-list-item-content>
       </v-card>
+    </v-container>
+    <v-container fluid>
+      <v-row>
+        <v-col cols="6" sm="4">
+          <v-card>
+            <v-img
+              src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
+              gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
+            />
+            <v-list-item-content>
+              <div class="overline" style="text-align: center">Nom</div>
+            </v-list-item-content>
+          </v-card>
+        </v-col>
+        <v-col cols="6" sm="4">
+          <v-card>
+            <v-img
+              src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
+              gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
+            />
+            <v-list-item-content>
+              <div class="overline" style="text-align: center">Nom</div>
+            </v-list-item-content>
+          </v-card>
+        </v-col>
+        <v-col cols="6" sm="4">
+          <v-card>
+            <v-img
+              src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
+              gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
+            />
+            <v-list-item-content>
+              <div class="overline" style="text-align: center">Nom</div>
+            </v-list-item-content>
+          </v-card>
+        </v-col>
+      </v-row>
     </v-container>
   </v-app>
 </template>
