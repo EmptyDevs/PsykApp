@@ -1,7 +1,7 @@
 <template>
   <div style="padding:50px">
     <v-row align="center">
-      <v-col cols="1">
+      <v-col cols="2">
         <v-select
           v-model="select"
           :items="items"
@@ -16,59 +16,80 @@
     </v-row>
 
     <div style="padding:10px">
-      <v-card class="mx-auto" max-width="344">
-        <v-img
-          src="https://cdn.pixabay.com/photo/2017/08/03/21/48/drinks-2578446_960_720.jpg"
-          height="200px"
-        ></v-img>
-        <v-card-title>{{select.state}}</v-card-title>
-        <v-radio-group v-model="radios" :mandatory="false" style="padding:10px">
-          <v-radio
-            v-for="(vals, i) in select.values"
-            :key="i"
-            link
-            :label="vals.vname"
-            :value="vals.vid"
-          ></v-radio>
-        </v-radio-group>
-      </v-card>
+      <v-row class="light--text">
+        <v-col cols="3" v-for="(vals, i) in select.values" :key="i" link>
+          <v-card class="mx-auto" max-width="344" v-if="vals.isSelect == true" color="#7DBF73">
+            <v-img
+              src="https://cdn.pixabay.com/photo/2017/08/03/21/48/drinks-2578446_960_720.jpg"
+              height="200px"
+            ></v-img>
+            <v-card-title>{{vals.vname}}</v-card-title>
+            <v-card-actions>
+              <v-btn
+                v-if="vals.isSelect == false"
+                @click="vals.isSelect = true"
+                text
+              >Ajouter au panier</v-btn>
+
+              <v-btn v-if="vals.isSelect == true" @click="vals.isSelect = false">
+                <v-icon left>mdi-delete</v-icon>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+          <v-card class="mx-auto" max-width="344" v-if="vals.isSelect == false" color="#fff">
+            <v-img
+              src="https://cdn.pixabay.com/photo/2017/08/03/21/48/drinks-2578446_960_720.jpg"
+              height="200px"
+            ></v-img>
+            <v-card-title>{{vals.vname}}</v-card-title>
+            <v-card-actions>
+              <v-btn
+                v-if="vals.isSelect == false"
+                @click="vals.isSelect = true"
+                text
+              >Ajouter au panier</v-btn>
+
+              <v-btn v-if="vals.isSelect == true" @click="vals.isSelect = false">
+                <v-icon left>mdi-delete</v-icon>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  beforeMount() {
+    this.select = this.items[0];
+  },
   data() {
     return {
-      select: {
-        state: "Alcool",
-        id: "alcool",
-        values: [
-          { vid: "vodka", vname: "Vodka" },
-          { vid: "ricard", vname: "Ricard" },
-          { vid: "jager", vname: "Jager" },
-          { vid: "rhum", vname: "Rhum" }
-        ]
-      },
+      select: {},
       items: [
         {
           state: "Alcool",
           id: "alcool",
           values: [
-            { vid: "vodka", vname: "Vodka" },
-            { vid: "ricard", vname: "Ricard" },
-            { vid: "jager", vname: "Jager" },
-            { vid: "rhum", vname: "Rhum" }
+            { vid: "vodka", vname: "Vodka", isSelect: false },
+            { vid: "ricard", vname: "Ricard", isSelect: false },
+            { vid: "jager", vname: "Jager", isSelect: false },
+            { vid: "rhum", vname: "Rhum", isSelect: false }
           ]
         },
-        { state: "Nouriture", id: "food",
+        {
+          state: "Nouriture",
+          id: "food",
           values: [
-            { vid: "kebab", vname: "Kebab" },
-            { vid: "americain", vname: "Americain" },
-            { vid: "jager", vname: "Jager" }
-          ] },
+            { vid: "kebab", vname: "Kebab", isSelect: false },
+            { vid: "americain", vname: "Americain", isSelect: false },
+            { vid: "jager", vname: "Jager", isSelect: false }
+          ]
+        },
         { state: "Services", id: "service" },
-        { state: "Salade", id: "salad" }
+        { state: "Cigarettes", id: "salad" }
       ]
     };
   }
