@@ -1,10 +1,4 @@
 <template>
-<<<<<<< HEAD
-    <v-img
-        src="../assets/logo_decale.png"
-    >
-    </v-img>
-=======
   <v-app id="inspire" style="padding-bottom: 100px">
     <v-container>
       <div style="padding-bottom:20px">
@@ -105,5 +99,4 @@
       </v-row>
     </v-container>
   </v-app>
->>>>>>> ddbfa4e2ed27bf547eb72952cbc974981668dd3c
 </template>
