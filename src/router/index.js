@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../view/homepage'
 import ShopPage from '../view/shoppage'
 import AboutPage from '../view/aboutpage'
-
+import AdminPage from '../view/adminpage'
 
 Vue.use(VueRouter)
 
@@ -22,6 +22,11 @@ const routes = [
     path: '/about',
     name: 'aboutpage',
     component: AboutPage
+  },
+  {
+    path: '/admin',
+    name: 'adminpanel',
+    component: AdminPage
   }
 ]
 
