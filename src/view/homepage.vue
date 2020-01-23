@@ -1,8 +1,10 @@
 <template>
   <div style="padding: 50px">
     <v-card class="mx-auto" max-width="50%" outlined>
-      <v-img src="../assets/menu/menu_style.jpg" />
-      <v-text-field />
+      <v-img
+      
+       max-width="100%"
+       src="../assets/menu/top-menu.png" />
       <div v-for="(catMenu, i) in menu" :key="i" link>
         <div style="text-align: center" class="overline mb-4">{{catMenu.category}}</div>
         <v-list-item>
@@ -13,9 +15,7 @@
           </v-list-item-content>
         </v-list-item>
       </div>
-
-      <v-text-field />
-      <v-img src="../assets/menu/menu_style.jpg" />
+      <v-img src="../assets/menu/bottom-menu.png" />
     </v-card>
   </div>
 </template>

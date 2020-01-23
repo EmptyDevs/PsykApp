@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../components/home_page'
-import ShopPage from '../components/shoppage'
-import AboutPage from '../components/aboutpage'
+import Home from '../view/homepage'
+import ShopPage from '../view/shoppage'
+import AboutPage from '../view/aboutpage'
 
 
 Vue.use(VueRouter)
