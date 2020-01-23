@@ -61,7 +61,13 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
+  computed: {
+    ...mapGetters({
+      product_category: "stateCategory"
+    })
+  },
   beforeMount() {
     this.select = this.items[0];
   },
