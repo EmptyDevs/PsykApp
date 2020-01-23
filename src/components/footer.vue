@@ -16,7 +16,6 @@
       <v-btn>
         <v-icon>mdi-instagram</v-icon>
       </v-btn>
-
     </v-row>
   </v-footer>
 </template>
