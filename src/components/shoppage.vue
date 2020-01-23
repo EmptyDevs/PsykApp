@@ -1,59 +1,60 @@
 <template>
   <div style="padding:50px">
     <v-row align="center">
-      <v-col cols="2">
+      <v-col cols="5">
         <v-select
           v-model="select"
-          :items="items"
-          item-text="state"
+          :items="category"
+          item-text="name"
           item-value="id"
-          label="Select"
+          label="Catégories"
           persistent-hint
           return-object
           single-line
         />
       </v-col>
+      <v-col style="padding: 10px">
+        <div align="center" justify="center" style="padding: 10px">
+          <v-btn v-if="hidecart == true" @click="hidecart = false" text>Afficher panier</v-btn>
+          <v-btn v-else @click="hidecart = true" text>Cacher panier</v-btn>
+        </div>
+        <v-card class="mx-auto" max-width="344" :hidden="hidecart" outlined>
+          <v-list-item three-line>
+            <v-list-item-content>
+              <v-list-item-title class="headline mb-1">Votre panier</v-list-item-title>
+              <td v-for="(product, i) in cart.items" :key="i" link>{{product.name}}</td>
+            </v-list-item-content>
+          </v-list-item>
+          <v-card-actions>
+            <v-btn text>Passer commande</v-btn>
+            <v-btn text @click="resetCart">Vider panier</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
     </v-row>
-
-    <div style="padding:10px">
+    <v-text-field />
+    <div style="padding:10px" align="center" justify="center" >
       <v-row class="light--text">
-        <v-col cols="3" v-for="(vals, i) in select.values" :key="i" link>
-          <v-card class="mx-auto" max-width="344" v-if="vals.isSelect == true" color="#7DBF73">
-            <v-img
-              src="https://cdn.pixabay.com/photo/2017/08/03/21/48/drinks-2578446_960_720.jpg"
-              height="200px"
-            ></v-img>
-            <v-card-title>{{vals.vname}}</v-card-title>
-            <v-card-actions>
-              <v-btn
-                v-if="vals.isSelect == false"
-                @click="vals.isSelect = true"
-                text
-              >Ajouter au panier</v-btn>
-
-              <v-btn v-if="vals.isSelect == true" @click="vals.isSelect = false">
-                <v-icon left>mdi-delete</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-          <v-card class="mx-auto" max-width="344" v-if="vals.isSelect == false" color="#fff">
-            <v-img
-              src="https://cdn.pixabay.com/photo/2017/08/03/21/48/drinks-2578446_960_720.jpg"
-              height="200px"
-            ></v-img>
-            <v-card-title>{{vals.vname}}</v-card-title>
-            <v-card-actions>
-              <v-btn
-                v-if="vals.isSelect == false"
-                @click="vals.isSelect = true"
-                text
-              >Ajouter au panier</v-btn>
-
-              <v-btn v-if="vals.isSelect == true" @click="vals.isSelect = false">
-                <v-icon left>mdi-delete</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+        <v-col cols="6" v-for="(vals, i) in select.products" :key="i" link>
+          <div>
+            <v-card class="mx-auto" max-width="344" min-width="120" color="#7DBF73">
+              <v-img :src="require('../assets/products/vodka.jpg')" height="200px"></v-img>
+              <v-card-title>{{ vals.name}}</v-card-title>
+              <v-card-actions>
+                <v-btn
+                  v-if="isInCart(vals.id)"
+                  color="primary"
+                  @click="addToCart(vals.id, vals.name)"
+                  depressed
+                >
+                  <v-icon left>mdi-plus</v-icon>
+                </v-btn>
+                <v-btn v-else color="#FF524D" @click="DeleteToCart(vals.id)" depressed>
+                  <v-icon left>mdi-minus</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </div>
         </v-col>
       </v-row>
     </div>
@@ -65,38 +66,42 @@ import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      product_category: "stateCategory"
+      category: "getCategory",
+      products: "getProducts"
     })
   },
-  beforeMount() {
-    this.select = this.items[0];
+  methods: {
+    selectFirst() {
+      console.log("ok");
+    },
+    addToCart(_id, _name) {
+      let a = { id: _id, name: _name };
+      this.cart.items.push(a);
+    },
+    resetCart() {
+      this.cart.items = [];
+    },
+    DeleteToCart(_id) {
+      const r = this.cart.items.find(elmt => elmt.id == _id);
+      const i = this.cart.items.indexOf(r);
+      if (i == 0) {
+        this.cart.items.shift();
+      }
+      this.cart.items.splice(i, i);
+    },
+    isInCart(_id) {
+      const r = this.cart.items.find(elmt => elmt.id == _id);
+      return !r;
+    }
   },
+
   data() {
     return {
+      hidecart: true,
       select: {},
-      items: [
-        {
-          state: "Alcool",
-          id: "alcool",
-          values: [
-            { vid: "vodka", vname: "Vodka", isSelect: false },
-            { vid: "ricard", vname: "Ricard", isSelect: false },
-            { vid: "jager", vname: "Jager", isSelect: false },
-            { vid: "rhum", vname: "Rhum", isSelect: false }
-          ]
-        },
-        {
-          state: "Nouriture",
-          id: "food",
-          values: [
-            { vid: "kebab", vname: "Kebab", isSelect: false },
-            { vid: "americain", vname: "Americain", isSelect: false },
-            { vid: "jager", vname: "Jager", isSelect: false }
-          ]
-        },
-        { state: "Services", id: "service" },
-        { state: "Cigarettes", id: "salad" }
-      ]
+      cart: {
+        items: []
+      }
     };
   }
 };

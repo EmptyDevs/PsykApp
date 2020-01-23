@@ -5,23 +5,27 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    prduits: [
-      { id: 0, name: "Vodka", category_id: 1, img: "" },
-      { id: 1, name: "Pain", category_id: 2, img: "" },
-      { id: 2, name: "Ricard", category_id: 1, img: "" },
-      { id: 3, name: "Biere", category_id: 1, img: "" },
-    ],
     category: [
-      { id: 1, name: "Drink" },
-      { id: 2, name: "Food" },
-      { id: 3, name: "Service" },
-      { id: 4, name: "Smoke" },
+      { id: 1, name: "Drink", products: [
+        {id: 11, name: "Vodka", img: ""},
+        {id: 12, name: "Redbull", img: ""},
+        {id: 13, name: "Jager", img: ""},
+      ]},
+      { id: 2, name: "Food", products: [
+        {id: 21, name: "Pain", img: ""},
+        {id: 22, name: "Gateau", img: ""},
+        {id: 23, name: "Pates", img: ""},
+      ] },
+      { id: 3, name: "Service", products: [
+      ] },
+      { id: 4, name: "Smoke", products: [
+        {id: 41, name: "Tabac", img: ""},
+        {id: 42, name: "Salade", img: ""},
+      ] },
     ],
     menu: [
       {
         category: "entree", list: [
-          { name: "ok" },
-          { name: "oko" },
         ]
       },
       { category: "plat", list: [] },
@@ -34,7 +38,7 @@ export default new Vuex.Store({
     stateMenu: state => {
       return state.menu
     },
-    stateCategory: state => {
+    getCategory: state => {
       return state.category
     },
   },

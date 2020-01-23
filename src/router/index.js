@@ -4,6 +4,7 @@ import Home from '../components/home_page'
 import Sos from '../components/sospage'
 import ShopPage from '../components/shoppage'
 import AboutPage from '../components/aboutpage'
+import Waiting from '../view/waiting'
 
 
 Vue.use(VueRouter)
@@ -28,6 +29,11 @@ const routes = [
     path: '/about',
     name: 'aboutpage',
     component: AboutPage
+  },
+  {
+    path: '/waiting',
+    name: 'waiting',
+    component: Waiting
   }
 ]
 
