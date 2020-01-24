@@ -893,22 +893,6 @@
             </v-card>
           </v-hover>
         </v-col>
-        <v-col cols="6" sm="4">
-          <v-card max-width="400px">
-            <v-img
-              src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
-              gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
-            />
-            <v-list-item-content style="text-align: center">
-              <div class="headline">Alagy Clara</div>
-              <div style="padding:10px">
-              Attachée à la défense de l’environnement, elle se nourrit
-              exclusivement de feuilles de génépi, et se lave en utilisant l’eau usée de
-              son voisin.
-              </div>
-            </v-list-item-content>
-          </v-card>
-        </v-col>
       </v-row>
     </v-container>
   </v-app>
