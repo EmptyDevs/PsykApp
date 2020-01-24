@@ -9,7 +9,7 @@
       </v-btn>
 
       <v-spacer></v-spacer>
-      <v-btn text color="#fff" to="/about">psyk</v-btn>
+      <v-btn text color="#fff" to="/about"><span class="font-weight-medium">psy<span class="font-weight-bold">k̇</span></span></v-btn>
     </v-toolbar>
   </v-card>
 </template>
