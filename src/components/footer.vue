@@ -26,6 +26,12 @@
               primary-title
             >
               Téléphone
+              <v-spacer></v-spacer>
+              <v-btn icon
+                @click="dialog = false"
+              >
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
             </v-card-title>
             <br>
             <v-card-text class="subtitle-1 text-center">
@@ -44,3 +50,13 @@
     </v-row>
   </v-footer>
 </template>
+
+<script>
+  export default {
+    data () {
+      return {
+        dialog: false,
+      }
+    },
+  }
+</script>
