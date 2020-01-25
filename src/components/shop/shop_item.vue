@@ -11,7 +11,7 @@
         </v-expand-transition>
       </v-img>
       <v-card-text class="pt-6" style="position: relative;">
-        <v-btn v-if="is_plus" absolute color="orange" class="white--text" fab large right top @click="on_plus_click(data)">
+        <v-btn v-if="is_inside_cart(data.id)" absolute color="orange" class="white--text" fab large right top @click="on_plus_click(data)">
           <v-icon>mdi-plus</v-icon>
         </v-btn>
         <v-btn v-else absolute color="orange" class="white--text" fab large right top @click="on_minus_click(data)">
@@ -40,47 +40,36 @@ export default {
   props: {
     data: Object
   },
-  beforeMount() {
-    this.set_is_plus()
-  },
-  beforeUpdate() {
-    this.set_is_plus()
-  },
   methods: {
     ...mapActions(["add_to_cart", "delete_item_in_cart", "is_in_cart"]),
     ...mapGetters({
-      cart: "getCart"
+      cart: "getCart",
     }),
-    set_is_plus() {
-      this.is_plus = !this.is_inside_cart(this.data, this.cart)
-    },
     on_plus_click(data) {
       this.add_to_cart(data);
-      this.is_plus = false
     },
     on_minus_click(data) {
       this.delete_item_in_cart(data.id);
-      this.is_plus = true
     },
-    is_inside_cart(item, cart) {
-      for (let index = 0; index < cart.length; index++) {
-        if (cart[index].id == item.id)
-        {
-          return true;
-        }
-      }
-      return false;
-    }
   },
   data() {
     return {
       image: undefined,
-      is_plus: true,
     };
   },
   computed: {
     funcImage() {
       return require("@/assets/products/" + this.data.img);
+    },
+    is_inside_cart(id) {
+      let c = this.cart
+      for (let index = 0; index < c.length; index++) {
+        if (c[index].id == id)
+        {
+          return true;
+        }
+      }
+      return false;
     }
   },
   created() {

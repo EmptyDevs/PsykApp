@@ -6,7 +6,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     category: [
-
       {
         id: 1, name: "Alcool", products: [
           { id: 11, name: "Vodka", description: "", img: "vodka.png" },
