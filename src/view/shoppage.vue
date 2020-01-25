@@ -31,7 +31,7 @@
           </v-list-item>
         </v-card>
         <v-card class="mx-auto" max-width="344" outlined>
-          <v-btn @click>Passer commande</v-btn>
+          <v-btn @click="" >Passer commande</v-btn>
           <v-btn @click="_reset_cart" text>Vider panier</v-btn>
         </v-card>
       </v-flex>
