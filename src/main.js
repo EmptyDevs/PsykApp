@@ -26,12 +26,16 @@ new Vue({
   router,
   store,
   vuetify,
-  render: function (h) { return h(App)},
-  created () {
+  render: function (h) { return h(App) },
+  created() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         console.log("Autologin ... ")
         store.dispatch('UserModule/fetchUser', user)
+        router.push({name: 'Home'})
+      } else {
+        store.dispatch('UserModule/fetchUser', null)
+        router.push({name: 'Login'})
       }
     })
   }

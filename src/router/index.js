@@ -6,7 +6,7 @@ import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-function loadView (view) {
+function loadView(view) {
   return () => import(/* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`)
 }
 
@@ -20,7 +20,15 @@ const routes = [
     }
   },
   {
-    path: '/home',
+    path: '/sucess',
+    name: 'sucess',
+    component: null,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/',
     name: 'Home',
     component: loadView('Home'),
     meta: {
@@ -34,26 +42,34 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  var user = firebase.auth().currentUser;
+  console.log("Fullpath : " + to.fullPath)
+  if (to.fullPath == "/sucessful_login" && user) {
+    next({ name: 'Home' });
+  }
   if (to.matched.some(record => record.meta.auth)) {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        next()
-      } else {
-        next({
-          path: "/login",
-        })
-      }
-    })
+    console.log("Router: auth deteted")
+
+    if (user) {
+      console.log("Router: user detected")
+      next()
+    } else {
+      console.log("Router: user not deteted")
+      next({
+        name: 'Login',
+      })
+    }
   } else if (to.matched.some(record => record.meta.guest)) {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        next({
-          name: "Home",
-        })
-      } else {
-        next()
-      }
-    })
+    console.log("Router: guest deteted")
+    if (user) {
+      console.log("Router: user detected")
+      next({
+        name: 'Home',
+      })
+    } else {
+      console.log("Router: user not deteted")
+      next()
+    }
   } else {
     next()
   }

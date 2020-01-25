@@ -48,9 +48,6 @@ export default {
     signOut(e) {
       e.stopPropagation();
       firebase.auth().signOut();
-      this.$router.push({
-        name: "Login"
-      });
     },
     debug() {
       this.fetchUser(firebase.auth().currentUser);

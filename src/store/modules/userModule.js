@@ -13,9 +13,11 @@ const state = {
 const mutations = {
   SET_LOGGED_IN(state, value){
     state.user.is_logged_in = value;
+    console.log("Logged in")
   },
   SET_USER(state, data) {
     state.user.data = data;
+    console.log("User Data initialized")
   }
 }
 
