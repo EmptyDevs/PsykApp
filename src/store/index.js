@@ -8,7 +8,7 @@ export default new Vuex.Store({
     category: [
       {
         id: 1, name: "Alcool", products: [
-          { id: 11, name: "Vodka", description: "", img: "vodka.png" },
+          { id: 11, name: "Vodka", description: "Ceci est une vodka super rigolote", img: "vodka.png" },
           { id: 12, name: "Rhum", description: "", img: "rhum.png" },
           { id: 13, name: "Whisky", description: "", img: "whisky.png" },
           { id: 14, name: "Bieres", description: "", img: "bieres.png" },

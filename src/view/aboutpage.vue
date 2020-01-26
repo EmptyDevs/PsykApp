@@ -42,7 +42,7 @@
                   <div
                     v-if="hover"
                     class="d-flex font-italic transition-fast-in-fast-out indigo darken-4 v-card--reveal headline white--text"
-                    style="height: 100%; padding:15px"
+                    style="height: 100%; padding-left:15px; padding-right:15px"
                   >
                     Attachée à la défense de l’environnement, elle se nourrit
                     exclusivement de feuilles de génépi, et se lave en utilisant l’eau usée de
