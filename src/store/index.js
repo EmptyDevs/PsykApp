@@ -8,56 +8,50 @@ export default new Vuex.Store({
     category: [
       {
         id: 1, name: "Alcool", products: [
-          { id: 11, name: "Vodka", description: "", img: "vodka.png" },
-          { id: 12, name: "Rhum", description: "", img: "rhum.png" },
-          { id: 13, name: "Whisky", description: "", img: "whisky.png" },
-          { id: 14, name: "Bieres", description: "", img: "bieres.png" },
+          { id: 11, name: "Vodka", description: "Pour combien tu cul sec ?", img: "vodka.png" },
+          { id: 12, name: "Rhum", description: "Pour une soirée rhumantique", img: "rhum.png" },
+          { id: 13, name: "Whisky", description: "Vous voulez un whisky ? - Juste un doigt. - Vous ne voulez pas un whisky d'abord ?", img: "whisky.png" },
+          { id: 14, name: "Bieres", description: "Tite bibine ?", img: "bieres.png" },
         ]
       },
       {
-        id: 2, name: "Food", products: [
-          { id: 21, name: "Gratin dauphinois", description: "", img: "gratin.png" },
-          { id: 22, name: "Croque monsieur", description: "", img: "croque_monsieur.png" },
-          { id: 23, name: "Croissant", description: "", img: "croissant.png" },
-          { id: 24, name: "Apéro", description: "", img: "apero.png" },
+        id: 2, name: "Soft", products: [
+          { id: 21, name: "Jus d’orange", description: "", img: "jus_orange.png" },
+          { id: 22, name: "Café", description: "", img: "cafe.png" },
+          { id: 23, name: "Chocolat chaud", description: "", img: "chocolat_chaud.png" },
         ]
       },
       {
-        id: 3, name: "Service", description: "", products: [
+        id: 3, name: "Food", products: [
+          { id: 31, name: "Gratin dauphinois", description: "", img: "gratin.png" },
+          { id: 32, name: "Croque monsieur", description: "", img: "croque_monsieur.png" },
+          { id: 33, name: "Croissant", description: "", img: "croissant.png" },
+          { id: 34, name: "Apéro", description: "", img: "apero.png" },
         ]
       },
       {
-        id: 4, name: "A fumer et autres", description: "", products: [
-          { id: 41, name: "Proto", description: "", img: "protos.png" },
-          { id: 42, name: "Clope", description: "", img: "clope.png" },
-          { id: 43, name: "Poppers", description: "", img: "poppers.png" },
-          { id: 44, name: "Herbes de Provence", description: "", img: "herbes_provence.png" },
+        id: 4, name: "Service", description: "", products: [
+        ]
+      },
+      {
+        id: 5, name: "Divers", description: "", products: [
+          { id: 51, name: "Proto", description: "", img: "protos.png" },
+          { id: 52, name: "Clope", description: "", img: "clope.png" },
+          { id: 53, name: "Poppers", description: "", img: "poppers.png" },
+          { id: 54, name: "Divers", description: "", img: "herbes_provence.png" },
+          { id: 55, name: "Cookies de l'espace", description: "", img: "cookie.jpg" },
         ]
       },
     ],
-    menu: [
-      {
-        category: "entree", list: [
-          { name: "Salade" },
-          { name: "Tomate" },
-          { name: "Carotte" },
-        ]
-      },
-      {
-        category: "plat", list: [
-          { name: "Poisson" },
-          { name: "Boeuf" },
-        ]
-      },
-      {
-        category: "dessert", list: [
-          { name: "Chocolat" },
-          { name: "Poire" },
-          { name: "Flan" },
-          { name: "Pruneau" },
-        ]
-      },
-    ],
+    menu: {
+      title: "Saint Valentin",
+      content: [
+        {title: "Entrée", value: "surprise"},
+        {title: "Plat", value: "songe d'une nuit de février"},
+        {title: "Dessert", value: "coeur coulant"},
+      ],
+    },
+    
     cart: [
     ],
     member: [
