@@ -53,7 +53,7 @@ export default {
   methods: {
     ...mapActions(["add_to_cart", "delete_item_in_cart", "is_in_cart"]),
     on_plus_click() {
-      let a = {id: 9999, name: "Sevice", service: ""}
+      let a = {id: 9999, name: "Service", service: ""}
       a.service = this.text_input
       this.add_to_cart(a)
       this.readonly = true
