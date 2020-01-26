@@ -60,6 +60,35 @@ export default new Vuex.Store({
     ],
     cart: [
     ],
+    member: [
+      { id: 1, name: "Vodka", description: "Coucou", img: "temp-portrait.png" },
+      { id: 2, name: "Test1", description: "hiou", img: "temp-portrait.png" },
+      { id: 3, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 4, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 5, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 6, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 7, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 8, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 9, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 10, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 11, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 12, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 13, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 14, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 15, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 16, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 17, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 18, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 19, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 20, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 21, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 22, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 23, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 24, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 25, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 26, name: "Vodka", description: "", img: "temp-portrait.png" },
+      { id: 27, name: "Vodka", description: "", img: "temp-portrait.png" },
+    ]
   },
   mutations: {
     _add_to_cart(state, item) {
@@ -86,6 +115,9 @@ export default new Vuex.Store({
     },
     getCart: state => {
       return state.cart
+    },
+    getMember: state => {
+      return state.member
     }
   },
   actions: {

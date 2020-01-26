@@ -36,7 +36,7 @@
             <br>
             <v-card-text class="subtitle-1 text-center">
               Si vous préférez entendre nos voix douces, voici notre numéro:<br>
-              <div style="padding:10px; padding-top:10px" class="title">+33 6 00 00 00 00</div>
+              <div style="padding:10px; padding-top:10px" class="title">+33 6 08 88 91 84</div>
             </v-card-text>
           </v-card>
         </v-dialog>
