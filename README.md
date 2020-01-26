@@ -22,5 +22,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 Trombi?
 Icon ?
 Numéro ?
-enlever le k
 taille vbox
+
+vert et ? violet / noir
+
+part
