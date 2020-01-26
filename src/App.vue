@@ -1,8 +1,6 @@
- 
 <template>
   <v-app>
     <AppBar/>
-    
     <router-view/>
     <Footer/>
   </v-app>
