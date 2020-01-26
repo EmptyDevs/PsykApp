@@ -14,10 +14,12 @@ const configOptions = {
   storageBucket: "pyskapp.appspot.com",
   messagingSenderId: "863577719112",
   appId: "1:863577719112:web:2f1cca86e7fe040aaa337d",
-  measurementId: "G-Q8NZGSG7QN"
+  measurementId: "G-Q8NZGSG7QN",
+  clientId: "863577719112-hoim91rs6qffbdqc3s774etsin8qohpr.apps.googleusercontent.com"
 };
 
 firebase.initializeApp(configOptions);
+firebase.auth().languageCode = 'fr';
 firebase.analytics();
 
 Vue.config.productionTip = false
@@ -30,10 +32,11 @@ new Vue({
   created() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log("Autologin ... ")
+        console.log("APP login --SUCCESS-- DISPATCHING FETCH")
         store.dispatch('UserModule/fetchUser', user)
         router.push({name: 'Home'})
       } else {
+        console.log("APP login --FAIL-- DISPATCHING FETCH")
         store.dispatch('UserModule/fetchUser', null)
         router.push({name: 'Login'})
       }

@@ -20,7 +20,7 @@ const routes = [
     }
   },
   {
-    path: '/sucess',
+    path: '/sucessful_login',
     name: 'sucess',
     component: null,
     meta: {
@@ -49,7 +49,6 @@ router.beforeEach((to, from, next) => {
   }
   if (to.matched.some(record => record.meta.auth)) {
     console.log("Router: auth deteted")
-
     if (user) {
       console.log("Router: user detected")
       next()

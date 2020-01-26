@@ -13,7 +13,7 @@ const state = {
 const mutations = {
   SET_LOGGED_IN(state, value){
     state.user.is_logged_in = value;
-    console.log("Logged in")
+    console.log("User Logstate : " + value)
   },
   SET_USER(state, data) {
     state.user.data = data;
@@ -29,7 +29,7 @@ const getters = {
 
 const actions = {
   fetchUser({ commit }, user) {
-    console.log("Fetched")
+    console.log("User fecth")
     commit("SET_LOGGED_IN", user !== null);
     if (user) {
       commit("SET_USER", {
