@@ -26,8 +26,8 @@
     <v-flex xs2>
       <v-container>
         <v-card class="mx-auto" max-width="100%" outlined height="500px">
-          <v-btn>1</v-btn>
-          <v-btn @click="_reset_cart" text>2</v-btn>
+          <v-btn text style="font-size: 0.7em">Commander</v-btn>
+          <v-btn @click="reset_cart" text style="font-size: 0.7em">Vider</v-btn>
           <v-list-item three-line>
             <v-list-item-content>
               <v-card-title>Votre panier</v-card-title>
@@ -54,14 +54,10 @@ export default {
     ...mapGetters({
       category: "getCategory",
       cart: "getCart"
-    })
+    }),
   },
   methods: {
-    ...mapActions(["reset_cart"]),
-    _reset_cart() {
-      this.reset_cart();
-      window.location.reload();
-    }
+    ...mapActions(["reset_cart"])
   },
   data() {
     return {

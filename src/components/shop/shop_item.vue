@@ -62,7 +62,6 @@ export default {
   },
   methods: {
     ...mapActions(["add_to_cart", "delete_item_in_cart", "is_in_cart"]),
-
     on_plus_click(data) {
       if (!this.is_inside_cart) {
         this.add_to_cart(data);
