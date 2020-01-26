@@ -17,7 +17,7 @@
 
         <div v-if="select.id != 4" align="center" justify="center">
           <v-row class="light--text">
-            <v-col cols="6" v-for="(vals, i) in select.products" :key="i" link>
+            <v-col cols="4" v-for="(vals, i) in select.products" :key="i" link>
               <ShopItem :data="vals" />
             </v-col>
           </v-row>
