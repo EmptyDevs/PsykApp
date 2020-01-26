@@ -1,15 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-<<<<<<< HEAD
-import Home from '../view/homepage'
-import ShopPage from '../view/shoppage'
-import AboutPage from '../view/aboutpage'
-import AdminPage from '../view/adminpage'
-=======
+
+
 import * as firebase from 'firebase';
-import Login from '../views/Login.vue'
-import Home from '../views/Home.vue'
->>>>>>> login
 
 Vue.use(VueRouter)
 
@@ -28,24 +21,24 @@ const routes = [
   },
   {
     path: '/shop',
-    name: 'shoppage',
-    component: ShopPage,
+    name: 'Shop',
+    component: loadView('Shop'),
     meta: {
       auth: true
     }
   },
   {
     path: '/about',
-    name: 'aboutpage',
-    component: AboutPage,
+    name: 'About',
+    component: loadView('About'),
     meta: {
       auth: true
     }
   },
   {
     path: '/admin',
-    name: 'adminpanel',
-    component: AdminPage,
+    name: 'Admin',
+    component: loadView('Admin'),
     meta: {
       guest: true
     }
@@ -61,7 +54,15 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: loadView('Home'),
+    component: loadView('Homepage'),
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: loadView('Profile'),
     meta: {
       auth: true
     }
