@@ -17,6 +17,17 @@
   </v-hover>
 </template>
 
+<style>
+.v-card--reveal {
+  align-items: center;
+  bottom: 0;
+  justify-content: center;
+  opacity: 0.7;
+  position: absolute;
+  width: 100%;
+}
+</style>
+
 <script>
 import { mapGetters } from "vuex";
 export default {

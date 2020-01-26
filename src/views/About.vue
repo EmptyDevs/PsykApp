@@ -9,7 +9,7 @@
       <v-card>
         <v-list-item-content style="padding:20px">
           <p class="headline font-weight-light">
-            Venue de votre imagination la plus profonde, la <span class="font-weight-regular indigo--text text--darken-4">PSYK</span> est prête à vous faire rêver, 
+            Venue de votre imagination la plus profonde, la <span class="font-weight-medium indigo--text text--darken-4">PSYK</span> est prête à vous faire rêver, 
             mais prenez garde, elle peut aussi devenir votre pire cauchemar..<br>
             Plongés entre réalité et mirage, entre songe et délire, les 27 membres 
             de l’équipe se sont liés dans un objectif commun : faire de votre vie un rêve, 
