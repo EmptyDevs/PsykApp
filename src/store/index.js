@@ -3,49 +3,13 @@ import Vuex from 'vuex'
 import * as types from './mutation-types'
 
 import { UserModule } from './modules/userModule'
+import { CategoryModule } from './modules/categoryModule'
+import { OrderModule } from './modules/orderModule'
 
 Vue.use(Vuex)
 
 
 const state = {
-  category: [
-    {
-      id: 1, name: "Alcool", products: [
-        { id: 11, name: "Vodka", description: "Pour combien tu cul sec ?", img: "vodka.png" },
-        { id: 12, name: "Rhum", description: "Pour une soirée rhumantique", img: "rhum.png" },
-        { id: 13, name: "Whisky", description: "Vous voulez un whisky ? - Juste un doigt. - Vous ne voulez pas un whisky d'abord ?", img: "whisky.png" },
-        { id: 14, name: "Bieres", description: "Tite bibine ?", img: "bieres.png" },
-      ]
-    },
-    {
-      id: 2, name: "Soft", products: [
-        { id: 21, name: "Jus d’orange", description: "", img: "jus_orange.png" },
-        { id: 22, name: "Café", description: "", img: "cafe.png" },
-        { id: 23, name: "Chocolat chaud", description: "", img: "chocolat_chaud.png" },
-      ]
-    },
-    {
-      id: 3, name: "Food", products: [
-        { id: 31, name: "Gratin dauphinois", description: "", img: "gratin.png" },
-        { id: 32, name: "Croque monsieur", description: "", img: "croque_monsieur.png" },
-        { id: 33, name: "Croissant", description: "", img: "croissant.png" },
-        { id: 34, name: "Apéro", description: "", img: "apero.png" },
-      ]
-    },
-    {
-      id: 4, name: "Service", description: "", products: [
-      ]
-    },
-    {
-      id: 5, name: "Divers", description: "", products: [
-        { id: 51, name: "Proto", description: "", img: "protos.png" },
-        { id: 52, name: "Clope", description: "", img: "clope.png" },
-        { id: 53, name: "Poppers", description: "", img: "poppers.png" },
-        { id: 54, name: "Divers", description: "", img: "herbes_provence.png" },
-        { id: 55, name: "Cookies de l'espace", description: "", img: "cookie.jpg" },
-      ]
-    },
-  ],
   menu: {
     title: "Saint Valentin",
     content: [
@@ -54,8 +18,7 @@ const state = {
       { title: "Dessert", value: "coeur coulant" },
     ],
   },
-  cart: [
-  ],
+  cart: [],
   member: [
     { id: 1, name: "Alagy Clara", description: "Attachée à la défense de l’environnement, elle se nourrit exclusivement de feuilles de génépi, et se lave en utilisant l’eau usée de son voisin.", img: "temp-portrait.png" },
     { id: 2, name: "Alliod Titouan", description: "UN, DOS, ATENCION! Tu le retrouveras au Drak accroché à la barrière, la tête bougeant frénétiquement.", img: "temp-portrait.png" },
@@ -89,7 +52,10 @@ const state = {
 
 const mutations = {
   _add_to_cart(state, item) {
-    state.cart.push(item)
+    state.cart.push(item);
+  },
+  _set_cart_id(state, id) {
+    state.cart.id = id;
   },
   _delete_item_in_cart(state, _id) {
     const r = state.cart.find(elmt => elmt.id == _id);
@@ -108,9 +74,6 @@ const getters = {
   stateMenu: state => {
     return state.menu
   },
-  getCategory: state => {
-    return state.category
-  },
   getCart: state => {
     return state.cart
   },
@@ -122,11 +85,25 @@ const getters = {
 const actions = {
   ping({ commit }) {
     console.log("Pong")
+  },
+  set_cart_id({ commit }, id) {
+    commit("_set_cart_id", id);
+  },
+  add_to_cart({ commit }, item) {
+    commit("_add_to_cart", item);
+  },
+  delete_item_in_cart({ commit }, item) {
+    commit("_delete_item_in_cart", item);
+  },
+  reset_cart({ commit }, item) {
+    commit("_reset_cart");
   }
 }
 
 const modules = {
   UserModule,
+  CategoryModule,
+  OrderModule
 }
 
 export default new Vuex.Store({

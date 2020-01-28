@@ -18,8 +18,16 @@ import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      _menu: "stateMenu"
+      _menu: "stateMenu",
     })
-  }
+  },
+  methods: {
+    test_firebase() {
+      firebase
+        .database()
+        .ref("/")
+        .set(this.state);
+    }
+  },
 };
 </script>
