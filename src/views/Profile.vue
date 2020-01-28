@@ -12,7 +12,7 @@
         </div>
         <div class="text--primary">
           <span class="font-weight-medium"> Prénom Nom:</span>
-          <span class="font-weight-light"v-if="user.data.displayName"> {{ user.data.displayName}}</span>
+          <span class="font-weight-light" v-if="user.data.displayName"> {{ user.data.displayName}}</span>
           <span class="font-weight-regular font-italic" v-else> non disponible</span>
         </div>
         <div class="text--primary">
