@@ -38,9 +38,9 @@ const routes = [
   {
     path: '/admin',
     name: 'Admin',
-    component: loadView('Admin'),
+    component: loadView('AdminLogin'),
     meta: {
-      guest: true
+      special: true
     }
   },
   {
@@ -66,6 +66,15 @@ const routes = [
     meta: {
       auth: true
     }
+  },
+
+  {
+    path: '/sucess_login',
+    name: 'LoadingLogin',
+    component: loadView('LoadingLogin'),
+    meta: {
+      temp: true
+    }
   }
 ]
 
@@ -74,33 +83,34 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  var user = firebase.auth().currentUser;
-  console.log("Fullpath : " + to.fullPath)
-  if (to.fullPath == "/sucessful_login" && user) {
-    next({ name: 'Home' });
-  }
-  if (to.matched.some(record => record.meta.auth)) {
-    console.log("Router: auth deteted")
-    if (user) {
-      console.log("Router: user detected")
-      next()
-    } else {
-      console.log("Router: user not deteted")
-      next({
-        name: 'Login',
-      })
-    }
-  } else if (to.matched.some(record => record.meta.guest)) {
-    console.log("Router: guest deteted")
-    if (user) {
-      console.log("Router: user detected")
-      next({
-        name: 'Home',
-      })
-    } else {
-      console.log("Router: user not deteted")
-      next()
-    }
+  const user = firebase.auth().currentUser;
+  const auth = to.matched.some(record => record.meta.auth);
+  const guest = to.matched.some(record => record.meta.guest);
+  const special = to.matched.some(record => record.meta.special);
+
+  console.log("Fullpath: " + from.fullPath);
+  firebase.auth().onAuthStateChanged(user => {
+    if (auth && user)
+      next();
+    else if (guest && user)
+      next({ name: 'Home' });
+    else if (!user && auth)
+      next({ name: 'Login' });
+    return;
+  })
+  if (auth) {
+    if (user)
+      next();
+    else
+      next({ name: 'Login' });
+  } else if (guest) {
+    if (user)
+      next({ name: 'Home' })
+    else
+      next();
+  } else if (special) {
+    console.log("Router: special deteted")
+    next()
   } else {
     next()
   }

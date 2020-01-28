@@ -25,21 +25,41 @@ firebase.analytics();
 
 Vue.config.productionTip = false
 
+
 new Vue({
   router,
   store,
   vuetify,
   render: function (h) { return h(App) },
+  methods: {
+    initAuth() {
+      return new Promise(resolve => {
+        firebase.auth().onAuthStateChanged(user => {
+          if (user)
+            store.dispatch('UserModule/fetchUser', user);
+          else
+            store.dispatch('UserModule/fetchUser', null);
+          resolve(user)
+        })
+      })
+    }
+  },
   created() {
+    // var user = this.initAuth().then(user => {
+    //   if (user != null || user != undefined) {
+    //     console.log("Return of promise :" + JSON.stringify(user.uid));
+    //     return user;
+    //   } else {
+    //     return null;
+    //   }
+    // })
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         console.log("APP login --SUCCESS-- DISPATCHING FETCH")
         store.dispatch('UserModule/fetchUser', user)
-        router.push({name: 'Home'})
       } else {
         console.log("APP login --FAIL-- DISPATCHING FETCH")
         store.dispatch('UserModule/fetchUser', null)
-        router.push({name: 'Login'})
       }
     })
   }

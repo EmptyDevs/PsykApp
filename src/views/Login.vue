@@ -61,7 +61,6 @@ export default {
             if (authResult.user) {
               console.log("UI Callback: signIn Sucess");
             }
-            // Do not redirect.
             return false;
           }
         },

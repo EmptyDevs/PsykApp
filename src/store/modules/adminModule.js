@@ -24,15 +24,13 @@ const getters = {
 
 const actions = {
   fetchUser({ commit }, user) {
-    console.log("User fecth")
+    console.log("admin fecth")
     commit("SET_LOGGED_IN", user !== null);
     if (user) {
       commit("SET_USER", {
-        displayName: user.displayName,
+        displayName: "Admin Psyk SOS",
         email: user.email,
         uid: user.uid,
-        photo: user.photoURL,
-        phoneNumber: user.phoneNumber
       });
     } else {
       commit("SET_USER", null);
