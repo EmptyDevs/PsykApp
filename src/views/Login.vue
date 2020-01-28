@@ -57,7 +57,7 @@ export default {
         callbacks: {
           // Called when the user has been successfully signed in.
           signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-            //console.log("Authresult: " + JSON.stringify(authResult)); 
+            //console.log("Authresult: " + JSON.stringify(authResult));
             if (authResult.user) {
               console.log("UI Callback: signIn Sucess");
             }
