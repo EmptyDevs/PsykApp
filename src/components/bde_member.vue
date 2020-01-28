@@ -11,7 +11,7 @@
         </v-expand-transition>
       </v-img>
       <v-card-text class="pt-6" style="position: relative; text-align: center">
-        <h3 class="display-1 font-weight-light indigo--text text--darken-4 mb-2">{{data.name}}</h3>
+        <h3 class="headline font-weight-regular indigo--text text--darken-4 mb-2">{{data.name}}</h3>
       </v-card-text>
     </v-card>
   </v-hover>
