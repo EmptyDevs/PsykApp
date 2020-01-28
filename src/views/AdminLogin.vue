@@ -52,7 +52,9 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import firebase from "firebase";
+
 export default {
   props: ["nextUrl"],
   data() {
@@ -80,9 +82,10 @@ export default {
       if (this.credentials.password.length > 0) {
         firebase
           .auth()
-          .signInWithEmailAndPassword(email, password)
+          .signInWithEmailAndPassword(this.credentials.email_address, this.credentials.password)
           .then(function(user) {
             console.log("Successful Login");
+            console.log(JSON.stringify(user))
           }).catch(function(error) {
             var errorCode = error.code;
             var errorMessage = error.message;

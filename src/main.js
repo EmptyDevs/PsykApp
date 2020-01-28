@@ -5,7 +5,7 @@ import store from './store'
 import vuetify from './plugins/vuetify';
 
 import * as firebase from "firebase";
-
+import * as auth from "./services/auth";
 
 const configOptions = {
   apiKey: "AIzaSyAMK_HQ2T_Nto2sWG5n4hLu4-85iRuuLF8",
@@ -57,6 +57,8 @@ new Vue({
       if (user) {
         console.log("APP login --SUCCESS-- DISPATCHING FETCH")
         store.dispatch('UserModule/fetchUser', user)
+        var admin = auth.is_admin(user.uid).then(val => { console.log("Val return of promise : " + val); return val })
+        console.log("admin state: " + admin);
       } else {
         console.log("APP login --FAIL-- DISPATCHING FETCH")
         store.dispatch('UserModule/fetchUser', null)
