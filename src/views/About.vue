@@ -31,7 +31,7 @@
     <br />
     <br />
     <v-container class="grey lighten-5">
-      <v-row :align="alignment" :justify="justify" style="padding:20px">
+      <v-row  style="padding:20px">
         <v-col
           xs="2"
           md="5"
