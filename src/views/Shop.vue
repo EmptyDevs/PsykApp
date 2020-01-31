@@ -5,11 +5,13 @@
         <v-list-item>
           <v-list-item-title>Panier</v-list-item-title>
         </v-list-item>
-        <v-sheet id="scrolling-techniques" class="overflow-y-auto" max-height="600">
+        <v-sheet id="scrolling-techniques" class="overflow-y-auto" max-height="600" height="600">
           <v-list-item v-for="(product, i) in cart" :key="i" link style="padding: 5px">
             <CartItem :data="product" />
           </v-list-item>
         </v-sheet>
+        <v-btn left absolute text color="grey" class="overline" @click="reset_cart">Vider panier</v-btn>
+        <v-btn right absolute text color="grey" class="overline" @click="command">Commander</v-btn>
       </v-list>
     </v-navigation-drawer>
     <v-container>
@@ -46,7 +48,6 @@
                 </v-row>
               </div>
               <ServiceItem v-else />
-              <p v-for="(vals, i) in getOrder" :key="i" link>{{vals}}</p>
             </v-container>
           </v-col>
         </v-row>
@@ -62,6 +63,7 @@
       absolute
       right
       class="v-btn--example"
+      color="#7DBF73"
       @click="drawerRight = !drawerRight"
     >
       <v-icon>mdi-cart</v-icon>
@@ -73,7 +75,7 @@
 /* This is for documentation purposes and will not be needed in your application */
 #lateral .v-btn--example {
   bottom: 0;
-  margin: 0 0 30px 16px;
+  margin: 0 0 50px 16px;
 }
 </style>
 
@@ -107,7 +109,7 @@ export default {
     command() {
       this.passOrder(this.cart);
       this.reset_cart;
-    }
+    },
   },
   data() {
     return {

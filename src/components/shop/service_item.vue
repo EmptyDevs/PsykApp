@@ -11,10 +11,10 @@
       <v-textarea v-model="text_input" name="input-7-1" filled label="service" auto-grow value :readonly="is_inside_cart"></v-textarea>
     </v-list-item>
     <v-card-text class="pt-6" style="position: relative;">
-      <v-btn v-if="!is_inside_cart" @click="on_plus_click" absolute color="orange" class="white--text" fab large right top>
+      <v-btn v-if="!is_inside_cart" @click="on_plus_click" absolute color="#7DBF73" class="white--text" fab large right top>
         <v-icon>mdi-plus</v-icon>
       </v-btn>
-      <v-btn v-else @click="on_minus_click" absolute color="orange" class="white--text" fab large right top>
+      <v-btn v-else @click="on_minus_click" absolute color="#7DBF73" class="white--text" fab large right top>
         <v-icon>mdi-minus</v-icon>
       </v-btn>
     </v-card-text>

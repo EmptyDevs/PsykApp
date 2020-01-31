@@ -10,7 +10,8 @@
         <v-expand-transition>
           <div
             v-if="hover"
-            class="d-flex font-italic transition-fast-in-fast-out indigo darken-4 v-card--reveal headline white--text"
+            
+            class="d-flex font-italic transition-fast-in-fast-out green darken-4 v-card--reveal headline white--text"
             style="height: 100%"
           >{{data.description}}</div>
         </v-expand-transition>
@@ -18,7 +19,7 @@
       <v-card-text class="pt-6" style="position: relative;">
         <v-btn
           absolute
-          color="orange"
+          color="#7DBF73"
           class="white--text"
           fab
           large
@@ -31,7 +32,7 @@
         </v-btn>
         <v-btn
           absolute
-          color="orange"
+          color="#7DBF73"
           class="white--text"
           fab
           large
@@ -42,7 +43,7 @@
         >
           <v-icon>mdi-minus</v-icon>
         </v-btn>
-        <h3 class="display-1 font-weight-light orange--text mb-2">{{data.name}}</h3>
+        <h3 class="display-1 font-weight-light green--text mb-2">{{data.name}}</h3>
       </v-card-text>
     </v-card>
   </v-hover>
