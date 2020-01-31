@@ -38,10 +38,22 @@ const routes = [
   {
     path: '/admin',
     name: 'Admin',
-    component: loadView('AdminLogin'),
+    component: loadView('Admin'),
     meta: {
       special: true
-    }
+    },
+    children: [
+      {
+        path: 'profile',
+        component: UserProfile
+      },
+      {
+        // `UserPosts` va être rendu à l'intérieur du `<router-view>` de `User`
+        // quand `/utilisateur/:id/billets` concorde
+        path: 'posts',
+        component: UserPosts
+      }
+    ]
   },
   {
     path: '/sucessful_login',

@@ -55,12 +55,14 @@ new Vue({
     // })
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log("APP login --SUCCESS-- DISPATCHING FETCH")
+        //console.log("APP login --SUCCESS-- DISPATCHING FETCH")
         store.dispatch('UserModule/fetchUser', user)
-        var admin = auth.is_admin(user.uid).then(val => { console.log("Val return of promise : " + val); return val })
-        console.log("admin state: " + admin);
+        auth.is_admin(user.uid).then(val => {
+          if (val)
+            console.log("Welcome Admin")
+        })
       } else {
-        console.log("APP login --FAIL-- DISPATCHING FETCH")
+        //console.log("APP login --FAIL-- DISPATCHING FETCH")
         store.dispatch('UserModule/fetchUser', null)
       }
     })
