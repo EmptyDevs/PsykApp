@@ -85,10 +85,10 @@ const routes = [
 			admin: true
 		}
 	},
-	// {
-	// 	path: '*'
-	// 	component: 
-	// }
+	{
+		path: '*',
+		component: loadView('404')
+	}
 ]
 
 const router = new VueRouter({
