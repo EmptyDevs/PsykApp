@@ -1,10 +1,10 @@
 <template>
   <v-card color="grey lighten-4" flat tile>
     <v-toolbar color="#121040" dense>
-      <v-btn text color="#7DBF73" to="/about">
+      <v-btn text color="#7DBF73" to="/">
         <span class="title font-weight-regular">psyk</span>
       </v-btn>
-      <v-btn to="/" icon color="#fff">
+      <v-btn to="/menu" icon color="#fff">
         <v-icon>mdi-home</v-icon>
       </v-btn>
       <v-btn to="/shop" icon color="#fff">

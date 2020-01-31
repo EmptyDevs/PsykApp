@@ -15,6 +15,14 @@ function loadView(view) {
 const routes = [
 	{
 		path: '/',
+		name: 'About',
+		component: loadView('About'),
+		meta: {
+			auth: true
+		}
+	},
+	{
+		path: '/Menu',
 		name: 'Home',
 		component: loadView('Homepage'),
 		meta: {
@@ -41,14 +49,6 @@ const routes = [
 		path: '/shop',
 		name: 'Shop',
 		component: loadView('Shop'),
-		meta: {
-			auth: true
-		}
-	},
-	{
-		path: '/about',
-		name: 'About',
-		component: loadView('About'),
 		meta: {
 			auth: true
 		}
