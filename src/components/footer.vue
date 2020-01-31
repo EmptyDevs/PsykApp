@@ -1,5 +1,5 @@
 <template>
-  <v-footer absolute fixed class="font-weight-medium">
+  <v-footer fixed class="font-weight-medium">
     <v-row align="center" justify="center">
       <v-btn href="https://www.facebook.com/maxime.colomes" target="_blank">
         <v-icon>mdi-facebook</v-icon>
