@@ -3,7 +3,7 @@
     <v-container>
       <div style="padding-bottom:20px">
         <v-card>
-          <v-img src="./../assets/About/photo_de_groupe.jpg" max-height="344px"></v-img>
+          <v-img src="./../assets/About/photo_de_groupe.jpg" max-height="600px"></v-img>
         </v-card>
       </div>
       <v-card>

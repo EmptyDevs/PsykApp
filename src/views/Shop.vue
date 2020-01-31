@@ -38,7 +38,7 @@
                     xs="12"
                     sm="12"
                     md="6"
-                    lg="3"
+                    lg="4"
                     v-for="(vals, i) in select.products"
                     :key="i"
                     link
@@ -109,7 +109,7 @@ export default {
     command() {
       this.passOrder(this.cart);
       this.reset_cart;
-    },
+    }
   },
   data() {
     return {
