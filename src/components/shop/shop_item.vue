@@ -1,11 +1,17 @@
 <template>
   <v-hover v-slot:default="{ hover }">
-    <v-card class="mx-auto" color="grey lighten-4" max-width="300">
-      <v-img :aspect-ratio="16/9" :src="funcImage">
+    <v-card @load="funcImage" class="mx-auto" color="grey lighten-4" max-width="300">
+      <v-img :aspect-ratio="16/9" :src="src_url">
+        <template v-slot:placeholder>
+          <v-row class="fill-height ma-0" align="center" justify="center">
+            <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+          </v-row>
+        </template>
         <v-expand-transition>
           <div
             v-if="hover"
-            class="d-flex font-italic transition-fast-in-fast-out indigo darken-4 v-card--reveal headline white--text"
+            
+            class="d-flex font-italic transition-fast-in-fast-out green darken-4 v-card--reveal headline white--text"
             style="height: 100%"
           >{{data.description}}</div>
         </v-expand-transition>
@@ -13,7 +19,7 @@
       <v-card-text class="pt-6" style="position: relative;">
         <v-btn
           absolute
-          color="orange"
+          color="#7DBF73"
           class="white--text"
           fab
           large
@@ -26,7 +32,7 @@
         </v-btn>
         <v-btn
           absolute
-          color="orange"
+          color="#7DBF73"
           class="white--text"
           fab
           large
@@ -37,7 +43,7 @@
         >
           <v-icon>mdi-minus</v-icon>
         </v-btn>
-        <h3 class="display-1 font-weight-light orange--text mb-2">{{data.name}}</h3>
+        <h3 class="display-1 font-weight-light green--text mb-2">{{data.name}}</h3>
       </v-card-text>
     </v-card>
   </v-hover>
@@ -56,6 +62,8 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import firebase from "firebase";
+
 export default {
   props: {
     data: Object
@@ -69,20 +77,20 @@ export default {
     },
     on_minus_click(data) {
       this.delete_item_in_cart(data.id);
+    },
+    set_img_url(url) {
+      console.log("okok");
     }
   },
   data() {
     return {
-      image: undefined
+      src_url: ""
     };
   },
   computed: {
     ...mapGetters({
       cart: "getCart"
     }),
-    funcImage() {
-      return require("@/assets/products/" + this.data.img);
-    },
     is_inside_cart() {
       var c = this.cart;
       for (let index = 0; index < c.length; index++) {
@@ -91,10 +99,21 @@ export default {
         }
       }
       return false;
+    },
+    funcImage() {
+      var that = this;
+      var storage = firebase
+        .storage()
+        .ref("images/products/" + this.data.img)
+        .getDownloadURL()
+        .then(function(url) {
+          that.src_url = url
+        });
+      return this.src_url;
     }
   },
-  created() {
-    this.image = this.funcImage;
+  beforeMount() {
+    this.funcImage;
   }
 };
 </script>
