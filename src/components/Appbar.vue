@@ -50,7 +50,7 @@
         </v-dialog>
       </div>
       <div class="text-center">
-        <v-menu offset-y open-on-hover top>
+        <v-menu offset-y open-on-hover bottom>
           <template v-slot:activator="{ on }">
             <v-btn icon color="white" v-on="on">
               <v-icon>mdi-dots-vertical</v-icon>
