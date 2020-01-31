@@ -1,54 +1,52 @@
 <template>
-  <v-container>
-    <v-app-bar absolute color="white" elevate-on-scroll scroll-target="#scrolling-techniques-7">
-      <v-toolbar-title>> Admin</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon style="padding-right: 5%; padding-left: 5%">
-        Shop
-        <v-icon>mdi-cart</v-icon>
-      </v-btn>
-      <v-btn icon style="padding-right: 5%; padding-left: 5%">
-        Menu
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
-    </v-app-bar>
-    <div>
-      <v-form v-model="valid">
-        <v-container>
-          <div class="overline mb-4">Entrée</div>
-          <v-row>
-            <v-col cols="12" md="4">
-              <v-text-field
-                v-model="firstname"
-                :rules="nameRules"
-                :counter="35"
-                label="entrée 1"
-                required
-              ></v-text-field>
-            </v-col>
-
-            <v-col cols="12" md="4">
-              <v-text-field
-                v-model="lastname"
-                :rules="nameRules"
-                :counter="35"
-                label="entrée 2"
-                required
-              ></v-text-field>
-            </v-col>
-
-            <v-col cols="12" md="4">
-              <v-text-field
-                v-model="lastname"
-                :rules="nameRules"
-                :counter="35"
-                label="entrée 3"
-                required
-              ></v-text-field>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-form>
-    </div>
+  <v-container class="fill-height">
+    <v-card
+      height="100%"
+      width="100%"
+      class="mx-auto"
+      flat
+      outlined
+      transparent
+    >
+    hello
+    </v-card>
   </v-container>
 </template>
+
+<script>
+import { mapActions, mapGetters } from "vuex";
+import firebase from "firebase";
+import * as auth from "../services/auth";
+
+export default {
+  props: ["nextUrl"],
+  data() {
+    return {
+      is_admin: false,
+
+    };
+  },
+  methods: {
+    ...mapActions("UserModule", ["login"])
+  },
+  created() {
+    var is_admin_ = false;
+    console.log("Admin Page Created");
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        auth.is_admin(user.uid).then(val => {
+          console.log("AdminPageCreate/ isadmin:", val);
+          if (val) {
+            this.is_admin = true;
+          } else {
+            this.is_admin = false;
+          }
+        });
+      } else {
+        this.is_admin = false;
+      }
+    });
+    this.is_admin = is_admin_;
+  }
+};
+</script>

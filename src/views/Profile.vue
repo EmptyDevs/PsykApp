@@ -1,23 +1,36 @@
 <template>
   <div>
-    <h2>HOME</h2>
-    <p>Prénom Nom: {{ userInfo.displayName }}</p>
-    <p>Email: {{ userInfo.email }}</p>
-    <p>phoneNumber: {{ userInfo.phoneNumber }}</p>
-    <p>UID: {{ userInfo.uid }}</p>
-    <img src="https://graph.facebook.com/1849171378548194/picture" />
-
-    <h2>HOME2</h2>
-    <div v-if="user.is_logged_in">
-      <p>Prénom Nom: {{ user.data.displayName }}</p>
-      <p>Email: {{ user.data.email }}</p>
-      <p>phoneNumber: {{ user.data.phoneNumber }}</p>
-      <p>UID: {{ user.data.uid }}</p>
-    </div>
-    <v-btn @click="debug()">debug</v-btn>
-    <li>
-      <a @click="signOut">Logout</a>
-    </li>
+    <v-card v-if="user.is_logged_in">
+      <v-card-text>
+        <p class="display-1 text--primary">
+          Profile
+        </p>
+        <div class="text--primary">
+          <span class="font-weight-medium"> UID:</span>
+          <span class="font-weight-light" v-if="user.data.uid"> {{ user.data.uid }}</span>
+          <span class="font-weight-regular font-italic" v-else> non disponible</span>
+        </div>
+        <div class="text--primary">
+          <span class="font-weight-medium"> Prénom Nom:</span>
+          <span class="font-weight-light" v-if="user.data.displayName"> {{ user.data.displayName}}</span>
+          <span class="font-weight-regular font-italic" v-else> non disponible</span>
+        </div>
+        <div class="text--primary">
+          <span class="font-weight-medium"> Email:</span>
+          <span class="font-weight-light" v-if="user.data.email"> {{ user.data.email }}</span>
+          <span class="font-weight-regular font-italic" v-else> non disponible</span>
+        </div>
+        <div class="text--primary">
+          <span class="font-weight-medium"> Numéro de téléphone:</span>
+          <span class="font-weight-light" v-if="user.data.phoneNumber"> {{ user.data.phoneNumber }}</span>
+          <span class="font-weight-regular font-italic" v-else> non disponible</span>
+        </div>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="red white--text" @click="signOut">Logout</v-btn>
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
 
