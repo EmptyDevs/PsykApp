@@ -2,14 +2,14 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import * as firebase from 'firebase';
 
+import ManagementOffers from "../views/ManagementOffers"
+import ManagementMenu from '../views/ManagementMenu'
+import Admin from '../views/Admin'
+
 Vue.use(VueRouter)
 
 function loadView(view) {
 	return () => import(/* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`)
-}
-
-function loadSubView(view, group) {
-	return () => import(/* webpackChunkName: "view- */ `[request]" */ `@/views/${view}.vue`)
 }
 
 const routes = [
@@ -62,23 +62,33 @@ const routes = [
 		}
 	},
 	{
-		path: '/admin',
-		name: 'Admin',
-		component: loadView('Admin'),
-		children: [
-			{
-				path: '',
-				component: loadView('ManagementOffers'),
-			},
-			{
-				path: '/menu',
-				component: loadView('ManagementMenu'),
-			},
-		],
+		path: '/manage_offers',
+		name: 'AdminOffers',
+		component: loadView('ManagementOffers'),
 		meta: {
 			admin: true
 		}
-	}
+	},
+	{
+		path: '/manage_menu',
+		name: 'AdminMenu',
+		component: loadView('ManagementMenu'),
+		meta: {
+			admin: true
+		}
+	},
+	{
+		path: '/manage_settings',
+		name: 'AdminSettings',
+		component: loadView('ManagementSettings'),
+		meta: {
+			admin: true
+		}
+	},
+	// {
+	// 	path: '*'
+	// 	component: 
+	// }
 ]
 
 const router = new VueRouter({
@@ -87,6 +97,8 @@ const router = new VueRouter({
 
 import * as auth_service from '../services/auth'
 
+// const isLogged = true;
+// const isAdmin = true;
 
 router.beforeEach((to, from, next) => {
 	const user = firebase.auth().currentUser;
@@ -99,29 +111,36 @@ router.beforeEach((to, from, next) => {
 	firebase.auth().onAuthStateChanged(user => {
 		if (user) {
 			auth_service.is_admin(user.uid).then(val => {
+				// console.log("A")
 				if (val) {
+					// console.log("B1")
 					is_admin = true;
 				} else {
+					// console.log("B2")
 					is_admin = false;
 				}
 				if (auth) {
+					// console.log("C1")
 					if (user)
 						next();
 					else
 						next({ name: 'Login' });
 				} else if (guest) {
+					// console.log("C2")
 					if (user)
 						next({ name: 'Home' })
 					else
 						next();
 				} else if (admin) {
+					// console.log("C3")
 					if (is_admin)
 						next()
 					else
 						next({ name: 'AdminLogin' })
 				} else if (guest2) {
+					// console.log("C4")
 					if (is_admin)
-						next({ name: 'Admin' })
+						next({ name: 'Home' })
 					else
 						next()
 				} else {
@@ -142,29 +161,30 @@ router.beforeEach((to, from, next) => {
 		}
 		return;
 	})
-	if (auth) {
-		if (user)
-			next();
-		else
-			next({ name: 'Login' });
-	} else if (guest) {
-		if (user)
-			next({ name: 'Home' })
-		else
-			next();
-	} else if (admin) {
-		if (is_admin)
-			next()
-		else
-			next({ name: 'AdminLogin' })
-	} else if (guest2) {
-		if (is_admin)
-			next({ name: 'Admin' })
-		else
-			next()
-	} else {
-		next()
-	}
+
+	// if (auth) {
+	// 	if (user)
+	// 		next();
+	// 	else
+	// 		next({ name: 'Login' });
+	// } else if (guest) {
+	// 	if (user)
+	// 		next({ name: 'Home' })
+	// 	else
+	// 		next();
+	// } else if (guest2) {
+	// 	if (is_admin)
+	// 		next({ name: 'Home' })
+	// 	else
+	// 		next()
+	// } else if (admin) {
+	// 	if (is_admin)
+	// 		next()
+	// 	else
+	// 		next({ name: 'AdminLogin' })
+	// } else {
+	// 	next()
+	// }
 })
 
 export default router

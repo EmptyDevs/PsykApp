@@ -10,6 +10,16 @@
       <v-btn to="/shop" icon color="#fff">
         <v-icon>mdi-cart</v-icon>
       </v-btn>
+      <span v-if="is_admin" class="title font-weight-bold" style="color:#7DBF73">|</span>
+      <v-btn v-if="is_admin" @click="goTo('AdminOffers')" icon color="#fff">
+        <v-icon>mdi-cube</v-icon>
+      </v-btn>
+      <v-btn v-if="is_admin" @click="goTo('AdminMenu')" icon color="#fff">
+        <v-icon>mdi-silverware</v-icon>
+      </v-btn>
+      <v-btn v-if="is_admin" @click="goTo('AdminSettings')" icon color="#fff">
+        <v-icon>mdi-wrench</v-icon>
+      </v-btn>
 
       <v-spacer></v-spacer>
       <div class="text-center">
@@ -47,7 +57,14 @@
             </v-btn>
           </template>
           <v-list>
-            <v-list-item v-for="(item, index) in items" :key="index" @click="menuCall(item)">
+            <v-list-item
+              v-for="(item, index) in items"
+              :key="index"
+              @click="menuCall(item)"
+            >
+              <v-list-item-icon>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-item-icon>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item>
           </v-list>
@@ -59,6 +76,7 @@
 
 <script>
 import firebase from "firebase";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -69,7 +87,8 @@ export default {
           icon: "mdi-account-box-outline",
           title: "Profile",
           action: "settings",
-          url: "/profile"
+          url: "/profile",
+          admin: false
         },
         {
           icon: "mdi-exit-to-app",
@@ -80,15 +99,24 @@ export default {
       ]
     };
   },
+  computed: {
+    ...mapGetters({
+      is_admin: "UserModule/getAdminStatus"
+    })
+  },
   methods: {
     menuCall(item) {
       if (item.action == "logout") {
         this.signOut();
       } else if (item.action == "settings") {
-        this.$router.push({name: 'Profile'})
+        this.$router.push({ name: "Profile" });
       }
     },
-    signOut(e){
+    goTo(route_name)
+    {
+      this.$router.push({ name: route_name });
+    },
+    signOut(e) {
       firebase.auth().signOut();
     }
   }
