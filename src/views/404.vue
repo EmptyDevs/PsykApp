@@ -20,12 +20,6 @@
 <script>
 export default {
   name: "FourOhFour",
-  props: {
-    lang: {
-      type: String,
-      default: "en"
-    }
-  },
   created() {
     this.$ssrContext && this.$ssrContext.res.status(404);
   },
