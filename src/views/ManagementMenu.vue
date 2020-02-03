@@ -4,7 +4,7 @@
     <v-alert v-if="alert != ''" type="warning">{{this.alert}}</v-alert>
     <v-alert v-if="push" type="success">Menu enregistré</v-alert>
     <v-text-field style="padding: 2%" v-model="menu_title" label="Titre du menu" filled hide-details="auto"></v-text-field>
-    <v-text-field style="padding: 2%" v-model="entree" label="Entée" filled hide-details="auto"></v-text-field>
+    <v-text-field style="padding: 2%" v-model="entree" label="Entrée" filled hide-details="auto"></v-text-field>
     <v-text-field style="padding: 2%" v-model="plat" label="Plat" filled hide-details="auto"></v-text-field>
     <v-text-field style="padding: 2%" v-model="dessert" label="Dessert" filled hide-details="auto"></v-text-field>
     <v-btn color="pink" dark small absolute bottom left fab @click="push_menu">
