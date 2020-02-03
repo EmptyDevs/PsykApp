@@ -114,14 +114,14 @@ export default {
       {
         this.orderSatus.display = true;
         this.orderSatus.status = "error";
-        this.orderSatus.details = "Tu n'as pas renseigné ton numéro de téléphone.";
+        this.orderSatus.details = "Tu n'as pas renseigné ton numéro de téléphone. Tu ne peux donc pas commander.";
         return;
       }
       var command = { content: this.cart, user: this.user.data };
       this.passOrder(command).then(() => {
         this.orderSatus.display = true;
         this.orderSatus.status = "success";
-        this.orderSatus.details = "Commande passée.";
+        this.orderSatus.details = "Commande passée. Nous allons bientôt revenir vers toi !";
       });
       this.reset_cart();
     }
