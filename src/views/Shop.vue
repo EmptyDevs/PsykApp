@@ -5,6 +5,7 @@
         <v-list-item>
           <v-list-item-title>Panier</v-list-item-title>
         </v-list-item>
+        <v-alert v-if="orderSatus.display" :type="orderSatus.status">{{this.orderSatus.details}}</v-alert>
         <v-sheet id="scrolling-techniques" class="overflow-y-auto" max-height="600" height="600">
           <v-list-item v-for="(product, i) in cart" :key="i" link style="padding: 5px">
             <CartItem :data="product" />
@@ -95,7 +96,8 @@ export default {
     ...mapGetters({
       category: "CategoryModule/getCategory",
       cart: "getCart",
-      getOrder: "OrderModule/getOrder"
+      getOrder: "OrderModule/getOrder",
+      user: "UserModule/getUser"
     })
   },
   methods: {
@@ -107,15 +109,33 @@ export default {
       fetchOrder: "OrderModule/fetchOrder"
     }),
     command() {
-      this.passOrder(this.cart);
-      this.reset_cart;
-    },
+      var number = this.user.phoneNumber;
+      if (!number)
+      {
+        this.orderSatus.display = true;
+        this.orderSatus.status = "error";
+        this.orderSatus.details = "Tu n'as pas renseigné ton numéro de téléphone.";
+        return;
+      }
+      var command = { content: this.cart, user: this.user.data };
+      this.passOrder(command).then(() => {
+        this.orderSatus.display = true;
+        this.orderSatus.status = "success";
+        this.orderSatus.details = "Commande passée.";
+      });
+      this.reset_cart();
+    }
   },
   data() {
     return {
       select: {},
       isLoaded: false,
-      drawerRight: false
+      drawerRight: false,
+      orderSatus: {
+        display: false,
+        status: "warning",
+        details: ""
+      }
     };
   },
   beforeMount() {
