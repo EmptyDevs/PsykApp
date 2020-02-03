@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 50px">
-    <v-card class="mx-auto" max-width="65%" outlined >
+    <v-card v-if="isLoaded" class="mx-auto" max-width="65%" outlined >
       <v-row align="center" justify="center" style="padding-top: 2%">
         <v-img max-width="80%" src="../assets/menu/top-menu.png" />
       </v-row>
@@ -18,21 +18,28 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
+  data() {
+    return {
+      isLoaded: false,
+    }
+  },
   computed: {
     ...mapGetters({
-      _menu: "stateMenu"
+      _menu: "MenuModule/getMenu"
     })
   },
   methods: {
-    test_firebase() {
-      firebase
-        .database()
-        .ref("/")
-        .set(this.state);
-    }
+    ...mapActions({
+      fetchMenu: "MenuModule/fetchMenu"
+    })
+  },
+  beforeMount() {
+    this.fetchMenu().then(() => {
+      this.isLoaded = true;
+    })
   }
 };
 </script>
