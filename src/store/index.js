@@ -6,19 +6,12 @@ import { UserModule } from './modules/userModule'
 import { CategoryModule } from './modules/categoryModule'
 import { OrderModule } from './modules/orderModule'
 import { MembersModule } from './modules/membersModule'
+import { MenuModule } from './modules/menuModule'
 
 Vue.use(Vuex)
 
 
 const state = {
-  menu: {
-    title: "Saint Valentin",
-    content: [
-      { title: "Entrée", value: "surprise" },
-      { title: "Plat", value: "songe d'une nuit de février" },
-      { title: "Dessert", value: "coeur coulant" },
-    ],
-  },
   cart: [],
 }
 
@@ -43,9 +36,6 @@ const mutations = {
 }
 
 const getters = {
-  stateMenu: state => {
-    return state.menu
-  },
   getCart: state => {
     return state.cart
   }
@@ -73,7 +63,8 @@ const modules = {
   UserModule,
   CategoryModule,
   OrderModule,
-  MembersModule
+  MembersModule,
+  MenuModule
 }
 
 export default new Vuex.Store({
