@@ -144,7 +144,8 @@ export default {
       var command = {
         content: this.cart,
         user: this.user.data,
-        phone_number: this.phoneNumber
+        phone_number: this.phoneNumber,
+        status: 0,
       };
       this.passOrder(command).then(() => {
         this.orderSatus.display = true;
