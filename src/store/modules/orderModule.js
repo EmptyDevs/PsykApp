@@ -39,6 +39,7 @@ const actions = {
     passOrder({ commit }, order) {
         var d = new Date();
         var id = d.getFullYear() + '_' + d.getMonth() + '_' + d.getDay() + '_' + d.getHours() + '_' + d.getMinutes() + '_' + d.getSeconds() + '_' + Math.random().toString(36).substr(2, 25);
+<<<<<<< HEAD
         firebase.database().ref('orders/' + id).set(
             {
                 user: "",
@@ -46,6 +47,9 @@ const actions = {
                 status: 0,
                 items: order
             });
+=======
+        firebase.database().ref('orders/' + id).set(order);
+>>>>>>> abeff810ced911d20c0d89f41624e3e3ed9f81f6
     }
 }
 

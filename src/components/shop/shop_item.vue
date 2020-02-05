@@ -1,6 +1,6 @@
 <template>
   <v-hover v-slot:default="{ hover }">
-    <v-card @load="funcImage" class="mx-auto" color="grey lighten-4" max-width="300">
+    <v-card @load="funcImage" class="mx-auto" color="grey lighten-4" width="20em">
       <v-img :aspect-ratio="16/9" :src="src_url">
         <template v-slot:placeholder>
           <v-row class="fill-height ma-0" align="center" justify="center">
