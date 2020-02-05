@@ -173,12 +173,21 @@ export default {
       phoneNumber: ""
     };
   },
+  watch: {
+    user(newVal, oldVal)
+    {
+      if (newVal.data.phoneNumber)
+      {
+        this.phoneNumber = user.data.phoneNumber;
+      }
+    }
+  },
   beforeMount() {
     this.fetchCategory().then(() => {
       this.select = this.category[0];
       this.isLoaded = true;
     });
     this.fetchOrder();
-  }
+  },
 };
 </script>
