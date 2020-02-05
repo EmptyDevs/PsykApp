@@ -14,14 +14,42 @@
           label="Numéro de téléphone"
         ></v-text-field>
 
-        <v-alert v-if="orderSatus.display" :type="orderSatus.status">{{this.orderSatus.details}}</v-alert>
-        <v-sheet id="scrolling-techniques" class="overflow-y-auto" max-height="600" height="600">
-          <v-list-item v-for="(product, i) in cart" :key="i" link style="padding: 5px">
+        <v-alert v-if="orderSatus.display" :type="orderSatus.status">{{
+          this.orderSatus.details
+        }}</v-alert>
+        <v-sheet
+          id="scrolling-techniques"
+          class="overflow-y-auto"
+          max-height="600"
+          height="600"
+        >
+          <v-list-item
+            v-for="(product, i) in cart"
+            :key="i"
+            link
+            style="padding: 5px"
+          >
             <CartItem :data="product" />
           </v-list-item>
         </v-sheet>
-        <v-btn left absolute text color="grey" class="overline" @click="reset_cart">Vider panier</v-btn>
-        <v-btn right absolute text color="grey" class="overline" @click="command">Commander</v-btn>
+        <v-btn
+          left
+          absolute
+          text
+          color="grey"
+          class="overline"
+          @click="reset_cart"
+          >Vider panier</v-btn
+        >
+        <v-btn
+          right
+          absolute
+          text
+          color="grey"
+          class="overline"
+          @click="command"
+          >Commander</v-btn
+        >
       </v-list>
     </v-navigation-drawer>
     <v-container>
@@ -118,8 +146,7 @@ export default {
       fetchOrder: "OrderModule/fetchOrder"
     }),
     isPhoneNumber(number) {
-      if (number.length != 10)
-        return false;
+      if (number.length != 10) return false;
       for (var i = 0; i < number.length; i++) {
         if (!(number[i] <= "9" && number[i] >= "0")) return false;
       }
@@ -137,18 +164,29 @@ export default {
       if (!this.isPhoneNumber(number)) {
         this.orderSatus.display = true;
         this.orderSatus.status = "error";
-        this.orderSatus.details = "Numéro de téléphone non valide. Il doit être du type 0123456789";
-        this.phoneNumber = ""
+        this.orderSatus.details =
+          "Numéro de téléphone non valide. Il doit être du type 0123456789";
+        this.phoneNumber = "";
         return;
       }
       var d = new Date();
-      var date =  d.getDay()+ '/' + d.getMonth() + '/' + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes();
-      user.phoneNumber = this.phoneNumber;
+      var date =
+        d.getDay() +
+        "/" +
+        d.getMonth() +
+        "/" +
+        d.getFullYear() +
+        " " +
+        d.getHours() +
+        ":" +
+        d.getMinutes();
+      var UserData = this.user.data;
+      UserData.phoneNumber = this.phoneNumber;
       var command = {
         content: this.cart,
         user: this.user.data,
-        date : date,
-        status: 0,
+        date: date,
+        status: 0
       };
       this.passOrder(command).then(() => {
         this.orderSatus.display = true;
@@ -173,21 +211,15 @@ export default {
       phoneNumber: ""
     };
   },
-  watch: {
-    user(newVal, oldVal)
-    {
-      if (newVal.data.phoneNumber)
-      {
-        this.phoneNumber = user.data.phoneNumber;
-      }
-    }
-  },
   beforeMount() {
     this.fetchCategory().then(() => {
       this.select = this.category[0];
       this.isLoaded = true;
     });
     this.fetchOrder();
-  },
+    if (this.user.data.phoneNumber) {
+      this.phoneNumber = this.user.data.phoneNumber;
+    }
+  }
 };
 </script>
