@@ -141,10 +141,13 @@ export default {
         this.phoneNumber = ""
         return;
       }
+      var d = new Date();
+      var date =  d.getDay()+ '/' + d.getMonth() + '/' + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes();
       user.phoneNumber = this.phoneNumber;
       var command = {
         content: this.cart,
         user: this.user.data,
+        date : date,
         status: 0,
       };
       this.passOrder(command).then(() => {
