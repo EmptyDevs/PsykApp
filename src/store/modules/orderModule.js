@@ -26,7 +26,10 @@ const actions = {
             .on(
                 "value",
                 function (snapshot) {
+                    console.log("Val of ")
+                    console.log(JSON.stringify(snapshot.val()))
                     commit("SET_ORDERS", snapshot.val())
+                    console.log("=======")
                 },
                 function (errorObject) {
                     console.log("The read failed: " + errorObject.code);
@@ -36,7 +39,13 @@ const actions = {
     passOrder({ commit }, order) {
         var d = new Date();
         var id = d.getFullYear() + '_' + d.getMonth() + '_' + d.getDay() + '_' + d.getHours() + '_' + d.getMinutes() + '_' + d.getSeconds() + '_' + Math.random().toString(36).substr(2, 25);
-        firebase.database().ref('orders/' + id).set({ user: "", details: "", status: false, items: order });
+        firebase.database().ref('orders/' + id).set(
+            {
+                user: "",
+                details: "",
+                status: 0,
+                items: order
+            });
     }
 }
 
