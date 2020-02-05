@@ -14,14 +14,42 @@
           label="Numéro de téléphone"
         ></v-text-field>
 
-        <v-alert v-if="orderSatus.display" :type="orderSatus.status">{{this.orderSatus.details}}</v-alert>
-        <v-sheet id="scrolling-techniques" class="overflow-y-auto" max-height="600" height="600">
-          <v-list-item v-for="(product, i) in cart" :key="i" link style="padding: 5px">
+        <v-alert v-if="orderSatus.display" :type="orderSatus.status">{{
+          this.orderSatus.details
+        }}</v-alert>
+        <v-sheet
+          id="scrolling-techniques"
+          class="overflow-y-auto"
+          max-height="600"
+          height="600"
+        >
+          <v-list-item
+            v-for="(product, i) in cart"
+            :key="i"
+            link
+            style="padding: 5px"
+          >
             <CartItem :data="product" />
           </v-list-item>
         </v-sheet>
-        <v-btn left absolute text color="grey" class="overline" @click="reset_cart">Vider panier</v-btn>
-        <v-btn right absolute text color="grey" class="overline" @click="command">Commander</v-btn>
+        <v-btn
+          left
+          absolute
+          text
+          color="grey"
+          class="overline"
+          @click="reset_cart"
+          >Vider panier</v-btn
+        >
+        <v-btn
+          right
+          absolute
+          text
+          color="grey"
+          class="overline"
+          @click="command"
+          >Commander</v-btn
+        >
       </v-list>
     </v-navigation-drawer>
     <v-container>
@@ -118,8 +146,7 @@ export default {
       fetchOrder: "OrderModule/fetchOrder"
     }),
     isPhoneNumber(number) {
-      if (number.length != 10)
-        return false;
+      if (number.length != 10) return false;
       for (var i = 0; i < number.length; i++) {
         if (!(number[i] <= "9" && number[i] >= "0")) return false;
       }
@@ -137,15 +164,15 @@ export default {
       if (!this.isPhoneNumber(number)) {
         this.orderSatus.display = true;
         this.orderSatus.status = "error";
-        this.orderSatus.details = "Numéro de téléphone non valide. Il doit être du type 0123456789";
-        this.phoneNumber = ""
+        this.orderSatus.details =
+          "Numéro de téléphone non valide. Il doit être du type 0123456789";
+        this.phoneNumber = "";
         return;
       }
       var command = {
         content: this.cart,
         user: this.user.data,
-        phone_number: this.phoneNumber,
-        status: 0,
+        phone_number: this.phoneNumber
       };
       this.passOrder(command).then(() => {
         this.orderSatus.display = true;
