@@ -1,42 +1,85 @@
 <template>
-    <v-card v-if="isLoaded" class="mx-auto" flat>
-        <v-btn @click="lol" text>click</v-btn>
-        <v-card-text>Offers</v-card-text>
-        <v-list three-line nav>
-            <v-subheader>Commandes</v-subheader>
-        </v-list>
-    </v-card>
-    <v-text-field v-else color="success" loading disabled></v-text-field>
+  <v-card class="mx-auto" flat outlined height="100%" width="98%%">
+    <v-card-text>
+      <h1 class="font-weight-bold">Feed des commandes</h1>
+      <v-simple-table fixed-header :loading="loading">
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left">Name</th>
+              <th class="text-left">Calories</th>
+              <th class="text-left">Calories</th>
+              <th class="text-left">Calories</th>
+              <th class="text-left"></th>
+              <th class="text-left">Status</th>
+              <th class="text-left">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in orders" :key="item.name">
+              <td>{{ item.id }}</td>
+              <td>{{ item.date }}</td>
+              <td>{{ item.content.length }} items</td>
+              <td>{{ item.user.phone_number }}</td>
+              <td>
+                <span v-if="item.status == 0">En Attente</span>
+                <span v-if="item.status == 1">En Cours</span>
+                <span v-if="item.status == 2">Completée</span>
+              </td>
+              <td>
+                <v-tooltip right>
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      color="primary"
+                      icon
+                      dark
+                      v-on="on"
+                      @click.stop="console.log(item.name)"
+                      ><v-icon>card-search</v-icon></v-btn
+                    >
+                  </template>
+                  <span>Review</span>
+                </v-tooltip>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+
 export default {
-    computed: {
-        ...mapGetters({
-            getOrder: "OrderModule/getOrder"
-        })
-    },
-    methods: {
-        ...mapActions({
-            fetchOrder: "OrderModule/fetchOrder"
-        }),
-        lol() {
-            console.log("lol");
-            console.log(JSON.stringify(getOrder));
-        }
-    },
-    data() {
-        return {
-            isLoaded: false
-        };
-    },
-    computed: {},
-    beforeMount() {
-        this.fetchOrder().then(() => {
-            this.isLoaded = true;
-            console.log(this.getOrder);
-        });
+  data() {
+    return {
+      loading: true
+    };
+  },
+  computed: {
+    ...mapGetters({
+      orders: "OrderModule/getOrder"
+    })
+  },
+  watch: {
+    orders(newVal, oldVal) {
+      console.log("Orders fetched");
+      console.log(JSON.stringify(newVal));
+      this.loading = false;
     }
+  },
+  methods: {
+    ...mapActions({
+      fetchOrder: "OrderModule/fetchOrder"
+    }),
+  },
+  created() {
+    this.loading = true;
+  },
+  beforeMount() {
+    this.fetchOrder();
+  }
 };
 </script>

@@ -77,13 +77,6 @@ export default {
           {
             provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID
           },
-          {
-            provider: "microsoft.com",
-            loginHintKey: "login_hint"
-          },
-          {
-            provider: "apple.com"
-          }
         ]
       };
     }
