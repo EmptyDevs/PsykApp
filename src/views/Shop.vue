@@ -1,6 +1,6 @@
 <template>
   <v-container id="lateral">
-    <v-navigation-drawer v-model="drawerRight" app clipped right>
+    <v-navigation-drawer v-model="drawerRight" app clipped temporary right>
       <v-list dense class="inline">
         <v-list-item>
           <v-list-item-title>Panier</v-list-item-title>
@@ -14,42 +14,14 @@
           label="Numéro de téléphone"
         ></v-text-field>
 
-        <v-alert v-if="orderSatus.display" :type="orderSatus.status">{{
-          this.orderSatus.details
-        }}</v-alert>
-        <v-sheet
-          id="scrolling-techniques"
-          class="overflow-y-auto"
-          max-height="600"
-          height="600"
-        >
-          <v-list-item
-            v-for="(product, i) in cart"
-            :key="i"
-            link
-            style="padding: 5px"
-          >
+        <v-alert v-if="orderSatus.display" :type="orderSatus.status">{{this.orderSatus.details}}</v-alert>
+        <v-sheet id="scrolling-techniques" class="overflow-y-auto" max-height="500px">
+          <v-list-item v-for="(product, i) in cart" :key="i" link style="padding: 5px">
             <CartItem :data="product" />
           </v-list-item>
         </v-sheet>
-        <v-btn
-          left
-          absolute
-          text
-          color="grey"
-          class="overline"
-          @click="reset_cart"
-          >Vider panier</v-btn
-        >
-        <v-btn
-          right
-          absolute
-          text
-          color="grey"
-          class="overline"
-          @click="command"
-          >Commander</v-btn
-        >
+        <v-btn left bottom absolute text color="black" class="overline" @click="reset_cart">Vider panier</v-btn>
+        <v-btn right bottom absolute text color="black" class="overline" to="shop/order">Commander</v-btn>
       </v-list>
     </v-navigation-drawer>
     <v-container>
@@ -102,7 +74,7 @@
       right
       class="v-btn--example"
       color="#7DBF73"
-      @click="drawerRight = !drawerRight"
+      to="shop/order"
     >
       <v-icon>mdi-cart</v-icon>
     </v-btn>
@@ -146,56 +118,44 @@ export default {
       fetchOrder: "OrderModule/fetchOrder"
     }),
     isPhoneNumber(number) {
-      if (number.length != 10) return false;
+      if (number.length != 10)
+        return false;
       for (var i = 0; i < number.length; i++) {
         if (!(number[i] <= "9" && number[i] >= "0")) return false;
       }
       return true;
     },
     command() {
-      var number = this.phoneNumber;
-      if (!number) {
-        this.orderSatus.display = true;
-        this.orderSatus.status = "error";
-        this.orderSatus.details =
-          "Tu n'as pas renseigné ton numéro de téléphone. Tu ne peux donc pas commander.";
-        return;
-      }
-      if (!this.isPhoneNumber(number)) {
-        this.orderSatus.display = true;
-        this.orderSatus.status = "error";
-        this.orderSatus.details =
-          "Numéro de téléphone non valide. Il doit être du type 0123456789";
-        this.phoneNumber = "";
-        return;
-      }
-      var d = new Date();
-      var date =
-        d.getDay() +
-        "/" +
-        d.getMonth() +
-        "/" +
-        d.getFullYear() +
-        " " +
-        d.getHours() +
-        ":" +
-        d.getMinutes();
-      var UserData = this.user.data;
-      UserData.phoneNumber = this.phoneNumber;
+      // var number = this.phoneNumber;
+      // if (!number) {
+      //   this.orderSatus.display = true;
+      //   this.orderSatus.status = "error";
+      //   this.orderSatus.details =
+      //     "Tu n'as pas renseigné ton numéro de téléphone. Tu ne peux donc pas commander.";
+      //   return;
+      // }
+      // if (!this.isPhoneNumber(number)) {
+      //   this.orderSatus.display = true;
+      //   this.orderSatus.status = "error";
+      //   this.orderSatus.details = "Numéro de téléphone non valide. Il doit être du type 0123456789";
+      //   this.phoneNumber = ""
+      //   return;
+      // }
+      user.phoneNumber = this.phoneNumber;
       var command = {
         content: this.cart,
         user: this.user.data,
-        date: date,
-        status: 0
+        status: 0,
       };
       this.passOrder(command).then(() => {
-        this.orderSatus.display = true;
-        this.orderSatus.status = "success";
-        this.orderSatus.details =
-          "Commande passée. Nous allons bientôt revenir vers toi !";
-        this.phoneNumber = "";
+        this.reset_cart();
+        // this.orderSatus.display = true;
+        // this.orderSatus.status = "success";
+        // this.orderSatus.details =
+        //   "Commande passée. Nous allons bientôt revenir vers toi !";
+        // this.phoneNumber = "";
       });
-      this.reset_cart();
+      
     }
   },
   data() {
@@ -217,9 +177,6 @@ export default {
       this.isLoaded = true;
     });
     this.fetchOrder();
-    if (this.user.data.phoneNumber) {
-      this.phoneNumber = this.user.data.phoneNumber;
-    }
   }
 };
 </script>
