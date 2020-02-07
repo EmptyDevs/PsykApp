@@ -29,7 +29,7 @@
         <v-row style="padding-bottom: 50px">
           <v-col xs="1" lg="10">
             <v-container>
-              <v-tab max-width="25%" class="font-weight-thin">
+              <v-tab max-width="25%" class="font-weight-light">
                 <v-select
                   v-model="select"
                   :items="category"

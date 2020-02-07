@@ -11,7 +11,7 @@
           <p class="headline font-weight-light">
             Venue de votre imagination la plus profonde, la
             <span
-              class="font-weight-medium indigo--text text--darken-4"
+              class="font-weight-medium teal--text text--accent-3"
             >PSYK</span> est prête à vous faire rêver,
             mais prenez garde, elle peut aussi devenir votre pire cauchemar..
             <br />Plongés entre réalité et mirage, entre songe et délire, les 27 membres
@@ -21,10 +21,10 @@
             rongeant leur cerveau avec des cauchemars qui ne cessent de les hanter.
             <br />
             <br />Soyez attentif,
-            <span class="font-weight-medium indigo--text text--darken-4">P</span>ower
-            <span class="font-weight-medium indigo--text text--darken-4">S</span>leeps in
-            <span class="font-weight-medium indigo--text text--darken-4">Y</span>our Imaginary
-            <span class="font-weight-medium indigo--text text--darken-4">K</span>ingdom.
+            <span class="font-weight-medium teal--text text--accent-3">P</span>ower
+            <span class="font-weight-medium teal--text text--accent-3">S</span>leeps in
+            <span class="font-weight-medium teal--text text--accent-3">Y</span>our Imaginary
+            <span class="font-weight-medium teal--text text--accent-3">K</span>ingdom.
           </p>
         </v-list-item-content>
       </v-card>
@@ -32,7 +32,7 @@
     <br />
     <br />
     <br />
-    <v-container class="grey lighten-5">
+    <v-container fluid class="grey lighten-5">
       <v-row style="padding:20px">
         <v-col xs="2" md="5" lg="3" xl="3" v-for="(vals, i) in member" :key="i" link>
           <MemberItem :data="vals" />
