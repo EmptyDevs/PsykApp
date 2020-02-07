@@ -2,7 +2,7 @@ import * as firebase from "firebase";
 
 
 const state = {
-    orders: [],
+    orders: undefined,
 }
 
 const mutations = {
@@ -19,10 +19,11 @@ const getters = {
 
 const actions = {
     fetchOrder({ commit }) {
+        console.log(">> fetchorder")
         firebase
             .database()
             .ref("/orders")
-            .once(
+            .on(
                 "value",
                 function (snapshot) {
                     console.log("Val of ")
