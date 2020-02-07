@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <v-card class="mx-auto" flat outlined height="100%" width="98%%">
     <v-card-text>
       <h1 class="font-weight-bold">Feed des commandes</h1>
@@ -47,15 +46,10 @@
         </template>
       </v-simple-table>
     </v-card-text>
-=======
-  <v-card class="mx-auto" flat>
-    <v-card-text>Offers</v-card-text>
->>>>>>> parent of b326ab7... okok
   </v-card>
 </template>
 
 <script>
-<<<<<<< HEAD
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -87,9 +81,5 @@ export default {
   beforeMount() {
     this.fetchOrder();
   }
-=======
-
-export default {
->>>>>>> parent of b326ab7... okok
 };
 </script>

@@ -7,6 +7,9 @@
       <v-btn to="/menu" icon color="#fff">
         <v-icon>mdi-food-fork-drink</v-icon>
       </v-btn>
+      <v-btn to="/menu" icon color="#fff">
+        <v-icon>mdi-food</v-icon>
+      </v-btn>
       <v-btn to="/shop" icon color="#fff">
         <v-icon>mdi-cart</v-icon>
       </v-btn>

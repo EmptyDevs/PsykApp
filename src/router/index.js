@@ -83,13 +83,7 @@ const routes = [
 		component: loadView('ManagementSettings'),
 		meta: {
 			admin: true
-		},
-		
-	},
-	{
-		path: '/shop/order',
-		name: 'Order',
-		component: loadView('Order')
+		}
 	},
 	{
 		path: '*',
