@@ -1,14 +1,4 @@
 <template>
-<<<<<<< HEAD
-    <v-container id="lateral">
-        <v-navigation-drawer v-model="drawerRight" app clipped right>
-            <v-list dense class="inline">
-                <v-list-item>
-                    <v-list-item-title>Panier</v-list-item-title>
-                </v-list-item>
-                <v-text-field
-                    style="
-=======
   <v-container id="lateral">
     <v-navigation-drawer v-model="drawerRight" app clipped temporary right>
       <v-list dense class="inline">
@@ -17,7 +7,6 @@
         </v-list-item>
         <v-text-field
           style="
->>>>>>> fa0a206f2e3b29abd4b2e25b6c30fe409817ce6b
         padding: 10px
         "
                     v-model="phoneNumber"
@@ -90,8 +79,6 @@
             <v-icon>mdi-cart</v-icon>
         </v-btn>
     </v-container>
-<<<<<<< HEAD
-=======
     <v-btn
       fab
       large
@@ -107,7 +94,6 @@
       <v-icon>mdi-cart</v-icon>
     </v-btn>
   </v-container>
->>>>>>> fa0a206f2e3b29abd4b2e25b6c30fe409817ce6b
 </template>
 
 <style>
@@ -131,82 +117,6 @@ export default {
         ServiceItem,
         CartItem
     },
-<<<<<<< HEAD
-    computed: {
-        ...mapGetters({
-            category: "CategoryModule/getCategory",
-            cart: "getCart",
-            getOrder: "OrderModule/getOrder",
-            user: "UserModule/getUser"
-        })
-    },
-    methods: {
-        ...mapActions({
-            reset_cart: "reset_cart",
-            fetchCategory: "CategoryModule/fetchCategory",
-            set_cart_id: "set_cart_id",
-            passOrder: "OrderModule/passOrder",
-            fetchOrder: "OrderModule/fetchOrder"
-        }),
-        isPhoneNumber(number) {
-            if (number.length != 10) return false;
-            for (var i = 0; i < number.length; i++) {
-                if (!(number[i] <= "9" && number[i] >= "0")) return false;
-            }
-            return true;
-        },
-        command() {
-            var number = this.phoneNumber;
-            if (!number) {
-                this.orderSatus.display = true;
-                this.orderSatus.status = "error";
-                this.orderSatus.details =
-                    "Tu n'as pas renseigné ton numéro de téléphone. Tu ne peux donc pas commander.";
-                return;
-            }
-            if (!this.isPhoneNumber(number)) {
-                this.orderSatus.display = true;
-                this.orderSatus.status = "error";
-                this.orderSatus.details =
-                    "Numéro de téléphone non valide. Il doit être du type 0123456789";
-                this.phoneNumber = "";
-                return;
-            }
-            var command = {
-                content: this.cart,
-                user: this.user.data,
-                phone_number: this.phoneNumber
-            };
-            this.passOrder(command).then(() => {
-                this.orderSatus.display = true;
-                this.orderSatus.status = "success";
-                this.orderSatus.details =
-                    "Commande passée. Nous allons bientôt revenir vers toi !";
-                this.phoneNumber = "";
-            });
-            this.reset_cart();
-        }
-    },
-    data() {
-        return {
-            select: {},
-            isLoaded: false,
-            drawerRight: false,
-            orderSatus: {
-                display: false,
-                status: "warning",
-                details: ""
-            },
-            phoneNumber: ""
-        };
-    },
-    beforeMount() {
-        this.fetchCategory().then(() => {
-            this.select = this.category[0];
-            this.isLoaded = true;
-        });
-        this.fetchOrder();
-=======
     command() {
       // var number = this.phoneNumber;
       // if (!number) {
@@ -238,7 +148,6 @@ export default {
         // this.phoneNumber = "";
       });
       
->>>>>>> fa0a206f2e3b29abd4b2e25b6c30fe409817ce6b
     }
 };
 </script>
