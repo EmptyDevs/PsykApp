@@ -26,10 +26,7 @@ const actions = {
             .on(
                 "value",
                 function (snapshot) {
-                    console.log("Val of ")
-                    console.log(JSON.stringify(snapshot.val()))
                     commit("SET_ORDERS", snapshot.val())
-                    console.log("=======")
                 },
                 function (errorObject) {
                     console.log("The read failed: " + errorObject.code);

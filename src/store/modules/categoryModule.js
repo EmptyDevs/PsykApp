@@ -20,7 +20,6 @@ const getters = {
 const actions = {
     fetchCategory({ commit }) {
         return firebase.database().ref('/category').once('value').then(function (snapshot) {
-            console.log("Fetch done");
             commit("SET_CATEGORY", snapshot.val());
         });
     }

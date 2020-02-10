@@ -9,11 +9,9 @@ const state = {
 const mutations = {
 	SET_LOGGED_IN(state, value) {
 		state.user.is_logged_in = value;
-		console.log("Logged in : " + value)
 	},
 	SET_USER(state, data) {
 		state.user.data = data;
-		console.log("User Data initialized")
 	},
 	SET_ADMIN(state, data) {
 		state.admin = data;
@@ -24,12 +22,11 @@ const getters = {
 	getUser: state => state.user,
 	getUserLog: state => state.user.is_logged_in,
 	getUserData: state => state.user.data,
-	getAdminStatus : state => state.admin,
+	getAdminStatus: state => state.admin,
 }
 
 const actions = {
 	fetchUser({ commit }, user) {
-		console.log("User fecth")
 		commit("SET_LOGGED_IN", user !== null);
 		if (user) {
 			commit("SET_USER", {

@@ -85,6 +85,7 @@
         </v-container>
 
         <v-btn
+            v-if="cart.length > 0"
             fab
             large
             dark

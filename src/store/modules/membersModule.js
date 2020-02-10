@@ -19,7 +19,6 @@ const getters = {
 
 const actions = {
     fetchMembers({ commit }) {
-        console.log("[membersModule] > fetch done")
         return firebase.database().ref('/members').once('value').then(function (snapshot) {
             commit("SET_CATEGORY", snapshot.val());
         });
