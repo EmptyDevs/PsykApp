@@ -144,21 +144,6 @@ export default {
             return true;
         },
         command() {
-            // var number = this.phoneNumber;
-            // if (!number) {
-            //   this.orderSatus.display = true;
-            //   this.orderSatus.status = "error";
-            //   this.orderSatus.details =
-            //     "Tu n'as pas renseigné ton numéro de téléphone. Tu ne peux donc pas commander.";
-            //   return;
-            // }
-            // if (!this.isPhoneNumber(number)) {
-            //   this.orderSatus.display = true;
-            //   this.orderSatus.status = "error";
-            //   this.orderSatus.details = "Numéro de téléphone non valide. Il doit être du type 0123456789";
-            //   this.phoneNumber = ""
-            //   return;
-            // }
             user.phoneNumber = this.phoneNumber;
             var command = {
                 content: this.cart,
@@ -167,11 +152,6 @@ export default {
             };
             this.passOrder(command).then(() => {
                 this.reset_cart();
-                // this.orderSatus.display = true;
-                // this.orderSatus.status = "success";
-                // this.orderSatus.details =
-                //   "Commande passée. Nous allons bientôt revenir vers toi !";
-                // this.phoneNumber = "";
             });
         }
     },
