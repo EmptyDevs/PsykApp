@@ -1,57 +1,118 @@
 <template>
     <v-content>
         <v-container fluid>
-            <v-card class="mx-auto" color="#7DBF73" dark max-width="1000">
-                <v-alert
-                    v-if="orderSatus.display"
-                    :type="orderSatus.status"
-                >{{this.orderSatus.details}}</v-alert>
-                <v-card-title>
-                    <v-btn icon to="/shop">
-                        <v-icon>mdi-arrow-left</v-icon>
-                    </v-btn>
-                    <v-spacer />
-                    <span class="overline font-weight-regular">Panier</span>
-                </v-card-title>
+            <v-alert v-if="orderSatus.display" :type="orderSatus.status">{{this.orderSatus.details}}</v-alert>
+            <v-row>
+                <v-col cols="12" md="6">
+                    <v-card class="mx-auto" color="#7DBF73" dark max-width="1000">
+                        <v-card-title>
+                            <v-btn icon to="/shop">
+                                <v-icon>mdi-arrow-left</v-icon>
+                            </v-btn>
+                            <v-spacer />
+                            <span class="overline font-weight-regular">Panier</span>
+                        </v-card-title>
 
-                <v-container>
-                    <v-list-item v-for="(product, i) in cart" :key="i" link style="padding: 5px">
-                        <CartItem :data="product" />
-                    </v-list-item>
-                </v-container>
+                        <v-container>
+                            <v-list-item
+                                v-for="(product, i) in cart"
+                                :key="i"
+                                link
+                                style="padding: 5px"
+                            >
+                                <CartItem :data="product" />
+                            </v-list-item>
+                        </v-container>
 
-                <v-card-actions>
-                    <v-list-item class="grow">
-                        <v-list-item-avatar color="grey darken-3">
-                            <v-img class="elevation-6" :src="user.data.photo"></v-img>
-                        </v-list-item-avatar>
+                        <v-card-actions>
+                            <v-list-item class="grow">
+                                <v-row align="center" justify="end">
+                                    <v-tooltip right>
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn
+                                                icon
+                                                large
+                                                target="_blank"
+                                                v-on="on"
+                                                @click="reset_cart"
+                                            >
+                                                <v-icon large>mdi-delete</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <span>Vider le panier</span>
+                                    </v-tooltip>
+                                    <span class="mr-1">·</span>
+                                    <v-tooltip right>
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn
+                                                icon
+                                                large
+                                                target="_blank"
+                                                v-on="on"
+                                                @click="command"
+                                            >
+                                                <v-icon large>mdi-export</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <span>Commander</span>
+                                    </v-tooltip>
+                                </v-row>
+                            </v-list-item>
+                        </v-card-actions>
+                    </v-card>
+                </v-col>
 
-                        <v-list-item-content>
-                            <v-list-item-title>{{user.data.displayName}}</v-list-item-title>
-                        </v-list-item-content>
+                <v-col cols="12" md="6">
+                    <v-card class="mx-auto" color="#7DBF73" dark max-width="1000">
+                        <v-card-title>
+                            <v-list-item-avatar color="grey darken-3">
+                                <v-img class="elevation-6" :src="user.data.photo"></v-img>
+                            </v-list-item-avatar>
 
-                        <v-row align="center" justify="end">
-                            <v-tooltip right>
-                                <template v-slot:activator="{ on }">
-                                    <v-btn icon large target="_blank" v-on="on" @click="reset_cart">
-                                        <v-icon large>mdi-delete</v-icon>
-                                    </v-btn>
-                                </template>
-                                <span>Vider le panier</span>
-                            </v-tooltip>
-                            <span class="mr-1">·</span>
-                            <v-tooltip right>
-                                <template v-slot:activator="{ on }">
-                                    <v-btn icon large target="_blank" v-on="on" @click="command">
-                                        <v-icon large>mdi-export</v-icon>
-                                    </v-btn>
-                                </template>
-                                <span>Commander</span>
-                            </v-tooltip>
-                        </v-row>
-                    </v-list-item>
-                </v-card-actions>
-            </v-card>
+                            <v-list-item-content>
+                                <v-list-item-title>{{user.data.displayName}}</v-list-item-title>
+                            </v-list-item-content>
+                            <v-spacer />
+                            <span class="overline font-weight-regular">Informations</span>
+                        </v-card-title>
+
+                        <v-container>
+                            <v-list>
+                                <v-list-item>
+                                    <v-text-field
+                                        style="padding-left: 10px"
+                                        v-model="phoneNumber"
+                                        label="Numéro de tel"
+                                        required
+                                    ></v-text-field>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-text-field
+                                        style="padding-left: 10px"
+                                        v-model="address"
+                                        label="Adresse"
+                                        required
+                                    ></v-text-field>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-text-field
+                                        style="padding-left: 10px"
+                                        v-model="address_postal"
+                                        label="Code postale"
+                                        required
+                                    ></v-text-field>
+                                    <v-text-field
+                                        style="padding-left: 10px"
+                                        v-model="address_city"
+                                        label="Ville"
+                                        required
+                                    ></v-text-field>
+                                </v-list-item>
+                            </v-list>
+                        </v-container>
+                    </v-card>
+                </v-col>
+            </v-row>
         </v-container>
     </v-content>
 </template>
@@ -86,15 +147,14 @@ export default {
             }
             return true;
         },
-        command() {
+        check_phone_number() {
             var number = this.phoneNumber;
-            //TO DO
             if (!number) {
                 this.orderSatus.display = true;
                 this.orderSatus.status = "error";
                 this.orderSatus.details =
                     "Tu n'as pas renseigné ton numéro de téléphone. Tu ne peux donc pas commander.";
-                return;
+                return false;
             }
             if (!this.isPhoneNumber(number)) {
                 this.orderSatus.display = true;
@@ -102,20 +162,65 @@ export default {
                 this.orderSatus.details =
                     "Numéro de téléphone non valide. Il doit être du type 0123456789";
                 this.phoneNumber = "";
-                return;
+                return false;
             }
+            return true;
+        },
+        check_address() {
+            if (!this.address || !this.address_postal || !this.address_city) {
+                this.orderSatus.display = true;
+                this.orderSatus.status = "error";
+                this.orderSatus.details = "Ton adresse n'est pas complète.";
+                return false;
+            }
+            if (this.address_postal.length != 5) {
+                this.orderSatus.display = true;
+                this.orderSatus.status = "error";
+                this.orderSatus.details =
+                    "Code postale non valide. Il doit être du type '12345'";
+                return false;
+            }
+            return true;
+        },
+        getDate() {
+            var d = new Date();
+            var r =
+                d.getDate() +
+                "/" +
+                d.getMonth() +
+                "/" +
+                d.getFullYear() +
+                " " +
+                d.getHours() +
+                ":" +
+                d.getMinutes();
+            return r;
+        },
+        command() {
+            if (!this.check_phone_number()) return;
+            if (!this.check_address()) return;
+            this.user.data.phoneNumber = this.phoneNumber;
+            var addr = {
+                steetname: this.address,
+                postcode: this.address_postal,
+                city: this.address_city
+            };
+
             var command = {
+                id: 1,
                 content: order_service.format_cart(this.cart),
                 user: this.user.data,
+                address: addr,
+                date: this.getDate(),
                 status: 0
             };
+            console.log(JSON.stringify(command));
             this.passOrder(command).then(() => {
                 this.reset_cart();
                 this.orderSatus.display = true;
                 this.orderSatus.status = "success";
                 this.orderSatus.details =
                     "Commande passée. Nous allons bientôt revenir vers toi !";
-                this.phoneNumber = "";
             });
         }
     },
@@ -126,8 +231,14 @@ export default {
                 status: "warning",
                 details: ""
             },
-            phoneNumber: ""
+            phoneNumber: "",
+            address: "",
+            address_postal: "",
+            address_city: ""
         };
+    },
+    beforeMount() {
+        this.phoneNumber = this.user.data.phoneNumber;
     },
     props: {
         source: String

@@ -19,6 +19,7 @@ export async function set_order_status(user_uid) {
     return boolAdmin;
 }
 
+//order.vue
 export function format_cart(cart) {
     var formated_cart = {}
     var items = []
@@ -28,4 +29,8 @@ export function format_cart(cart) {
     formated_cart.length = i;
     formated_cart.items = items;
     return formated_cart;
+}
+
+export function format_user(user) {
+    console.log(JSON.stringify(user));
 }
