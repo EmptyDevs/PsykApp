@@ -37,7 +37,7 @@
                                 <v-btn color="success" icon @click="seeDetail(item.id)">
                                     <v-icon>mdi-check</v-icon>
                                 </v-btn>
-                                <v-btn color="primary" icon @click="seeDetail(item.id)">
+                                <v-btn color="primary" icon @click="seeDetails(item)">
                                     <v-icon>mdi-card-search</v-icon>
                                 </v-btn>
                             </td>
@@ -46,16 +46,24 @@
                 </template>
             </v-simple-table>
         </v-card-text>
+        <OrderDetails v-model="dialog" :order="selectOrder"></OrderDetails>
     </v-card>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import OrderDetails from '../components/order_details'
 
 export default {
+    components :
+    {
+        OrderDetails
+    },
     data() {
         return {
-            loading: true
+            loading: true,
+            dialog: false,
+            selectOrder : {}
         };
     },
     computed: {
@@ -73,7 +81,16 @@ export default {
     methods: {
         ...mapActions({
             fetchOrder: "OrderModule/fetchOrder"
-        })
+        }),
+        seeDetails(order)
+        {
+            console.log("seeDetails")
+            //console.log(JSON.stringify(order))
+            this.dialog = false;
+            this.selectOrder = Object.assign(this.selectOrder, order);
+            this.dialog = true;
+            console.log(JSON.stringify(this.selectOrder))
+        }
     },
     created() {
         this.loading = true;

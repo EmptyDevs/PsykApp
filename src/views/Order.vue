@@ -8,7 +8,7 @@
             <v-icon>mdi-arrow-left</v-icon>
           </v-btn>
           <v-spacer />
-          <span class="overline font-weight-light">Panier</span>
+          <span class="overline font-weight-regular">Panier</span>
         </v-card-title>
 
         <v-container>
