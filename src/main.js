@@ -7,6 +7,22 @@ import vuetify from './plugins/vuetify';
 import * as firebase from "firebase";
 import * as auth from "./services/auth";
 
+import colors from 'vuetify/lib/util/colors'
+
+Vue.use(Vuetify)
+
+export default new Vuetify({
+  theme: {
+    themes: {
+      light: {
+        primary: colors.red.darken1, // #E53935
+        secondary: colors.red.lighten4, // #FFCDD2
+        accent: colors.indigo.base, // #3F51B5
+      },
+    },
+  },
+})
+
 const configOptions = {
 	apiKey: "AIzaSyAMK_HQ2T_Nto2sWG5n4hLu4-85iRuuLF8",
 	authDomain: "pyskapp.firebaseapp.com",
@@ -45,14 +61,6 @@ new Vue({
 		}
 	},
 	created() {
-		// var user = this.initAuth().then(user => {
-		//   if (user != null || user != undefined) {
-		//     console.log("Return of promise :" + JSON.stringify(user.uid));
-		//     return user;
-		//   } else {
-		//     return null;
-		//   }
-		// })
 		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
 				//console.log("APP login --SUCCESS-- DISPATCHING FETCH")
@@ -68,7 +76,6 @@ new Vue({
 						store.dispatch('UserModule/fetchUser', user)
 				})
 			} else {
-				//console.log("APP login --FAIL-- DISPATCHING FETCH")
 				store.dispatch('UserModule/fetchUser', null)
 			}
 		})

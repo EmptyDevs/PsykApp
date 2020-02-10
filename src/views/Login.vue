@@ -16,7 +16,8 @@
                 style="margin-left: 10%; margin-right: 10%;"
               >
                 <v-card-title style="text-align:center">
-                  Bienvenue à la semaine SOS de la liste Psyk</v-card-title
+                  Bienvenue à la semaine SOS de la liste Psyk
+                </v-card-title
                 >
                 <v-card-text>
                   <v-form>
@@ -72,22 +73,15 @@ export default {
           },
           {
             provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-            scopes: ["public_profile", "email", "user_likes", "user_friends"]
+            scopes: ["public_profile", "email"]
           },
           {
-            provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID
+            provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+            defaultCountry: 'FR'
           },
         ]
       };
     }
-    var uiConfig = {
-      signInSuccessUrl: "/",
-      signInOptions: [
-        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.PhoneAuthProvider.PROVIDER_ID
-      ]
-    };
     ui.start("#firebaseui-auth-container", getUiConfig());
   }
 };
