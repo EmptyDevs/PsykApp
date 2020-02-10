@@ -38,8 +38,9 @@ const actions = {
     },
     passOrder({ commit }, order) {
         var d = new Date();
-        var id = d.getFullYear() + '_' + d.getMonth() + '_' + d.getDay() + '_' + d.getHours() + '_' + d.getMinutes() + '_' + d.getSeconds() + '_' + Math.random().toString(36).substr(2, 25);
-        firebase.database().ref('orders/' + id).set(order);
+        var id = d.getDay() + '_' + d.getHours() + '_' + d.getMinutes() + '_' + d.getSeconds() + '_' + Math.random().toString(36).substr(2, 25);
+        order.id = id;
+        firebase.database().ref('orders/').push(order);
     }
 }
 

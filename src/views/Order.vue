@@ -207,7 +207,7 @@ export default {
             };
 
             var command = {
-                id: 1,
+                id: null,
                 content: order_service.format_cart(this.cart),
                 user: this.user.data,
                 address: addr,
