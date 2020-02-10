@@ -30,7 +30,3 @@ export function format_cart(cart) {
     formated_cart.items = items;
     return formated_cart;
 }
-
-export function format_user(user) {
-    console.log(JSON.stringify(user));
-}
