@@ -4,13 +4,20 @@
             <v-alert v-if="orderSatus.display" :type="orderSatus.status">{{this.orderSatus.details}}</v-alert>
             <v-row>
                 <v-col cols="12" md="6">
-                    <v-card class="mx-auto" color="#7DBF73" dark max-width="1000">
+                    <v-card class="mx-auto" color="#7DBF73" dark height="100%">
                         <v-card-title>
                             <v-btn icon to="/shop">
                                 <v-icon>mdi-arrow-left</v-icon>
                             </v-btn>
                             <v-spacer />
-                            <span class="overline font-weight-regular">Panier</span>
+                            <v-tooltip right>
+                                <template v-slot:activator="{ on }">
+                                    <v-btn icon large target="_blank" v-on="on" @click="reset_cart">
+                                        <v-icon large>mdi-delete</v-icon>
+                                    </v-btn>
+                                </template>
+                                <span>Vider le panier</span>
+                            </v-tooltip>
                         </v-card-title>
 
                         <v-container>
@@ -23,42 +30,6 @@
                                 <CartItem :data="product" />
                             </v-list-item>
                         </v-container>
-
-                        <v-card-actions>
-                            <v-list-item class="grow">
-                                <v-row align="center" justify="end">
-                                    <v-tooltip right>
-                                        <template v-slot:activator="{ on }">
-                                            <v-btn
-                                                icon
-                                                large
-                                                target="_blank"
-                                                v-on="on"
-                                                @click="reset_cart"
-                                            >
-                                                <v-icon large>mdi-delete</v-icon>
-                                            </v-btn>
-                                        </template>
-                                        <span>Vider le panier</span>
-                                    </v-tooltip>
-                                    <span class="mr-1">·</span>
-                                    <v-tooltip right>
-                                        <template v-slot:activator="{ on }">
-                                            <v-btn
-                                                icon
-                                                large
-                                                target="_blank"
-                                                v-on="on"
-                                                @click="command"
-                                            >
-                                                <v-icon large>mdi-export</v-icon>
-                                            </v-btn>
-                                        </template>
-                                        <span>Commander</span>
-                                    </v-tooltip>
-                                </v-row>
-                            </v-list-item>
-                        </v-card-actions>
                     </v-card>
                 </v-col>
 
@@ -112,10 +83,31 @@
                         </v-container>
                     </v-card>
                 </v-col>
+
+                <v-btn
+                    large
+                    dark
+                    bottom
+                    fixed
+                    absolute
+                    right
+                    class="v-btn--example"
+                    color="#7DBF73"
+                    @click="command"
+                >
+                    <v-icon left>mdi-check</v-icon>Commander
+                </v-btn>
             </v-row>
         </v-container>
     </v-content>
 </template>
+<style>
+/* This is for documentation purposes and will not be needed in your application */
+.v-btn--example {
+    bottom: 0;
+    margin: 0 0 50px 16px;
+}
+</style>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
@@ -197,6 +189,12 @@ export default {
             return r;
         },
         command() {
+            if (this.cart.length == 0) {
+                this.orderSatus.display = true;
+                this.orderSatus.status = "error";
+                this.orderSatus.details = "Panier vide";
+                return;
+            }
             if (!this.check_phone_number()) return;
             if (!this.check_address()) return;
             this.user.data.phoneNumber = this.phoneNumber;
