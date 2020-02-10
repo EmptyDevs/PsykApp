@@ -39,7 +39,7 @@ const actions = {
     passOrder({ commit }, order) {
         var d = new Date();
         var id = d.getFullYear() + '_' + d.getMonth() + '_' + d.getDay() + '_' + d.getHours() + '_' + d.getMinutes() + '_' + d.getSeconds() + '_' + Math.random().toString(36).substr(2, 25);
-        var date = d.getDay() + '/' + d.getMonth() + '/' + + d.getFullYear() ' ' + d.getHours() + ':' + d.getMinutes(); 
+        var date = d.getDay() + '/' + d.getMonth() + '/' + + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes();
         order.date = date;
         var newKey = firebase.database().ref('orders/').push().key;
         console.log("New key is " + newKey)

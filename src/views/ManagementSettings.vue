@@ -28,18 +28,18 @@ export default {
   },
   methods: {
     createTotalOrder() {
-      var db = firebase.firestore()
+      var db = firebase.database()
       var res = order.createCounter(db.collection("counters").doc(), 10);
       console.log("Res from creating counter : " + JSON.stringify(res));
       return;
     },
     IncrementCounter() {
-      var db = firebase.firestore()
+      var db = firebase.database()
       let ref = db.collection("counters").doc();
       return order.incrementCounter(db, ref, 10);
     },
     UpdateCounter() {
-      var db = firebase.firestore();
+      var db = firebase.database()
       let ref = db.collection('counters').doc();
       var res = order.getCount(ref);
       this.counter = res;
