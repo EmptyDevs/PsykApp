@@ -1,7 +1,7 @@
 <template>
   <v-footer fixed class="font-weight-medium">
     <v-row align="center" justify="center">
-      <v-btn href="https://www.facebook.com/maxime.colomes" target="_blank">
+      <v-btn href="https://www.facebook.com/PsykLaListe" target="_blank">
         <v-icon>mdi-facebook</v-icon>
       </v-btn>
 
@@ -35,7 +35,7 @@
 
       <div style="padding-left: 10px; padding-right: 10px" />
 
-      <v-btn href="https://www.instagram.com/max_cjs/" target="_blank">
+      <v-btn href="https://www.instagram.com/psyk_laliste" target="_blank">
         <v-icon>mdi-instagram</v-icon>
       </v-btn>
     </v-row>

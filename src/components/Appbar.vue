@@ -1,5 +1,5 @@
 <template>
-  <v-card color="grey lighten-4" flat tile>
+  <v-card color="grey lighten-4" fixed flat tile>
     <v-toolbar color="#121040" dense>
       <v-btn text to="/">
         <span class="title font-weight-regular teal--text text--accent-3">psyk</span>
@@ -25,8 +25,8 @@
       <div class="text-center">
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on" text color="#fff">
-              <span class="font-weight-medium">contactez-nous</span>
+            <v-btn v-on="on" icon text color="#fff">
+              <span class="font-weight-medium"><v-icon>mdi-phone</v-icon></span>
             </v-btn>
           </template>
 
