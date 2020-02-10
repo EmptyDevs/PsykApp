@@ -7,10 +7,6 @@ import vuetify from './plugins/vuetify';
 import * as firebase from "firebase";
 import * as auth from "./services/auth";
 
-import colors from 'vuetify/lib/util/colors'
-
-Vue.use(Vuetify)
-
 const configOptions = {
 	apiKey: "AIzaSyAMK_HQ2T_Nto2sWG5n4hLu4-85iRuuLF8",
 	authDomain: "pyskapp.firebaseapp.com",
