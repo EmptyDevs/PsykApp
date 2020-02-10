@@ -119,7 +119,7 @@
             </v-row>
           </v-container>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions class="px-4 pb-3">
           <v-btn color="info" @click.stop="show = false">
             <v-icon left>mdi-backspace</v-icon>
             Fermer
