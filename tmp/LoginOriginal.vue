@@ -17,8 +17,7 @@
               >
                 <v-card-title style="text-align:center">
                   Bienvenue à la semaine SOS de la liste Psyk
-                </v-card-title
-                >
+                </v-card-title>
                 <v-card-text>
                   <v-form>
                     <section id="firebaseui-auth-container"></section>
@@ -72,15 +71,31 @@ export default {
             authMethod: "https://accounts.google.com"
           },
           {
-            provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID
+            provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+            scopes: ["public_profile", "email"]
           },
           {
             provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-            defaultCountry: 'FR'
+            defaultCountry: "FR"
           },
+          {
+            provider: "microsoft.com",
+            loginHintKey: "login_hint"
+          },
+          {
+            provider: "apple.com"
+          }
         ]
       };
     }
+    var uiConfig = {
+      signInSuccessUrl: "/",
+      signInOptions: [
+        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.PhoneAuthProvider.PROVIDER_ID
+      ]
+    };
     ui.start("#firebaseui-auth-container", getUiConfig());
   }
 };

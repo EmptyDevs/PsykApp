@@ -1,56 +1,53 @@
 <template>
-  <v-card
-    height="100%"
-    width="100%"
-    class="mx-auto"
-    flat
-    outlined
-    transparent
-    :loading="isLoading"
-    loading-text="Chargement en cours"
-  >
+  <v-card height="100%" width="100%" class="mx-auto" flat outlined transparent>
     <v-card-title>
-      Offers feed
-      <v-spacer></v-spacer>
-      <v-text-field
-        v-model="search"
-        append-icon="search"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
+      <span>Settings</span>
     </v-card-title>
-    <v-data-table
-      v-model="selected"
-      :headers="headers"
-      :items="desserts"
-      :single-select="singleSelect"
-      item-key="name"
-      show-select
-      class="elevation-1"
-    >
-    </v-data-table>
+    <v-card-text>
+      <div>
+        <span>Total order = {{ this.counter }}</span>
+      </div>
+      <div>
+        <v-btn primary @click.stop="createTotalOrder()">
+          Reset Counter
+        </v-btn>
+      </div>
+    </v-card-text>
   </v-card>
 </template>
 
 <script>
+import * as order from '../services/order.js'
+import * as firebase from "firebase";
+
 export default {
   data() {
     return {
-      singleSelect: false,
-      selected: [],
-      headers: [
-        {
-          text: "Order n°",
-          align: "left",
-          sortable: false,
-          value: "id"
-        },
-        { text: "", value: "" },
-      ],
-      desserts: [
-      ]
+      counter : 0
     };
+  },
+  methods: {
+    createTotalOrder() {
+      var db = firebase.firestore()
+      var res = order.createCounter(db.collection("counters").doc(), 10);
+      console.log("Res from creating counter : " + JSON.stringify(res));
+      return;
+    },
+    IncrementCounter() {
+      var db = firebase.firestore()
+      let ref = db.collection("counters").doc();
+      return order.incrementCounter(db, ref, 10);
+    },
+    UpdateCounter() {
+      var db = firebase.firestore();
+      let ref = db.collection('counters').doc();
+      var res = order.getCount(ref);
+      this.counter = res;
+    }
+  },
+  created()
+  {
+    this.UpdateCounter();
   }
 };
 </script>
