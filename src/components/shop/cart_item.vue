@@ -1,5 +1,5 @@
 <template>
-    <v-list-item>
+    <v-list-item dark style="padding-bottom: 15px">
         <v-card width="100%">
             <v-card-text>{{data.name}}</v-card-text>
         </v-card>
@@ -12,7 +12,7 @@
                 :color="hover ? 'red' : 'grey'"
                 @click="on_minus_click(data)"
             >
-                <v-icon>mdi-delete</v-icon>
+                <v-icon>mdi-close</v-icon>
             </v-btn>
         </v-hover>
     </v-list-item>
