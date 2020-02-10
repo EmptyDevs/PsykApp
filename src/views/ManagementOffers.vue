@@ -9,8 +9,8 @@
                             <th class="text-left">ID</th>
                             <th class="text-left">Date</th>
                             <th class="text-left">Nom</th>
-                            <th class="text-left">Nombre d'éléments</th>
                             <th class="text-left">Telephone</th>
+                            <th class="text-left">Nombre d'éléments</th>
                             <th class="text-left">Status</th>
                             <th class="text-left">Action</th>
                         </tr>
@@ -19,15 +19,25 @@
                         <tr v-for="item in orders" :key="item.name">
                             <td>{{ item.id }}</td>
                             <td>{{ item.date }}</td>
-                            <td>{{ item.content.length }} items</td>
+                            <td>{{ item.user.name}}</td>
                             <td>{{ item.user.phone_number }}</td>
+                            <td>{{ item.content.length }} items</td>
                             <td>
                                 <span v-if="item.status == 0">En Attente</span>
                                 <span v-if="item.status == 1">En Cours</span>
                                 <span v-if="item.status == 2">Completée</span>
                             </td>
                             <td>
-                                <v-btn color="primary" icon>
+                                <v-btn color="error" icon @click="seeDetail(item.id)">
+                                    <v-icon>mdi-close</v-icon>
+                                </v-btn>
+                                <v-btn color="warning" icon @click="seeDetail(item.id)">
+                                    <v-icon>mdi-alert-circle-outline</v-icon>
+                                </v-btn>
+                                <v-btn color="success" icon @click="seeDetail(item.id)">
+                                    <v-icon>mdi-check</v-icon>
+                                </v-btn>
+                                <v-btn color="primary" icon @click="seeDetail(item.id)">
                                     <v-icon>mdi-card-search</v-icon>
                                 </v-btn>
                             </td>
