@@ -129,11 +129,11 @@
             <v-icon left>mdi-close</v-icon>
             Supprimer
           </v-btn>
-          <v-btn color="info" :disabled="item.status == 0" @click="updateStatus(0)">
+          <v-btn color="info" :disabled="order.status == 0" @click="updateStatus(0)">
             <v-icon left>mdi-check</v-icon>
             Mettre en attente
           </v-btn>
-          <v-btn color="success" :disabled="item.status == 1" @click="updateStatus(1)">
+          <v-btn color="success" :disabled="order.status == 1" @click="updateStatus(1)">
             <v-icon left>mdi-check</v-icon>
             Valider
           </v-btn>
@@ -169,6 +169,7 @@ export default {
     },
     updateStatus(status){
         service_order.setStatus(this.order.id, status);
+        this.show = false
     }
   }
 };
