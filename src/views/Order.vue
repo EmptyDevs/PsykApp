@@ -1,6 +1,6 @@
 <template>
     <v-content>
-        <v-container fluid style="padding-bottom: 50px">
+        <v-container fluid style="padding-bottom: 200px">
             <v-alert v-if="orderSatus.display" :type="orderSatus.status">{{this.orderSatus.details}}</v-alert>
             <v-row>
                 <v-col cols="12" md="6">
@@ -37,7 +37,12 @@
                     <v-card class="mx-auto" color="#7DBF73" dark max-width="1000">
                         <v-card-title>
                             <v-list-item-avatar color="grey darken-3">
-                                <v-img class="elevation-6" :src="user.data.photo"></v-img>
+                                <v-img
+                                    v-if="user.data.photo"
+                                    class="elevation-6"
+                                    :src="user.data.photo"
+                                ></v-img>
+                                <v-icon v-else dark>mdi-account-circle</v-icon>
                             </v-list-item-avatar>
                             <v-list-item-content>
                                 <v-list-item-title>{{user.data.displayName}}</v-list-item-title>
@@ -125,6 +130,7 @@
         </v-btn>
     </v-content>
 </template>
+
 <style>
 /* This is for documentation purposes and will not be needed in your application */
 .v-btn--example {

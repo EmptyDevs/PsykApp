@@ -37,7 +37,9 @@ const actions = {
         var d = new Date();
         var id = d.getDay() + '_' + d.getHours() + '_' + d.getMinutes() + '_' + d.getSeconds() + '_' + Math.random().toString(36).substr(2, 25);
         order.id = id;
-        firebase.database().ref('orders/').push(order);
+        var key = firebase.database().ref('orders/').push().key;
+        order.id = key;
+        firebase.database().ref('orders/' + key).set(order);
     }
 }
 
