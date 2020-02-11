@@ -18,7 +18,7 @@
       <v-card-text>
         <v-btn
           class="mx-2"
-          href="https://www.facebook.com/maxime.colomes"
+          href="https://www.facebook.com/PsykLaListe/"
           target="_blank"
           rounded
         >
@@ -51,7 +51,7 @@
         </v-dialog>
         <v-btn
           class="mx-2"
-          href="https://www.instagram.com/max_cjs/"
+          href="https://www.instagram.com/psyk_laliste/"
           target="_blank"
           rounded
         >
