@@ -1,25 +1,34 @@
 <template>
   <v-hover v-slot:default="{ hover }">
-    <v-card @load="funcImage" class="mx-auto" color="grey lighten-4" width="20em">
-      <v-img :aspect-ratio="16/9" :src="src_url">
+    <v-card
+      @load="funcImage"
+      class="mx-auto"
+      color="grey lighten-4"
+      width="20em"
+    >
+      <v-img :aspect-ratio="16 / 9" :src="src_url">
         <template v-slot:placeholder>
           <v-row class="fill-height ma-0" align="center" justify="center">
-            <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+            <v-progress-circular
+              indeterminate
+              color="grey lighten-5"
+            ></v-progress-circular>
           </v-row>
         </template>
         <v-expand-transition>
           <div
             v-if="hover"
-            
             class="d-flex font-italic transition-fast-in-fast-out green darken-4 v-card--reveal headline white--text"
             style="height: 100%"
-          >{{data.description}}</div>
+          >
+            {{ data.description }}
+          </div>
         </v-expand-transition>
       </v-img>
       <v-card-text class="pt-6" style="position: relative;">
         <v-btn
           absolute
-          color="#7DBF73"
+          color="green"
           class="white--text"
           fab
           large
@@ -32,7 +41,7 @@
         </v-btn>
         <v-btn
           absolute
-          color="#7DBF73"
+          color="pink"
           class="white--text"
           fab
           large
@@ -43,7 +52,9 @@
         >
           <v-icon>mdi-minus</v-icon>
         </v-btn>
-        <h3 class="display-1 font-weight-light green--text mb-2">{{data.name}}</h3>
+        <h3 class="display-1 font-weight-light green--text mb-2">
+          {{ data.name }}
+        </h3>
       </v-card-text>
     </v-card>
   </v-hover>
@@ -107,7 +118,7 @@ export default {
         .ref("images/products/" + this.data.img)
         .getDownloadURL()
         .then(function(url) {
-          that.src_url = url
+          that.src_url = url;
         });
       return this.src_url;
     }

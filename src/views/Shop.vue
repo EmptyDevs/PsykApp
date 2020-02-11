@@ -1,113 +1,125 @@
 <template>
-    <v-container id="lateral">
-        <v-navigation-drawer v-model="drawerRight" app clipped temporary right>
-            <v-list dense class="inline">
-                <v-list-item>
-                    <v-list-item-title>Panier</v-list-item-title>
-                </v-list-item>
-                <v-text-field
-                    style="
+  <v-container id="lateral">
+    <v-navigation-drawer v-model="drawerRight" app clipped temporary right>
+      <v-list dense class="inline">
+        <v-list-item>
+          <v-list-item-title>Panier</v-list-item-title>
+        </v-list-item>
+        <v-text-field
+          style="
         padding: 10px
         "
-                    v-model="phoneNumber"
-                    type="text"
-                    label="Numéro de téléphone"
-                ></v-text-field>
+          v-model="phoneNumber"
+          type="text"
+          label="Numéro de téléphone"
+        ></v-text-field>
 
-                <v-alert
-                    v-if="orderSatus.display"
-                    :type="orderSatus.status"
-                >{{this.orderSatus.details}}</v-alert>
-                <v-sheet id="scrolling-techniques" class="overflow-y-auto" max-height="500px">
-                    <v-list-item v-for="(product, i) in cart" :key="i" link style="padding: 5px">
-                        <CartItem :data="product" />
-                    </v-list-item>
-                </v-sheet>
-                <v-btn
-                    left
-                    bottom
-                    absolute
-                    text
-                    color="black"
-                    class="overline"
-                    @click="reset_cart"
-                >Vider panier</v-btn>
-                <v-btn
-                    right
-                    bottom
-                    absolute
-                    text
-                    color="black"
-                    class="overline"
-                    to="shop/order"
-                >Commander</v-btn>
-            </v-list>
-        </v-navigation-drawer>
-        <v-container>
-            <div v-if="isLoaded">
-                <v-row style="padding-bottom: 50px">
-                    <v-col xs="1" lg="10">
-                        <v-container>
-                            <v-tab max-width="25%" class="font-weight-thin">
-                                <v-select
-                                    v-model="select"
-                                    :items="category"
-                                    item-text="name"
-                                    item-value="id"
-                                    label="Catégories"
-                                    persistent-hint
-                                    return-object
-                                    single-line
-                                />
-                            </v-tab>
-
-                            <div v-if="select.id != 4" align="center" justify="center">
-                                <v-row class="light--text">
-                                    <v-col
-                                        xs="12"
-                                        sm="12"
-                                        md="6"
-                                        lg="4"
-                                        v-for="(vals, i) in select.products"
-                                        :key="i"
-                                        link
-                                    >
-                                        <ShopItem :data="vals" />
-                                    </v-col>
-                                </v-row>
-                            </div>
-                            <ServiceItem v-else />
-                        </v-container>
-                    </v-col>
-                </v-row>
-            </div>
-            <v-text-field v-else color="success" loading disabled></v-text-field>
-        </v-container>
-
-        <v-btn
-            fab
-            large
-            dark
-            bottom
-            fixed
-            absolute
-            right
-            class="v-btn--example"
-            color="#7DBF73"
-            to="shop/order"
+        <v-alert v-if="orderSatus.display" :type="orderSatus.status">{{
+          this.orderSatus.details
+        }}</v-alert>
+        <v-sheet
+          id="scrolling-techniques"
+          class="overflow-y-auto"
+          max-height="500px"
         >
-            <v-badge :content="cart.length" overlap>
-                <v-icon>mdi-cart</v-icon>
-            </v-badge>
-        </v-btn>
+          <v-list-item
+            v-for="(product, i) in cart"
+            :key="i"
+            link
+            style="padding: 5px"
+          >
+            <CartItem :data="product" />
+          </v-list-item>
+        </v-sheet>
+        <v-btn
+          left
+          bottom
+          absolute
+          text
+          color="black"
+          class="overline"
+          @click="reset_cart"
+          >Vider panier</v-btn
+        >
+        <v-btn
+          right
+          bottom
+          absolute
+          text
+          color="black"
+          class="overline"
+          to="shop/order"
+          >Commander</v-btn
+        >
+      </v-list>
+    </v-navigation-drawer>
+    <v-container>
+      <div v-if="isLoaded">
+        <v-row style="padding-bottom: 50px">
+          <v-col xs="1" lg="10">
+            <v-container>
+              <v-tab max-width="25%" class="font-weight-thin">
+                <v-select
+                  v-model="select"
+                  :items="category"
+                  item-text="name"
+                  item-value="id"
+                  label="Catégories"
+                  persistent-hint
+                  return-object
+                  single-line
+                />
+              </v-tab>
+
+              <div v-if="select.id != 4" align="center" justify="center">
+                <v-row class="light--text">
+                  <v-col
+                    xs="12"
+                    sm="12"
+                    md="6"
+                    lg="4"
+                    v-for="(vals, i) in select.products"
+                    :key="i"
+                    link
+                  >
+                    <ShopItem :data="vals" />
+                  </v-col>
+                </v-row>
+              </div>
+              <ServiceItem v-else />
+            </v-container>
+          </v-col>
+        </v-row>
+      </div>
+      <v-text-field v-else color="success" loading disabled></v-text-field>
     </v-container>
+
+    <v-btn
+      fab
+      large
+      bottom
+      fixed
+      absolute
+      right
+      class="v-btn--example white--text"
+      color="pink"
+      to="shop/order"
+    >
+      <v-badge v-model="item" color="#7DBF73" overlap>
+        <v-icon>mdi-cart</v-icon>
+        <template v-slot:badge>
+          <span>{{totalItem}}</span>
+        </template>
+      </v-badge>
+    </v-btn>
+  </v-container>
 </template>
 
 <style>
 /* This is for documentation purposes and will not be needed in your application */
 #lateral .v-btn--example {
-    bottom: 0;
-    margin: 0 0 50px 16px;
+  bottom: 0;
+  margin: 0 0 50px 16px;
 }
 </style>
 
@@ -118,65 +130,69 @@ import ServiceItem from "../components/shop/service_item";
 import CartItem from "../components/shop/cart_item";
 
 export default {
-    components: {
-        ShopItem,
-        ServiceItem,
-        CartItem
-    },
-    computed: {
-        ...mapGetters({
-            category: "CategoryModule/getCategory",
-            cart: "getCart",
-            getOrder: "OrderModule/getOrder",
-            user: "UserModule/getUser"
-        })
-    },
-    methods: {
-        ...mapActions({
-            reset_cart: "reset_cart",
-            fetchCategory: "CategoryModule/fetchCategory",
-            set_cart_id: "set_cart_id",
-            passOrder: "OrderModule/passOrder",
-            fetchOrder: "OrderModule/fetchOrder"
-        }),
-        isPhoneNumber(number) {
-            if (number.length != 10) return false;
-            for (var i = 0; i < number.length; i++) {
-                if (!(number[i] <= "9" && number[i] >= "0")) return false;
-            }
-            return true;
-        },
-        command() {
-            user.phoneNumber = this.phoneNumber;
-            var command = {
-                content: this.cart,
-                user: this.user.data,
-                status: 0
-            };
-            this.passOrder(command).then(() => {
-                this.reset_cart();
-            });
-        }
-    },
-    data() {
-        return {
-            select: {},
-            isLoaded: false,
-            drawerRight: false,
-            orderSatus: {
-                display: false,
-                status: "warning",
-                details: ""
-            },
-            phoneNumber: ""
-        };
-    },
-    beforeMount() {
-        this.fetchCategory().then(() => {
-            this.select = this.category[0];
-            this.isLoaded = true;
-        });
-        this.fetchOrder();
+  components: {
+    ShopItem,
+    ServiceItem,
+    CartItem
+  },
+  computed: {
+    ...mapGetters({
+      category: "CategoryModule/getCategory",
+      cart: "getCart",
+      getOrder: "OrderModule/getOrder",
+      user: "UserModule/getUser"
+    }),
+    totalItem() {
+      if (this.cart.length && this.cart.length > 0) return this.cart.length;
+      return 0;
     }
+  },
+  methods: {
+    ...mapActions({
+      reset_cart: "reset_cart",
+      fetchCategory: "CategoryModule/fetchCategory",
+      set_cart_id: "set_cart_id",
+      passOrder: "OrderModule/passOrder",
+      fetchOrder: "OrderModule/fetchOrder"
+    }),
+    isPhoneNumber(number) {
+      if (number.length != 10) return false;
+      for (var i = 0; i < number.length; i++) {
+        if (!(number[i] <= "9" && number[i] >= "0")) return false;
+      }
+      return true;
+    },
+    command() {
+      user.phoneNumber = this.phoneNumber;
+      var command = {
+        content: this.cart,
+        user: this.user.data,
+        status: 0
+      };
+      this.passOrder(command).then(() => {
+        this.reset_cart();
+      });
+    }
+  },
+  data() {
+    return {
+      select: {},
+      isLoaded: false,
+      drawerRight: false,
+      orderSatus: {
+        display: false,
+        status: "warning",
+        details: ""
+      },
+      phoneNumber: ""
+    };
+  },
+  beforeMount() {
+    this.fetchCategory().then(() => {
+      this.select = this.category[0];
+      this.isLoaded = true;
+    });
+    this.fetchOrder();
+  }
 };
 </script>
