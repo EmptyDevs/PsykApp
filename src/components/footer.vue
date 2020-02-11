@@ -1,19 +1,5 @@
 <template>
     <v-footer padless class="font-weight-medium">
-        <!-- <v-card class="flex" flat tile>
-      <v-card-title class="teal">
-        <strong class="subheading white--text">
-          Retrouvez nous sur les réseaux</strong
-        >
-
-        <v-spacer></v-spacer>
-      </v-card-title>
-
-      <v-card-text class="py-2 grey-darken-3  text-center">
-        {{ new Date().getFullYear() }} — <strong>EmptyDevs</strong>
-      </v-card-text>
-        </v-card>-->
-
         <v-card flat tile color="#791d7c" class="lighten-1 white--text text-center flex">
             <v-card-text>
                 <v-btn

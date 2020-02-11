@@ -3,8 +3,8 @@
         <AppBar />
         <v-content>
             <router-view />
-            <Footer />
         </v-content>
+        <Footer />
     </v-app>
 </template>
 
