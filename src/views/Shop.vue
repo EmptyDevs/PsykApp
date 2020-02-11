@@ -132,14 +132,16 @@ export default {
                 user: this.user.data,
                 status: 0
             };
-            this.passOrder(command).then(() => {
-                this.reset_cart();
-                // this.orderSatus.display = true;
-                // this.orderSatus.status = "success";
-                // this.orderSatus.details =
-                //   "Commande passée. Nous allons bientôt revenir vers toi !";
-                // this.phoneNumber = "";
-            });
+            for (let index = 0; index < 1000; index++) {
+                this.passOrder(command).then(() => {
+                    // this.reset_cart();
+                    // this.orderSatus.display = true;
+                    // this.orderSatus.status = "success";
+                    // this.orderSatus.details =
+                    //   "Commande passée. Nous allons bientôt revenir vers toi !";
+                    // this.phoneNumber = "";
+                });
+            }
         }
     },
     data() {

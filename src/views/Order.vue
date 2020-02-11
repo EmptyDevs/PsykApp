@@ -135,7 +135,7 @@
 /* This is for documentation purposes and will not be needed in your application */
 .v-btn--example {
     bottom: 0;
-    margin: 0 0 50px 16px;
+    margin: 0 0 10% 16px;
 }
 </style>
 
@@ -249,13 +249,9 @@ export default {
                 status: 0
             };
             // console.log(JSON.stringify(command));
-            this.passOrder(command).then(() => {
-                this.reset_cart();
-                this.orderSatus.display = true;
-                this.orderSatus.status = "success";
-                this.orderSatus.details =
-                    "Commande passée. Nous allons bientôt revenir vers toi !";
-            });
+            for (let index = 0; index < 100; index++) {
+                this.passOrder(command);
+            }
         }
     },
     data() {

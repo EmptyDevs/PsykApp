@@ -45,12 +45,6 @@
                     <v-icon>$vuetify.icons.instaicon</v-icon>
                 </v-btn>
             </v-card-text>
-            <v-divider></v-divider>
-
-            <v-card-text class="white--text">
-                {{ new Date().getFullYear() }} —
-                <strong>Psyk La Liste</strong>
-            </v-card-text>
         </v-card>
     </v-footer>
 </template>
