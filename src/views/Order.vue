@@ -1,18 +1,25 @@
 <template>
     <v-content>
-        <v-container fluid>
+        <v-container fluid style="padding-bottom: 200px">
             <v-alert v-if="orderSatus.display" :type="orderSatus.status">{{this.orderSatus.details}}</v-alert>
             <v-row>
                 <v-col cols="12" md="6">
-                    <v-card class="mx-auto" color="#7DBF73" dark height="100%">
+                    <v-card class="mx-auto" color="#7DBF73">
                         <v-card-title>
-                            <v-btn icon to="/shop">
+                            <v-btn icon to="/shop" color="white">
                                 <v-icon>mdi-arrow-left</v-icon>
                             </v-btn>
                             <v-spacer />
                             <v-tooltip right>
                                 <template v-slot:activator="{ on }">
-                                    <v-btn icon large target="_blank" v-on="on" @click="reset_cart">
+                                    <v-btn
+                                        icon
+                                        large
+                                        target="_blank"
+                                        v-on="on"
+                                        @click="reset_cart"
+                                        color="white"
+                                    >
                                         <v-icon large>mdi-delete</v-icon>
                                     </v-btn>
                                 </template>
@@ -21,14 +28,7 @@
                         </v-card-title>
 
                         <v-container>
-                            <v-list-item
-                                v-for="(product, i) in cart"
-                                :key="i"
-                                link
-                                style="padding: 5px"
-                            >
-                                <CartItem :data="product" />
-                            </v-list-item>
+                            <CartItem v-for="(product, i) in cart" :key="i" link :data="product" />
                         </v-container>
                     </v-card>
                 </v-col>
@@ -37,31 +37,61 @@
                     <v-card class="mx-auto" color="#7DBF73" dark max-width="1000">
                         <v-card-title>
                             <v-list-item-avatar color="grey darken-3">
-                                <v-img class="elevation-6" :src="user.data.photo"></v-img>
+                                <v-img
+                                    v-if="user.data.photo"
+                                    class="elevation-6"
+                                    :src="user.data.photo"
+                                ></v-img>
+                                <v-icon v-else dark>mdi-account-circle</v-icon>
                             </v-list-item-avatar>
-
                             <v-list-item-content>
                                 <v-list-item-title>{{user.data.displayName}}</v-list-item-title>
                             </v-list-item-content>
                             <v-spacer />
                             <span class="overline font-weight-regular">Informations</span>
                         </v-card-title>
-
                         <v-container>
+                            <span class="overline font-weight-regular">Identité</span>
+                            <v-list>
+                                <v-list-item>
+                                    <v-text-field
+                                        style="padding-left: 10px"
+                                        v-model="name"
+                                        label="Prénom Nom"
+                                        required
+                                    ></v-text-field>
+                                </v-list-item>
+                            </v-list>
+                        </v-container>
+                        <v-container>
+                            <span class="overline font-weight-regular">Numéro de télephone</span>
                             <v-list>
                                 <v-list-item>
                                     <v-text-field
                                         style="padding-left: 10px"
                                         v-model="phoneNumber"
-                                        label="Numéro de tel"
+                                        label="Numéro de téléphone"
+                                        required
+                                    ></v-text-field>
+                                </v-list-item>
+                            </v-list>
+                        </v-container>
+                        <v-container>
+                            <span class="overline font-weight-regular">Adresse</span>
+                            <v-list>
+                                <v-list-item>
+                                    <v-text-field
+                                        style="padding-left: 10px"
+                                        v-model="address"
+                                        label="Adresse postale"
                                         required
                                     ></v-text-field>
                                 </v-list-item>
                                 <v-list-item>
                                     <v-text-field
                                         style="padding-left: 10px"
-                                        v-model="address"
-                                        label="Adresse"
+                                        v-model="address_complement"
+                                        label="Complément d'adresse"
                                         required
                                     ></v-text-field>
                                 </v-list-item>
@@ -83,24 +113,24 @@
                         </v-container>
                     </v-card>
                 </v-col>
-
-                <v-btn
-                    large
-                    dark
-                    bottom
-                    fixed
-                    absolute
-                    right
-                    class="v-btn--example"
-                    color="#7DBF73"
-                    @click="command"
-                >
-                    <v-icon left>mdi-check</v-icon>Commander
-                </v-btn>
             </v-row>
         </v-container>
+        <v-btn
+            large
+            dark
+            bottom
+            fixed
+            absolute
+            left
+            class="v-btn--example"
+            color="#121040"
+            @click="command"
+        >
+            <v-icon left>mdi-check</v-icon>Commander
+        </v-btn>
     </v-content>
 </template>
+
 <style>
 /* This is for documentation purposes and will not be needed in your application */
 .v-btn--example {
@@ -195,15 +225,21 @@ export default {
                 this.orderSatus.details = "Panier vide";
                 return;
             }
+            if (!this.name) {
+                this.orderSatus.display = true;
+                this.orderSatus.status = "error";
+                this.orderSatus.details = "Champ Prénom Nom vide.";
+                return;
+            }
             if (!this.check_phone_number()) return;
             if (!this.check_address()) return;
             this.user.data.phoneNumber = this.phoneNumber;
             var addr = {
                 steetname: this.address,
                 postcode: this.address_postal,
+                complement: this.address_complement,
                 city: this.address_city
             };
-
             var command = {
                 id: null,
                 content: order_service.format_cart(this.cart),
@@ -232,11 +268,14 @@ export default {
             phoneNumber: "",
             address: "",
             address_postal: "",
-            address_city: ""
+            address_complement: "",
+            address_city: "",
+            name: ""
         };
     },
     beforeMount() {
         this.phoneNumber = this.user.data.phoneNumber;
+        this.name = this.user.data.displayName;
     },
     props: {
         source: String
