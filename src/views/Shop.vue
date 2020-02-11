@@ -83,6 +83,7 @@
             </div>
             <v-text-field v-else color="success" loading disabled></v-text-field>
         </v-container>
+
         <v-btn
             fab
             large
@@ -95,7 +96,9 @@
             color="#7DBF73"
             to="shop/order"
         >
-            <v-icon>mdi-cart</v-icon>
+            <v-badge :content="cart.length" overlap>
+                <v-icon>mdi-cart</v-icon>
+            </v-badge>
         </v-btn>
     </v-container>
 </template>

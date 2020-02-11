@@ -19,8 +19,8 @@
                         <tr v-for="item in orders" :key="item.name">
                             <td>{{ item.id }}</td>
                             <td>{{ item.date }}</td>
-                            <td>{{ item.user.name}}</td>
-                            <td>{{ item.user.phone_number }}</td>
+                            <td>{{ item.user.displayName}}</td>
+                            <td>{{ item.user.phoneNumber }}</td>
                             <td>{{ item.content.length }} items</td>
                             <td>
                                 <span v-if="item.status == 0">En Attente</span>
@@ -52,18 +52,17 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import OrderDetails from '../components/order_details'
+import OrderDetails from "../components/order_details";
 
 export default {
-    components :
-    {
+    components: {
         OrderDetails
     },
     data() {
         return {
             loading: true,
             dialog: false,
-            selectOrder : {}
+            selectOrder: {}
         };
     },
     computed: {
@@ -82,14 +81,13 @@ export default {
         ...mapActions({
             fetchOrder: "OrderModule/fetchOrder"
         }),
-        seeDetails(order)
-        {
-            console.log("seeDetails")
+        seeDetails(order) {
+            console.log("seeDetails");
             //console.log(JSON.stringify(order))
             this.dialog = false;
             this.selectOrder = Object.assign(this.selectOrder, order);
             this.dialog = true;
-            console.log(JSON.stringify(this.selectOrder))
+            console.log(JSON.stringify(this.selectOrder));
         }
     },
     created() {

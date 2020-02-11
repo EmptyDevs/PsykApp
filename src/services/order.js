@@ -56,4 +56,14 @@ export async function getCount(ref) {
 
         return total_count;
     });
+//order.vue
+export function format_cart(cart) {
+    var formated_cart = {}
+    var items = []
+    for (var i = 0; i < cart.length; i++) {
+        items.push({ id: cart[i].id, name: cart[i].name })
+    }
+    formated_cart.length = i;
+    formated_cart.items = items;
+    return formated_cart;
 }
