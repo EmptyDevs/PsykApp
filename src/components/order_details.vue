@@ -12,10 +12,7 @@
           <span v-if="order.status == 0" class="grey--text font-italic"
             >En Attente</span
           >
-          <span v-if="order.status == 1" class="red-text font-italic"
-            >Annulée</span
-          >
-          <span v-if="order.status == 2" class="green--text font-italic"
+          <span v-if="order.status == 1" class="green--text font-italic"
             >Completée</span
           >
         </v-card-subtitle>
