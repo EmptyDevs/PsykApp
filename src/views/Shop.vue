@@ -2,7 +2,7 @@
     <v-container id="lateral">
         <v-container>
             <div v-if="isLoaded">
-                <v-tabs fixed-tabs color="green" background-color="transparent~">
+                <v-tabs fixed-tabs color="green" background-color="transparent">
                     <v-tab
                         v-for="(category_, i) in category"
                         :key="i"
