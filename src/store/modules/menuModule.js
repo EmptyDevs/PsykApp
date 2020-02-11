@@ -19,8 +19,8 @@ const getters = {
 const actions = {
     fetchMenu({ commit }) {
         return firebase.database().ref('/menu').once('value').then(function (snapshot) {
-            console.log("[menuModule] > Fetch done");
-            console.log("Menu > " + JSON.stringify(snapshot.val()))
+            // console.log("[menuModule] > Fetch done");
+            // console.log("Menu > " + JSON.stringify(snapshot.val()))
             commit("SET_MENU", snapshot.val());
         });
     }

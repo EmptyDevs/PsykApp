@@ -23,7 +23,7 @@
             ></v-select>
           </v-col>
           <v-col cols="12" md="2">
-            hello
+              Search WIP
           </v-col>
         </v-row>
       </v-container>
@@ -168,13 +168,13 @@ export default {
       this.descending = !this.descending;
     },
     seeDetails(order) {
-      console.log("seeDetails");
+    //   console.log("seeDetails");
       //console.log(JSON.stringify(order))
       this.dialog = false;
       this.selectOrder = Object.assign(this.selectOrder, order);
       this.dialog = true;
-      console.log("THIS IS SELECTORDER");
-      console.log(JSON.stringify(this.selectOrder));
+    //   console.log("THIS IS SELECTORDER");
+    //   console.log(JSON.stringify(this.selectOrder));
     },
     removeOrder(order)
     {
