@@ -1,8 +1,8 @@
 <template>
   <v-footer fixed class="font-weight-medium">
     <v-row align="center" justify="center">
-      <v-btn href="https://www.facebook.com/maxime.colomes" target="_blank">
-        <v-icon>mdi-facebook</v-icon>
+      <v-btn href="https://www.facebook.com/maxime.colomes" target="_blank" rounded>
+        <v-icon color="#4267b2">mdi-facebook</v-icon>
       </v-btn>
 
       <div style="padding-left: 10px; padding-right: 10px" />
@@ -10,8 +10,8 @@
       <div class="text-center">
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on">
-              <v-icon>mdi-phone</v-icon>
+            <v-btn v-on="on" rounded>
+              <v-icon style="color:#35a241;">mdi-phone</v-icon>
             </v-btn>
           </template>
 
@@ -35,19 +35,24 @@
 
       <div style="padding-left: 10px; padding-right: 10px" />
 
-      <v-btn href="https://www.instagram.com/max_cjs/" target="_blank">
-        <v-icon>mdi-instagram</v-icon>
+      <v-btn href="https://www.instagram.com/max_cjs/" target="_blank" rounded>
+        <v-icon>$vuetify.icons.instaicon</v-icon>
       </v-btn>
     </v-row>
   </v-footer>
 </template>
 
 <script>
+
+import instaIcon from '../components/instaIcon'
 export default {
+  components : {
+    instaIcon
+  },
   data() {
     return {
       dialog: false
     };
-  }
+  },
 };
 </script>
