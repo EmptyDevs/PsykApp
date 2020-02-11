@@ -84,8 +84,19 @@ const routes = [
 		meta: {
 			admin: true
 		},
-		
+
 	},
+	{
+		path: '/policy',
+		name: 'Policy',
+		component: loadView('privacy/Politic')
+	},
+	{
+		path: '/service',
+		name: 'Service',
+		component: loadView('privacy/Service')
+	},
+
 	{
 		path: '/shop/order',
 		name: 'Order',

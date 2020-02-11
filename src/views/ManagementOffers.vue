@@ -30,7 +30,7 @@
                 :headers="headers"
                 :loading="loading"
                 :items="sortArr"
-                :items-per-page="5"
+                :items-per-page="itemsperpage"
                 class="elevation-1"
             >
                 <template v-slot:item.length="{ item }">{{item.content.length}}</template>
@@ -119,6 +119,7 @@ export default {
     },
     data() {
         return {
+            itemsperpage: 20,
             loading: true,
             dialog: false,
             selectOrder: {

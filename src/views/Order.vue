@@ -249,9 +249,15 @@ export default {
                 status: 0
             };
             // console.log(JSON.stringify(command));
-            for (let index = 0; index < 100; index++) {
-                this.passOrder(command);
-            }
+
+            this.passOrder(command).then(() => {
+                this.reset_cart();
+                this.orderSatus.display = true;
+                this.orderSatus.status = "success";
+                this.orderSatus.details =
+                    "Commande passée. Nous revenons vers toi dès que possible.";
+                return;
+            });
         }
     },
     data() {

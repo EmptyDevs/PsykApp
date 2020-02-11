@@ -62,22 +62,24 @@ export function format_cart(cart) {
     var formated_cart = {}
     var items = []
     for (var i = 0; i < cart.length; i++) {
-        items.push({ id: cart[i].id, name: cart[i].name })
+        var r = { id: cart[i].id, name: cart[i].name };
+        if (cart[i].id == 9999) {
+            r.service_content = cart[i].service;
+        }
+        items.push(r)
     }
     formated_cart.length = i;
     formated_cart.items = items;
     return formated_cart;
 }
 
-export async function setStatus(orderId, status)
-{
+export async function setStatus(orderId, status) {
     var database = firebase.database();
     let userRef = database.ref('orders/' + orderId);
-    userRef.update({'status': status});
+    userRef.update({ 'status': status });
 }
 
-export async function removeOrder(orderId)
-{
+export async function removeOrder(orderId) {
     var database = firebase.database();
     let userRef = database.ref('orders/' + orderId);
     userRef.remove();

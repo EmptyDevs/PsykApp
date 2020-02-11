@@ -99,6 +99,9 @@
                                                 :key="i"
                                             >
                                                 <span class="font-weight-bold">{{ product.name }}</span>
+                                                <span
+                                                    v-if="product.id == 9999"
+                                                >: {{product.service_content}}</span>
                                             </li>
                                         </ul>
                                     </v-card-text>
