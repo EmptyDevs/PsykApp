@@ -14,7 +14,7 @@
       </v-card-text>
     </v-card> -->
 
-    <v-card flat tile class="indigo lighten-1 white--text text-center flex">
+    <v-card flat tile color="#791d7c" class="lighten-1 white--text text-center flex">
       <v-card-text>
         <v-btn
           class="mx-2"
@@ -64,25 +64,6 @@
         {{ new Date().getFullYear() }} — <strong>Psyk La Liste</strong>
       </v-card-text>
     </v-card>
-    <!-- <v-row align="center" justify="center">
-      <v-btn
-        href="https://www.facebook.com/maxime.colomes"
-        target="_blank"
-        rounded
-      >
-        <v-icon color="#4267b2">mdi-facebook</v-icon>
-      </v-btn>
-
-      <div style="padding-left: 10px; padding-right: 10px" />
-
-      <div class="text-center"></div>
-
-      <div style="padding-left: 10px; padding-right: 10px" />
-
-      <v-btn href="https://www.instagram.com/max_cjs/" target="_blank" rounded>
-        <v-icon>$vuetify.icons.instaicon</v-icon>
-      </v-btn>
-    </v-row> -->
   </v-footer>
 </template>
 

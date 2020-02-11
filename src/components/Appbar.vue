@@ -1,7 +1,7 @@
 <template>
   <v-card color="grey lighten-4" flat tile>
-    <v-toolbar color="#121040" dense>
-      <v-btn text color="#7DBF73" to="/">
+    <v-toolbar color="#791d7c" dense>
+      <v-btn text color="#86e283" to="/">
         <span class="title font-weight-regular">psyk</span>
       </v-btn>
       <v-btn to="/menu" icon color="#fff">
