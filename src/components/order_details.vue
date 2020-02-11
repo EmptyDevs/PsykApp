@@ -100,7 +100,7 @@
                 </v-card>
               </v-col>
               <v-col cols="12" md="6">
-                <v-card class="py-2" flat>
+                <v-card class="py-2" flat v-if="order.content">
                   <v-card-title class="headline">
                     Panier
                   </v-card-title>
@@ -109,7 +109,7 @@
                   </v-card-subtitle>
                   <v-card-text>
                     <ul>
-                      <li v-for="(product, i) in order.content" :key="i">
+                      <li v-for="(product, i) in order.content.items" :key="i">
                         <span class="font-weight-bold">{{ product.name }}</span>
                       </li>
                     </ul>
@@ -125,11 +125,15 @@
             Fermer
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="error" @click="seeDetail(item.id)">
+          <v-btn color="error" @click="removeOrder()">
             <v-icon left>mdi-close</v-icon>
-            Annuler
+            Supprimer
           </v-btn>
-          <v-btn color="success" @click="seeDetail(item.id)">
+          <v-btn color="info" :disabled="item.status == 0" @click="updateStatus(0)">
+            <v-icon left>mdi-check</v-icon>
+            Mettre en attente
+          </v-btn>
+          <v-btn color="success" :disabled="item.status == 1" @click="updateStatus(1)">
             <v-icon left>mdi-check</v-icon>
             Valider
           </v-btn>
@@ -140,6 +144,8 @@
 </template>
 
 <script>
+import * as service_order from '../services/order'
+
 export default {
   props: {
     value: Boolean,
@@ -153,6 +159,16 @@ export default {
       set(value) {
         this.$emit("input", value);
       }
+    }
+  },
+  methods : {
+    removeOrder()
+    {
+        service_order.removeOrder(this.order.id);
+        this.show = false
+    },
+    updateStatus(status){
+        service_order.setStatus(this.order.id, status);
     }
   }
 };

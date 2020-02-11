@@ -56,6 +56,7 @@ export async function getCount(ref) {
 
         return total_count;
     });
+}
 //order.vue
 export function format_cart(cart) {
     var formated_cart = {}
@@ -66,4 +67,18 @@ export function format_cart(cart) {
     formated_cart.length = i;
     formated_cart.items = items;
     return formated_cart;
+}
+
+export async function setStatus(orderId, status)
+{
+    var database = firebase.database();
+    let userRef = database.ref('orders/' + orderId);
+    userRef.update({'status': status});
+}
+
+export async function removeOrder(orderId)
+{
+    var database = firebase.database();
+    let userRef = database.ref('orders/' + orderId);
+    userRef.remove();
 }

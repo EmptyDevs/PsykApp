@@ -2,7 +2,7 @@ import * as firebase from "firebase";
 
 
 const state = {
-    orders: undefined,
+    orders: [],
 }
 
 const mutations = {
@@ -14,6 +14,9 @@ const mutations = {
 const getters = {
     getOrder: state => {
         return state.orders
+    },
+    getOrderReverse: state => {
+        return [...Object.values(state.orders)].reverse();
     }
 }
 
@@ -26,10 +29,10 @@ const actions = {
             .on(
                 "value",
                 function (snapshot) {
-                    console.log("Val of ")
-                    console.log(JSON.stringify(snapshot.val()))
+                    // console.log("Val of ")
+                    // console.log(JSON.stringify(snapshot.val()))
                     commit("SET_ORDERS", snapshot.val())
-                    console.log("=======")
+                    // console.log("=======")
                 },
                 function (errorObject) {
                     console.log("The read failed: " + errorObject.code);
@@ -39,12 +42,10 @@ const actions = {
     passOrder({ commit }, order) {
         var d = new Date();
         var id = d.getFullYear() + '_' + d.getMonth() + '_' + d.getDay() + '_' + d.getHours() + '_' + d.getMinutes() + '_' + d.getSeconds() + '_' + Math.random().toString(36).substr(2, 25);
-        var date = d.getDay() + '/' + d.getMonth() + '/' + + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes();
-        order.date = date;
         var newKey = firebase.database().ref('orders/').push().key;
         console.log("New key is " + newKey)
         order.id = newKey;
-        firebase.database().ref('orders/' + id).set(order);
+        firebase.database().ref('orders/' + newKey).set(order);
     }
 }
 

@@ -212,7 +212,7 @@ export default {
                 date: this.getDate(),
                 status: 0
             };
-            console.log(JSON.stringify(command));
+            // console.log(JSON.stringify(command));
             this.passOrder(command).then(() => {
                 this.reset_cart();
                 this.orderSatus.display = true;
