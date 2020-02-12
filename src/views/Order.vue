@@ -1,7 +1,11 @@
 <template>
     <v-content>
         <v-container fluid style="padding-bottom: 200px">
-            <v-alert v-if="orderSatus.display" :type="orderSatus.status">{{this.orderSatus.details}}</v-alert>
+            <v-alert
+                id="#alert"
+                v-if="orderSatus.display"
+                :type="orderSatus.status"
+            >{{this.orderSatus.details}}</v-alert>
             <v-row>
                 <v-col cols="12" md="6">
                     <v-card class="mx-auto" color="#7DBF73">
@@ -60,6 +64,24 @@
                                         label="Prénom Nom"
                                         required
                                     ></v-text-field>
+                                </v-list-item>
+                            </v-list>
+                        </v-container>
+                        <v-container>
+                            <span class="overline font-weight-regular">Nombre de personne</span>
+                            <v-list>
+                                <v-list-item>
+                                    <v-slider
+                                        v-model="slider"
+                                        class="align-center"
+                                        max="15"
+                                        min="1"
+                                        hide-details
+                                    >
+                                        <template v-slot:append>
+                                            <span>{{slider}}</span>
+                                        </template>
+                                    </v-slider>
                                 </v-list-item>
                             </v-list>
                         </v-container>
@@ -143,6 +165,7 @@
 import { mapGetters, mapActions } from "vuex";
 import CartItem from "../components/shop/cart_item";
 import * as order_service from "../services/order";
+import goTo from "vuetify/es5/services/goto";
 export default {
     components: {
         CartItem
@@ -218,6 +241,9 @@ export default {
                 d.getMinutes();
             return r;
         },
+        navigate(route_name) {
+            this.$router.push({ name: route_name });
+        },
         command() {
             if (this.cart.length == 0) {
                 this.orderSatus.display = true;
@@ -231,7 +257,7 @@ export default {
                 this.orderSatus.details = "Champ Prénom Nom vide.";
                 return;
             }
-            if (!this.check_phone_number()) return;
+            // if (!this.check_phone_number()) return;
             if (!this.check_address()) return;
             this.user.data.phoneNumber = this.phoneNumber;
             var addr = {
@@ -244,18 +270,17 @@ export default {
                 id: null,
                 content: order_service.format_cart(this.cart),
                 user: this.user.data,
+                people_number: this.slider,
                 address: addr,
+                name: this.name,
                 date: this.getDate(),
                 status: 0
             };
             // console.log(JSON.stringify(command));
-
+            this.reset_cart();
             this.passOrder(command).then(() => {
-                this.reset_cart();
-                this.orderSatus.display = true;
-                this.orderSatus.status = "success";
-                this.orderSatus.details =
-                    "Commande passée. Nous revenons vers toi dès que possible.";
+                //
+                this.navigate("Success");
                 return;
             });
         }
@@ -272,7 +297,8 @@ export default {
             address_postal: "",
             address_complement: "",
             address_city: "",
-            name: ""
+            name: "",
+            slider: 0
         };
     },
     beforeMount() {

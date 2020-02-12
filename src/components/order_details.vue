@@ -35,7 +35,7 @@
                                             <span
                                                 class="font-weight-light"
                                                 v-if="order.user.displayName"
-                                            >{{ order.user.displayName }}</span>
+                                            >{{ order.name }}</span>
                                             <span
                                                 class="font-weight-regular font-italic"
                                                 v-else

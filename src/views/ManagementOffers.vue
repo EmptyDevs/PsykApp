@@ -34,6 +34,7 @@
                 class="elevation-1"
             >
                 <template v-slot:item.length="{ item }">{{item.content.length}}</template>
+                <template v-slot:item.people_number="{ item }">{{item.people_number}}</template>
                 <template v-slot:item.status="{ item }">
                     <span v-if="item.status == 0">En Attente</span>
                     <span v-if="item.status == 1">Completée</span>
@@ -62,45 +63,6 @@
                         <v-icon>mdi-card-search</v-icon>
                     </v-btn>
                 </template>
-                <!-- <template v-slot:body>
-                    <tbody>
-                        <tr v-for="item in sortArr" :key="item.name">
-                            <td>{{ item.id }}</td>
-                            <td>{{ item.date }}</td>
-                            <td>{{ item.user.displayName }}</td>
-                            <td>{{ item.user.phoneNumber }}</td>
-                            <td>{{ item.content.length }} items</td>
-                            <td>
-                                <span v-if="item.status == 0">En Attente</span>
-                                <span v-if="item.status == 1">Completée</span>
-                            </td>
-                            <td>
-                                <v-btn color="error" icon @click="removeOrder(item)">
-                                    <v-icon>mdi-close</v-icon>
-                                </v-btn>
-                                <v-btn
-                                    color="info"
-                                    icon
-                                    :disabled="item.status == 0"
-                                    @click="updateStatus(item, 0)"
-                                >
-                                    <v-icon>mdi-alert-circle-outline</v-icon>
-                                </v-btn>
-                                <v-btn
-                                    color="success"
-                                    icon
-                                    :disabled="item.status == 1"
-                                    @click="updateStatus(item, 1)"
-                                >
-                                    <v-icon>mdi-check</v-icon>
-                                </v-btn>
-                                <v-btn color="primary" icon @click="seeDetails(item)">
-                                    <v-icon>mdi-card-search</v-icon>
-                                </v-btn>
-                            </td>
-                        </tr>
-                    </tbody>
-                </template>-->
             </v-data-table>
         </v-card-text>
         <OrderDetails v-model="dialog" :order="selectOrder"></OrderDetails>
@@ -164,6 +126,11 @@ export default {
                     text: "Nombre d'éléments",
                     align: "left",
                     value: "length"
+                },
+                {
+                    text: "Nombre de personnes",
+                    align: "left",
+                    value: "people_number"
                 },
                 {
                     text: "Status",

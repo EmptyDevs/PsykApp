@@ -35,7 +35,7 @@
                 v-else
                 @click="on_minus_click"
                 absolute
-                color="#7DBF73"
+                color="pink"
                 class="white--text"
                 fab
                 large

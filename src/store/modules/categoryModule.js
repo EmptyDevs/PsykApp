@@ -22,6 +22,12 @@ const actions = {
         return firebase.database().ref('/category').once('value').then(function (snapshot) {
             commit("SET_CATEGORY", snapshot.val());
         });
+    },
+    updateCategory({ commit }, object_) {
+        for (let index = 0; index < state.category.length; index++) {
+            console.log(Object.values(state.category[index]))
+            console.log(Object.values(state.category[index]).length)
+        }
     }
 }
 

@@ -89,23 +89,7 @@ export default {
             cart: "getCart",
             getOrder: "OrderModule/getOrder",
             user: "UserModule/getUser"
-        }),
-        target() {
-            const value = this[this.type];
-            if (!isNaN(value)) return Number(value);
-            else return value;
-        },
-        options() {
-            return {
-                duration: this.duration,
-                offset: this.offset,
-                easing: this.easing
-            };
-        },
-        element() {
-            if (this.selected === "Button") return this.$refs.button;
-            else if (this.selected === "Radio group") return this.$refs.radio;
-        }
+        })
     },
     methods: {
         ...mapActions({

@@ -103,6 +103,11 @@ const routes = [
 		component: loadView('Order')
 	},
 	{
+		path: '/shop/success',
+		name: 'Success',
+		component: loadView('SuccessOrder')
+	},
+	{
 		path: '*',
 		component: loadView('404')
 	}
