@@ -25,7 +25,6 @@ const actions = {
         });
     },
     updateCategory({ commit }, object_) {
-
         for (let index = 0; index < state.category.length; index++) {
             var tp = state.category[index].products;
             if (tp) {
@@ -34,12 +33,23 @@ const actions = {
                         tp[index2] = object_;
                         state.category[index].products = tp;
                         categoryFunctions.pushCategory(state.category);
+                        this.fetchCategory
                         return;
                     }
                 }
             }
         }
-
+    },
+    addNewProduct({ commit }, snap) {
+        var tpCat = null;
+        for (let index = 0; index < state.category.length; index++) {
+            if (state.category[index].id == snap.category_.id) {
+                tpCat = Object.values(state.category[index].products)
+                state.category[index].products[tpCat.length] = snap.object_
+                break;
+            }
+        }
+        categoryFunctions.pushCategory(state.category);
     }
 }
 

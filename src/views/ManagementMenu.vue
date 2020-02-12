@@ -63,6 +63,24 @@
                 </v-container>
             </v-card>
         </v-container>
+        <v-card width="90%" height="auto" class="mx-auto" flat outlined>
+            <v-card-title>Créer nouveau produit</v-card-title>
+            <v-container>
+                <v-select
+                    v-model="category_selector"
+                    :items="this.category"
+                    item-text="name"
+                    label="Catégorie"
+                ></v-select>
+                <v-text-field v-model="newproduct_name" label="Name" required></v-text-field>
+                <v-text-field v-model="newproduct_description" label="Description" required></v-text-field>
+                <v-file-input accept="image/*" v-model="newproduct_pic" label="Photo"></v-file-input>
+                <v-btn color="success" right @click="createNewProduct">
+                    <v-icon left>mdi-check</v-icon>Valider
+                </v-btn>
+            </v-container>
+        </v-card>
+        <v-container></v-container>
         <EditItem v-model="dialog" :order="selectOrder"></EditItem>
     </v-container>
     <v-text-field v-else color="success" loading disabled></v-text-field>
@@ -72,13 +90,18 @@
 import * as firebase from "firebase";
 import { mapGetters, mapActions } from "vuex";
 import EditItem from "../components/edit_item";
+import * as filesService from "../services/files";
+
 export default {
     components: {
         EditItem
     },
     data() {
         return {
-            my_category: [],
+            category_selector: null,
+            newproduct_name: "",
+            newproduct_description: "",
+            newproduct_pic: [],
             selectOrder: {
                 user: {
                     name: "Paul",
@@ -130,8 +153,50 @@ export default {
     },
     methods: {
         ...mapActions({
-            fetchCategory: "CategoryModule/fetchCategory"
+            fetchCategory: "CategoryModule/fetchCategory",
+            addNewProduct: "CategoryModule/addNewProduct"
         }),
+        formatStr(input) {
+            var output = "";
+            for (let index = 0; index < input.length; index++) {
+                if (input[index] == " ") {
+                    output += "_";
+                } else {
+                    output += input[index];
+                }
+            }
+            return output.toLowerCase();
+        },
+        createNewProduct() {
+            if (this.newproduct_name == "") return;
+            if (this.newproduct_pic == []) return;
+            var object = {};
+            object.description = this.newproduct_description;
+            object.name = this.newproduct_name;
+            object.id =
+                "_" +
+                Math.random()
+                    .toString(36)
+                    .substr(2, 9);
+
+            // var id =
+            // filesService
+            //     .getNewProductID(this.category_selector)
+            //     .then(function(snapshot) {
+            //         object.id = snapshot;
+            //     });
+            object.img = this.newproduct_pic.name;
+            this.addNewProduct({
+                category_: this.category_selector,
+                object_: object
+            });
+            try {
+                filesService.pushFile(this.newproduct_pic);
+            } catch (error) {
+                return;
+            }
+            this.fetchCategory;
+        },
         push_menu() {
             if (
                 this.menu_title == "" ||
@@ -165,6 +230,7 @@ export default {
     beforeMount() {
         this.fetchCategory().then(() => {
             this.isLoaded = true;
+            this.category_selector = this.category[0];
         });
     }
 };
