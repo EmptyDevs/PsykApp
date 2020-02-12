@@ -1,4 +1,5 @@
 import * as firebase from "firebase";
+import * as categoryFunctions from "../../services/category";
 
 const state = {
     category: [
@@ -24,10 +25,21 @@ const actions = {
         });
     },
     updateCategory({ commit }, object_) {
+
         for (let index = 0; index < state.category.length; index++) {
-            console.log(Object.values(state.category[index]))
-            console.log(Object.values(state.category[index]).length)
+            var tp = state.category[index].products;
+            if (tp) {
+                for (let index2 = 0; index2 < tp.length; index2++) {
+                    if (tp[index2].id == object_.id) {
+                        tp[index2] = object_;
+                        state.category[index].products = tp;
+                        categoryFunctions.pushCategory(state.category);
+                        return;
+                    }
+                }
+            }
         }
+
     }
 }
 
