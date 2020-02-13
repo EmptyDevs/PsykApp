@@ -9,28 +9,27 @@
       >
         <v-card style="height:100%;width:100%;background:white" flat>
           <v-layout align-center justify-center fill-height>
-            <v-row fluid>
-                <v-flex>
-                  <v-card
-                    color=""
-                    title="Login"
-                    style="margin-left: 10%; margin-right: 10%;"
-                  >
-                    <div>
-                      <v-card-title>
-                        Bienvenue à la semaine SOS de la liste Psyk</v-card-title
-                      >
-                    </div>
-                    <v-card-text>
-                      <v-form>
-                        <section id="firebaseui-auth-container"></section>
-                      </v-form>
-                    </v-card-text>
-                  </v-card>
-                </v-flex>
-              <v-card img="../assets/psyk_logo_transparent.png" heigth="100%" width="50%">
+            <v-flex width="50%">
+              <v-card
+                color=""
+                title="Login"
+                style="margin-left: 10%; margin-right: 10%;"
+              >
+                <v-col>
+                  <v-card-title>
+                    Connectez-vous
+                  </v-card-title>
+                </v-col>
+                <v-card-text>
+                  <v-form>
+                    <section id="firebaseui-auth-container"></section>
+                  </v-form>
+                </v-card-text>
               </v-card>
-            </v-row>
+            </v-flex>
+            <v-flex>
+              <v-img src="../assets/psyk_logo_transparent.png" />
+            </v-flex>
           </v-layout>
         </v-card>
       </v-dialog>
