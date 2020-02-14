@@ -20,8 +20,8 @@ const getters = {
 
 const actions = {
     fetchCategory({ commit }) {
-        return firebase.database().ref('/category').once('value').then(function (snapshot) {
-            commit("SET_CATEGORY", snapshot.val());
+        return firebase.database().ref('/category').on('value', function (snapshot) {
+            commit("SET_CATEGORY", snapshot.val())
         });
     },
     updateCategory({ commit }, object_) {
@@ -50,6 +50,22 @@ const actions = {
             }
         }
         categoryFunctions.pushCategory(state.category);
+        this.fetchCategory
+    },
+    deleteProduct({ commit }, product) {
+
+        for (let i = 0; i < state.category.length; i++) {
+            if (state.category[i].products) {
+                for (let j = 0; j < state.category[i].products.length; j++) {
+                    if (state.category[i].products[j].id == product.id) {
+                        delete state.category[i].products[j]
+                        categoryFunctions.pushCategory(state.category);
+                        this.fetchCategory
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
 

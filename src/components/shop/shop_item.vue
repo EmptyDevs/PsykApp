@@ -16,33 +16,39 @@
                 </v-expand-transition>
             </v-img>
             <v-card-text class="pt-6" style="position: relative;">
-                <v-btn
-                    absolute
-                    color="green"
-                    class="white--text"
-                    fab
-                    large
-                    right
-                    top
-                    @click="on_plus_click(data)"
-                    v-if="is_inside_cart == false"
-                >
-                    <v-icon>mdi-plus</v-icon>
-                </v-btn>
-                <v-btn
-                    absolute
-                    color="pink"
-                    class="white--text"
-                    fab
-                    large
-                    right
-                    top
-                    @click="on_minus_click(data)"
-                    v-else
-                >
-                    <v-icon>mdi-minus</v-icon>
-                </v-btn>
+                <div v-if="data.disponibility">
+                    <v-btn
+                        absolute
+                        color="green"
+                        class="white--text"
+                        fab
+                        large
+                        right
+                        top
+                        @click="on_plus_click(data)"
+                        v-if="is_inside_cart == false"
+                    >
+                        <v-icon>mdi-plus</v-icon>
+                    </v-btn>
+                    <v-btn
+                        absolute
+                        color="pink"
+                        class="white--text"
+                        fab
+                        large
+                        right
+                        top
+                        @click="on_minus_click(data)"
+                        v-else
+                    >
+                        <v-icon>mdi-minus</v-icon>
+                    </v-btn>
+                </div>
                 <h3 class="display-1 font-weight-light green--text mb-2">{{ data.name }}</h3>
+                <p
+                    v-if="!data.disponibility"
+                    class="font-weight-light red--text mb-2"
+                >Produit non disponible.</p>
             </v-card-text>
         </v-card>
     </v-hover>
@@ -78,7 +84,7 @@ export default {
             this.delete_item_in_cart(data.id);
         },
         set_img_url(url) {
-            console.log("okok");
+            // console.log("okok");
         }
     },
     data() {

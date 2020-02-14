@@ -22,7 +22,6 @@ const getters = {
 
 const actions = {
     fetchOrder({ commit }) {
-        console.log(">> fetchorder")
         firebase
             .database()
             .ref("/orders")
@@ -35,7 +34,7 @@ const actions = {
                     // console.log("=======")
                 },
                 function (errorObject) {
-                    console.log("The read failed: " + errorObject.code);
+                    // console.log("The read failed: " + errorObject.code);
                 }
             );
     },

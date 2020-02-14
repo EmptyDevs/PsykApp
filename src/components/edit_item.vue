@@ -3,10 +3,13 @@
         <v-dialog v-model="show" width="80%">
             <v-card>
                 <v-card-title>
-                    <span class="headline">{{ order.name }}</span>
+                    <span class="headline">{{ product.name }}</span>
                 </v-card-title>
                 <v-card-title>
-                    <span class="headline">id: {{ order.id }}</span>
+                    <span class="headline">id: {{ product.id }}</span>
+                </v-card-title>
+                <v-card-title>
+                    <span class="headline">Dispo: {{ product.disponibility }}</span>
                 </v-card-title>
                 <v-card-text>
                     <v-container>
@@ -16,10 +19,23 @@
                                     <v-card-text>
                                         <div class="text--primary">
                                             <v-text-field
-                                                v-model="order.description"
+                                                v-model="product.name"
+                                                label="Nom du produit"
+                                                required
+                                            ></v-text-field>
+                                        </div>
+                                        <div class="text--primary">
+                                            <v-text-field
+                                                v-model="product.description"
                                                 label="Description"
                                                 required
                                             ></v-text-field>
+                                        </div>
+                                        <div class="text--primary">
+                                            <v-switch
+                                                v-model="product.disponibility"
+                                                label="Disponible ?"
+                                            ></v-switch>
                                         </div>
                                     </v-card-text>
                                 </v-card>
@@ -32,11 +48,10 @@
                         <v-icon left>mdi-backspace</v-icon>Fermer
                     </v-btn>
                     <v-spacer></v-spacer>
-                    <v-btn
-                        color="success"
-                        :disabled="order.status == 1"
-                        @click="updateCategory(order)"
-                    >
+                    <v-btn color="error" @click="deleteProduct(product)">
+                        <v-icon left>mdi-close</v-icon>Supprimer
+                    </v-btn>
+                    <v-btn color="success" @click="updateCategory(product)">
                         <v-icon left>mdi-check</v-icon>Valider
                     </v-btn>
                 </v-card-actions>
@@ -46,12 +61,16 @@
 </template>
 
 <script>
-import * as service_order from "../services/order";
 import { mapGetters, mapActions } from "vuex";
 export default {
     props: {
         value: Boolean,
-        order: Object
+        product: Object
+    },
+    data() {
+        return {
+            isAvailable: true
+        };
     },
     computed: {
         show: {
@@ -65,15 +84,9 @@ export default {
     },
     methods: {
         ...mapActions({
-            updateCategory: "CategoryModule/updateCategory"
-        }),
-        removeOrder() {
-            service_order.removeOrder(this.order.id);
-            this.show = false;
-        },
-        updateItem(stats) {
-            console.log(this.order);
-        }
+            updateCategory: "CategoryModule/updateCategory",
+            deleteProduct: "CategoryModule/deleteProduct"
+        })
     }
 };
 </script>

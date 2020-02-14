@@ -1,5 +1,6 @@
 <template>
-    <v-content>
+    <v-text-field v-if="!isLoaded" color="success" loading disabled></v-text-field>
+    <v-content v-else id="mainContent">
         <v-container fluid style="padding-bottom: 200px">
             <v-alert
                 id="#alert"
@@ -166,6 +167,8 @@ import { mapGetters, mapActions } from "vuex";
 import CartItem from "../components/shop/cart_item";
 import * as order_service from "../services/order";
 import goTo from "vuetify/es5/services/goto";
+import firebase from "firebase";
+
 export default {
     components: {
         CartItem
@@ -173,6 +176,7 @@ export default {
     computed: {
         ...mapGetters({
             cart: "getCart",
+            category: "CategoryModule/getCategory",
             getOrder: "OrderModule/getOrder",
             user: "UserModule/getUser"
         })
@@ -249,12 +253,14 @@ export default {
                 this.orderSatus.display = true;
                 this.orderSatus.status = "error";
                 this.orderSatus.details = "Panier vide";
+                goTo("#mainContent");
                 return;
             }
             if (!this.name) {
                 this.orderSatus.display = true;
                 this.orderSatus.status = "error";
                 this.orderSatus.details = "Champ Prénom Nom vide.";
+                goTo("#mainContent");
                 return;
             }
             // if (!this.check_phone_number()) return;
@@ -276,17 +282,27 @@ export default {
                 date: this.getDate(),
                 status: 0
             };
-            // console.log(JSON.stringify(command));
+
+            if (!this.canOrder) {
+                this.orderSatus.display = true;
+                this.orderSatus.status = "error";
+                this.orderSatus.details =
+                    "Victime de son succès, PSYK n'accepte plus les commandes pour le moment.";
+                goTo("#mainContent");
+                return;
+            }
+
             this.reset_cart();
             this.passOrder(command).then(() => {
-                //
                 this.navigate("Success");
+                goTo("#mainContent");
                 return;
             });
         }
     },
     data() {
         return {
+            isLoaded: false,
             orderSatus: {
                 display: false,
                 status: "warning",
@@ -298,12 +314,18 @@ export default {
             address_complement: "",
             address_city: "",
             name: "",
+            canOrder: false,
             slider: 0
         };
     },
     beforeMount() {
         this.phoneNumber = this.user.data.phoneNumber;
         this.name = this.user.data.displayName;
+        this.fetchOrder().then(() => {
+            this.isLoaded = true;
+            this.canOrder = this.getOrder.canOrder;
+            // console.log(this.canOrder);
+        });
     },
     props: {
         source: String

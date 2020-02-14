@@ -43,7 +43,7 @@ const getters = {
 
 const actions = {
   ping({ commit }) {
-    console.log("Pong")
+    // console.log("Pong")
   },
   set_cart_id({ commit }, id) {
     commit("_set_cart_id", id);

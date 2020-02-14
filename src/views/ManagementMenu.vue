@@ -2,6 +2,23 @@
     <v-container v-if="isLoaded">
         <v-container>
             <v-card width="90%" height="auto" class="mx-auto" flat outlined>
+                <v-card-title>Commandes</v-card-title>
+                <v-container v-if="this.getOrder.canOrder">
+                    <p class="overline">Les commandes sont actuellement activées.</p>
+                    <v-btn color="error" right @click="changeCanOrder">
+                        <v-icon left>mdi-check</v-icon>Désactiver commandes
+                    </v-btn>
+                </v-container>
+                <v-container v-else>
+                    <p class="overline">Les commandes sont actuellement désactivées.</p>
+                    <v-btn color="success" right @click="changeCanOrder">
+                        <v-icon left>mdi-check</v-icon>Activer commandes
+                    </v-btn>
+                </v-container>
+            </v-card>
+        </v-container>
+        <v-container>
+            <v-card width="90%" height="auto" class="mx-auto" flat outlined>
                 <v-card-title>Menu</v-card-title>
                 <v-alert v-if="alert != ''" type="warning">{{this.alert}}</v-alert>
                 <v-alert v-if="push" type="success">Menu enregistré</v-alert>
@@ -48,13 +65,20 @@
                             :headers="headers"
                             :items="category_.products"
                             class="elevation-1"
-                            :items-per-page="5"
+                            :items-per-page="25"
                         >
                             <template v-slot:item.id="{ item }">{{item.id}}</template>
                             <template v-slot:item.name="{ item }">{{item.name}}</template>
                             <template v-slot:item.description="{ item }">{{item.description}}</template>
+                            <template v-slot:item.dispo="{ item }">
+                                <p
+                                    v-if="!item.disponibility"
+                                    class="font-weight-light red--text mb-2"
+                                >Non disponible.</p>
+                                <p v-else class="font-weight-light green--text mb-2">Disponible.</p>
+                            </template>
                             <template v-slot:item.action="{ item }">
-                                <v-btn color="primary" icon @click="seeDetails(item)">
+                                <v-btn color="primary" icon @click="modifyProduct(item)">
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
                             </template>
@@ -68,7 +92,7 @@
             <v-container>
                 <v-select
                     v-model="category_selector"
-                    :items="this.category"
+                    :items="Object.values(this.category)"
                     item-text="name"
                     label="Catégorie"
                 ></v-select>
@@ -81,7 +105,7 @@
             </v-container>
         </v-card>
         <v-container></v-container>
-        <EditItem v-model="dialog" :order="selectOrder"></EditItem>
+        <EditItem v-model="dialog" :product="selectProduct"></EditItem>
     </v-container>
     <v-text-field v-else color="success" loading disabled></v-text-field>
 </template>
@@ -102,12 +126,7 @@ export default {
             newproduct_name: "",
             newproduct_description: "",
             newproduct_pic: [],
-            selectOrder: {
-                user: {
-                    name: "Paul",
-                    id: 0
-                }
-            },
+            selectProduct: {},
             alert: "",
             push: false,
             menu_title: "",
@@ -134,6 +153,11 @@ export default {
                     value: "description"
                 },
                 {
+                    text: "Dispo",
+                    align: "left",
+                    value: "dispo"
+                },
+                {
                     text: "Action",
                     align: "left",
                     value: "action"
@@ -143,7 +167,8 @@ export default {
     },
     computed: {
         ...mapGetters({
-            category: "CategoryModule/getCategory"
+            category: "CategoryModule/getCategory",
+            getOrder: "OrderModule/getOrder"
         }),
         myGetCategory: function() {
             let r = Object.values(this.category);
@@ -154,6 +179,7 @@ export default {
     methods: {
         ...mapActions({
             fetchCategory: "CategoryModule/fetchCategory",
+            fetchOrder: "OrderModule/fetchOrder",
             addNewProduct: "CategoryModule/addNewProduct"
         }),
         formatStr(input) {
@@ -173,18 +199,12 @@ export default {
             var object = {};
             object.description = this.newproduct_description;
             object.name = this.newproduct_name;
+            object.disponibility = true;
             object.id =
                 "_" +
                 Math.random()
                     .toString(36)
                     .substr(2, 9);
-
-            // var id =
-            // filesService
-            //     .getNewProductID(this.category_selector)
-            //     .then(function(snapshot) {
-            //         object.id = snapshot;
-            //     });
             object.img = this.newproduct_pic.name;
             this.addNewProduct({
                 category_: this.category_selector,
@@ -217,20 +237,24 @@ export default {
                 .set({ title: this.menu_title, content: this.content });
             this.push = true;
         },
-        seeDetails(order) {
-            //   console.log("seeDetails");
-            //console.log(JSON.stringify(order))
-            this.dialog = false;
-            this.selectOrder = Object.assign(this.selectOrder, order);
+        modifyProduct(order) {
+            this.selectProduct = Object.assign(this.selectProduct, order);
             this.dialog = true;
-            //   console.log("THIS IS SELECTORDER");
-            //   console.log(JSON.stringify(this.selectOrder));
+        },
+        changeCanOrder() {
+            firebase
+                .database()
+                .ref("orders/canOrder")
+                .set(!this.getOrder.canOrder);
+            this.fetchOrder();
         }
     },
     beforeMount() {
         this.fetchCategory().then(() => {
-            this.isLoaded = true;
-            this.category_selector = this.category[0];
+            this.fetchOrder().then(() => {
+                this.isLoaded = true;
+                this.category_selector = this.category[0];
+            });
         });
     }
 };

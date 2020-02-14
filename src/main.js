@@ -50,9 +50,7 @@ new Vue({
 				//console.log("APP login --SUCCESS-- DISPATCHING FETCH")
 				user.admin = false;
 				auth.is_admin(user.uid).then(val => {
-					if (val)
-					{
-						console.log("Welcome Admin");
+					if (val) {
 						user.admin = true;
 						store.dispatch('UserModule/fetchUser', user)
 					}
