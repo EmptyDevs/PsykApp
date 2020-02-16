@@ -3,7 +3,7 @@
         <v-container>
             <v-card width="90%" height="auto" class="mx-auto" flat outlined>
                 <v-card-title>Commandes</v-card-title>
-                <v-container v-if="this.getOrder.canOrder">
+                <v-container v-if="this.getCanOrder">
                     <p class="overline">Les commandes sont actuellement activées.</p>
                     <v-btn color="error" right @click="changeCanOrder">
                         <v-icon left>mdi-check</v-icon>Désactiver commandes
@@ -168,7 +168,8 @@ export default {
     computed: {
         ...mapGetters({
             category: "CategoryModule/getCategory",
-            getOrder: "OrderModule/getOrder"
+            getOrder: "OrderModule/getOrder",
+            getCanOrder: "OrderModule/getCanOrder"
         }),
         myGetCategory: function() {
             let r = Object.values(this.category);
@@ -180,6 +181,7 @@ export default {
         ...mapActions({
             fetchCategory: "CategoryModule/fetchCategory",
             fetchOrder: "OrderModule/fetchOrder",
+            fetchCanOrder: "OrderModule/fetchCanOrder",
             addNewProduct: "CategoryModule/addNewProduct"
         }),
         formatStr(input) {
@@ -242,11 +244,13 @@ export default {
             this.dialog = true;
         },
         changeCanOrder() {
+            var canOrder = this.getCanOrder;
+            console.log("change Canorder :" + !canOrder)
             firebase
                 .database()
-                .ref("orders/canOrder")
-                .set(!this.getOrder.canOrder);
-            this.fetchOrder();
+                .ref("canOrder")
+                .set(!canOrder);
+            this.fetchCanOrder();
         }
     },
     beforeMount() {
@@ -256,6 +260,7 @@ export default {
                 this.category_selector = this.category[0];
             });
         });
+        this.fetchCanOrder();
     }
 };
 </script>

@@ -3,11 +3,15 @@ import * as firebase from "firebase";
 
 const state = {
     orders: [],
+    canOrder: true
 }
 
 const mutations = {
     SET_ORDERS(state, value) {
         state.orders = value;
+    },
+    SET_CAN_ORDER(state, value) {
+        state.canOrder = value;
     }
 }
 
@@ -17,7 +21,8 @@ const getters = {
     },
     getOrderReverse: state => {
         return [...Object.values(state.orders)].reverse();
-    }
+    },
+    getCanOrder: state => { return state.canOrder; }
 }
 
 const actions = {
@@ -28,10 +33,22 @@ const actions = {
             .on(
                 "value",
                 function (snapshot) {
-                    // console.log("Val of ")
-                    // console.log(JSON.stringify(snapshot.val()))
                     commit("SET_ORDERS", snapshot.val())
-                    // console.log("=======")
+                },
+                function (errorObject) {
+                    // console.log("The read failed: " + errorObject.code);
+                }
+            );
+    },
+    fetchCanOrder({ commit }) {
+        firebase
+            .database()
+            .ref("/canOrder")
+            .on(
+                "value",
+                function (snapshot) {
+                    console.log("Fetch CanOrder: " + snapshot.val())
+                    commit("SET_CAN_ORDER", snapshot.val())
                 },
                 function (errorObject) {
                     // console.log("The read failed: " + errorObject.code);
