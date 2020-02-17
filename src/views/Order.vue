@@ -178,7 +178,8 @@ export default {
             cart: "getCart",
             category: "CategoryModule/getCategory",
             getOrder: "OrderModule/getOrder",
-            user: "UserModule/getUser"
+            user: "UserModule/getUser",
+            getCanOrder: "OrderModule/getCanOrder"
         })
     },
     methods: {
@@ -187,7 +188,8 @@ export default {
             fetchCategory: "CategoryModule/fetchCategory",
             set_cart_id: "set_cart_id",
             passOrder: "OrderModule/passOrder",
-            fetchOrder: "OrderModule/fetchOrder"
+            fetchOrder: "OrderModule/fetchOrder",
+            fetchCanOrder: "OrderModule/fetchCanOrder",
         }),
         isPhoneNumber(number) {
             if (number.length != 10) return false;
@@ -265,7 +267,19 @@ export default {
             }
             // if (!this.check_phone_number()) return;
             if (!this.check_address()) return;
-            this.user.data.phoneNumber = this.phoneNumber;
+
+            var userr = {
+                email : this.user.data.email,
+                uid : this.user.data.uid,
+                photo : this.user.data.photo,
+                phoneNumber : this.user.data.phoneNumber,
+                displayName : this.user.data.displayName
+            }
+            if (!userr.displayName)
+                userr.displayName = this.name;
+            if (!userr.phoneNumber)
+                userr.phoneNumber = this.phoneNumber;
+
             var addr = {
                 steetname: this.address,
                 postcode: this.address_postal,
@@ -275,15 +289,14 @@ export default {
             var command = {
                 id: null,
                 content: order_service.format_cart(this.cart),
-                user: this.user.data,
+                user: userr,
                 people_number: this.slider,
                 address: addr,
-                name: this.name,
                 date: this.getDate(),
                 status: 0
             };
-
-            if (!this.canOrder) {
+            console.log(this.getCanOrder)
+            if (this.getCanOrder == false) {
                 this.orderSatus.display = true;
                 this.orderSatus.status = "error";
                 this.orderSatus.details =
@@ -291,9 +304,9 @@ export default {
                 goTo("#mainContent");
                 return;
             }
-
             this.reset_cart();
             this.passOrder(command).then(() => {
+                console.log("heo")
                 this.navigate("Success");
                 goTo("#mainContent");
                 return;
@@ -314,18 +327,15 @@ export default {
             address_complement: "",
             address_city: "",
             name: "",
-            canOrder: false,
             slider: 0
         };
     },
     beforeMount() {
         this.phoneNumber = this.user.data.phoneNumber;
         this.name = this.user.data.displayName;
-        this.fetchOrder().then(() => {
+        this.fetchCanOrder().then(() => {
             this.isLoaded = true;
-            this.canOrder = this.getOrder.canOrder;
-            // console.log(this.canOrder);
-        });
+        })
     },
     props: {
         source: String

@@ -13,6 +13,7 @@ export async function is_admin(user_uid) {
             }
         )
     } catch (error) {
+        console.log(error)
         return false;
     }
 
