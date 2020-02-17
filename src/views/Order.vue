@@ -295,7 +295,6 @@ export default {
                 date: this.getDate(),
                 status: 0
             };
-            console.log(this.getCanOrder)
             if (this.getCanOrder == false) {
                 this.orderSatus.display = true;
                 this.orderSatus.status = "error";
